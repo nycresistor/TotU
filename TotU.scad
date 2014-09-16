@@ -41,7 +41,7 @@ module side() {
 	
 				// This algo needs work but it seems to work ok for 3 x 8
 				translate([((sideX / screenColumns) * x) + (sideX / screenColumns) / screenColumns, 
-				((sideY / screenRows) * y) + (sideY / screenRows) / 3, sideZ]) screenFrame();
+				((sideY / screenRows) * y) + (sideY / screenRows) / 3, sideZ + 1]) screenFrame();
 			}
 		}
 	}
