@@ -1,8 +1,10 @@
 // All dimensions in mm
-screenX = 70.85;
-screenY = 55.04;
-screenZ = 3.6;
+screenX = 70.85; // 2 ft
+screenY = 55.04; // 4 ft
+screenZ = 3.6; 
 frameThickness = 4;
+
+supportDiameter = 152.4; // 6in
 
 sideX = 609.6;
 sideY = 1219.2;
@@ -12,6 +14,8 @@ screenColumns = 3;
 screenRows = 8;
 
 numberOfSides = 8;
+
+legsHeight = sideY / 2;
 
 module screen() {
 	// Draws a black screen box
@@ -157,7 +161,19 @@ module legs() {
 	
 }
 
-torso();
-translate([0, 0, -5]) legs();
+module supports() {
+	inRadius = sideX / (2 * tan(180 / numberOfSides));
+	translate([-inRadius + supportDiameter, (sideX / 2) - (supportDiameter / 2), 0]) cylinder(h = legsHeight + sideY, r = supportDiameter / 2);
+	translate([inRadius - supportDiameter, (-sideX / 2) - (-supportDiameter / 2), 0]) cylinder(h = legsHeight + sideY, r = supportDiameter / 2);
+	translate([(-sideX / 2) - (-supportDiameter / 2), -inRadius + supportDiameter, 0]) cylinder(h = legsHeight + sideY, r = supportDiameter / 2);
+	translate([(sideX / 2) - (supportDiameter / 2), inRadius - supportDiameter, 0]) cylinder(h = legsHeight + sideY, r = supportDiameter / 2);
+	
+}
+
+//translate([-5000, -5000, -1]) color("DarkKhaki") cube([10000, 10000, 1]);
+translate([0, 0, legsHeight + 5]) torso();
+translate([0, 0, legsHeight]) legs();
+supports();
+
 
 
