@@ -1,3 +1,5 @@
+use <frame.scad>
+
 // All dimensions in mm
 screenX = 70.85;			// Screen X dimension (horizontal)
 screenY = 55.04; 		// Screen Y dimension
@@ -25,17 +27,17 @@ module screen() {
 	color("Black") cube([screenX, screenY, screenZ]);
 }
 
-module screenFrame(pos) {
-	// Draws a red frame around a yellow screen
-
-	screen();
-	translate([-frameThickness, -frameThickness, 0]) color("Red") cube([frameThickness, screenY + (2 * frameThickness), screenZ]);
-	translate([screenX, -frameThickness, 0]) color("Red") cube([frameThickness, screenY + (2 * frameThickness), screenZ]);
-	translate([0, -frameThickness, 0]) color("Red") cube([screenX, frameThickness, screenZ]);
-	translate([0, screenY, 0]) color("Red") cube([screenX, frameThickness, screenZ]);
-	translate([-frameThickness, -frameThickness, -screenZ]) color("Red") cube([screenX + (2 * frameThickness), screenY + (2 * frameThickness), screenZ]);
-	
-}
+//module screenFrame(pos) {
+//	// Draws a red frame around a yellow screen
+//
+//	screen();
+//	translate([-frameThickness, -frameThickness, 0]) color("Red") cube([frameThickness, screenY + (2 * frameThickness), screenZ]);
+//	translate([screenX, -frameThickness, 0]) color("Red") cube([frameThickness, screenY + (2 * frameThickness), screenZ]);
+//	translate([0, -frameThickness, 0]) color("Red") cube([screenX, frameThickness, screenZ]);
+//	translate([0, screenY, 0]) color("Red") cube([screenX, frameThickness, screenZ]);
+//	translate([-frameThickness, -frameThickness, -screenZ]) color("Red") cube([screenX + (2 * frameThickness), screenY + (2 * frameThickness), screenZ]);
+//	
+//}
 
 module side() {
 	// Draws a Beige temple side panel with screen rows and columns
@@ -55,10 +57,10 @@ module side() {
 	
 				// This algo needs work but it seems to work ok for 3 x 8
 				translate([((sideX / screenColumns) * x) + (sideX / screenColumns) / screenColumns, 
-				((sideY / screenRows) * y) + (sideY / screenRows) / 3, sideZ + 5]) screenFrame();
+				((sideY / screenRows) * y) + (sideY / screenRows) / 3, sideZ + 5]) frame();
 				
 				translate([((sideX / screenColumns) * x) + (sideX / screenColumns) / screenColumns, 
-				((sideY / screenRows) * y) + (sideY / screenRows) / 1.5, -cabinetSpacing - 5]) rotate([180, 0, 0]) screenFrame();
+				((sideY / screenRows) * y) + (sideY / screenRows) / 1.5, -cabinetSpacing - 5]) rotate([180, 0, 0]) frame();
 			}
 		}
 	}
