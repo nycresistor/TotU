@@ -1,4 +1,4 @@
-use <frame.scad>
+//use <frame.scad>
 
 // All dimensions in mm
 screenX = 70.85;			// Screen X dimension (horizontal)
@@ -116,7 +116,7 @@ module person() {
 // Main
 
 // Draw the Playa
-translate([-5000, -5000, -1]) color("DarkKhaki") cube([10000, 10000, 1]);
+//translate([-5000, -5000, -1]) color("DarkKhaki") cube([10000, 10000, 1]);
 
 // Draw the LCD cabinets
 translate([0, 0, legsHeight + 5]) torso();
@@ -125,5 +125,5 @@ translate([0, 0, legsHeight + 5]) torso();
 translate([0, 0, 0]) legs();
 
 // Person to scale
-person();
+//person();
 
