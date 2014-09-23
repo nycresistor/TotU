@@ -1,4 +1,4 @@
-screenX = 77.7;
+screenX = 78.2;
 screenY = 55.75;
 screenZ = 3.6;
 
@@ -73,14 +73,14 @@ module frame() {
 module lens() {
 	difference() {
 		// Lens block
-		translate([-magnetX, -(lensY - frameY) / 2, 0]) cube([lensX, lensY, lensZ]);
+		translate([2, 0, 0]) translate([-magnetX, -(lensY - frameY) / 2, 0]) cube([lensX, lensY, lensZ]);
 		
 		// Opening
 		translate([(frameX - screenX) / 2, (frameY - screenY) / 2, -activeZ / 3]) {
 			translate([8, (screenY - activeY) / 2, 0]) cube([activeX, activeY, activeZ]);
 		}
 		
-		translate([0, 0, -2]) cube([frameX, frameY, frameZ + 2]);
+		translate([-1, -1, -2]) cube([frameX + 0.5, frameY + 0.5, frameZ + 2]);
 
 		// Magnet holes
 		translate([-magnetX / 1.5, (frameY / 2) - (magnetY / 2), -1]) magnet();
