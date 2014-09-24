@@ -2,7 +2,7 @@ screenX = 78.2;
 screenY = 55.75;
 screenZ = 3.6;
 
-frameX = screenX * 1.17;
+frameX = screenX * 1.16;
 frameY = screenY * 1.2;
 frameZ = 4;
 
@@ -16,8 +16,8 @@ magnetX = 9.525;
 magnetY = 19.05;
 magnetZ = 3.175;
 
-lensX = frameX + (2 * magnetX);
-lensY = frameY * 1.1;
+lensX = frameX + 9.525 / 2;
+lensY = frameY * 1.05;
 lensZ = frameZ * 1.2;
 
 activeX = 64.8;
@@ -63,8 +63,8 @@ module frame() {
 		translate([(frameX - 25), frameY / 2, -5]) cylinder(h=10, r=10);
 		
 		// Magnet holes
-		translate([-magnetX / 1.5, (frameY / 2) - (magnetY / 2), -1]) magnet();
-		translate([frameX - (magnetX / 3), (frameY / 2) - (magnetY / 2), -1]) magnet();
+		//translate([-magnetX / 1.5, (frameY / 2) - (magnetY / 2), -1]) magnet();
+		//translate([frameX - (magnetX / 3), (frameY / 2) - (magnetY / 2), -1]) magnet();
 
 	}
 
@@ -73,8 +73,9 @@ module frame() {
 module lens() {
 	difference() {
 		// Lens block
-		translate([2, 0, 0]) translate([-magnetX, -(lensY - frameY) / 2, 0]) cube([lensX, lensY, lensZ]);
+		translate([5.5, -0.5, 0]) translate([-magnetX, -(lensY - frameY) / 2, 0]) cube([lensX, lensY, lensZ]);
 		
+	translate([-1, 0, 0]) {
 		// Opening
 		translate([(frameX - screenX) / 2, (frameY - screenY) / 2, -activeZ / 3]) {
 			translate([8, (screenY - activeY) / 2, 0]) cube([activeX, activeY, activeZ]);
@@ -83,8 +84,10 @@ module lens() {
 		translate([-1, -1, -2]) cube([frameX + 0.5, frameY + 0.5, frameZ + 2]);
 
 		// Magnet holes
-		translate([-magnetX / 1.5, (frameY / 2) - (magnetY / 2), -1]) magnet();
-		translate([frameX - (magnetX / 3), (frameY / 2) - (magnetY / 2), -1]) magnet();
+		//translate([-magnetX / 1.5, (frameY / 2) - (magnetY / 2), -1]) magnet();
+		//translate([frameX - (magnetX / 3), (frameY / 2) - (magnetY / 2), -1]) magnet();
+
+		}
 		
 	}
 }
