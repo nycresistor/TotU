@@ -9,6 +9,10 @@ body {
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+.col-sm-4{
+    width:50%
+}
+
 .text-muted {
     color: #777;
 }
@@ -635,6 +639,7 @@ section h3.section-subheading {
 .team-member img {
     margin: 0 auto;
     border: 7px solid #fff;
+    width: 214px;
 }
 
 .team-member h4 {
