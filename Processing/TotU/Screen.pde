@@ -1,12 +1,17 @@
 class Screen {
   Box box;
+  JSONObject json;
   
   public Screen(PApplet parent) {
+    println("Loading json");
+    json = loadJSONObject("http://uifaces.com/api/v1/random");
+    
+    println(json);
     box = new Box(parent);
-    box.setTexture("0-PhotoBoothPhotoSmall.jpg", Box.FRONT);
+    box.setTexture(json.getJSONObject("image_urls").getString("epic"), Box.FRONT);
     box.drawMode(S3D.TEXTURE | S3D.WIRE);
     box.setSize(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH);
-
+    delay(100);
   }
   
   void draw() {
