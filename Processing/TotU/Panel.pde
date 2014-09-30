@@ -1,15 +1,21 @@
 class Panel {
+  Box panel;
   Screen[] screens = new Screen[PANEL_SCREENS_X*PANEL_SCREENS_Y];
   
   public Panel(PApplet parent) {
     for (int i=0; i<screens.length; i++) {
       screens[i] = new Screen(parent);
     }
+    
+    panel = new Box(parent);
+    panel.setTexture("seamless-wood-texture-free-6.jpg", Box.ALL_SIDES);
+    panel.drawMode(S3D.TEXTURE | S3D.WIRE);
+    panel.setSize(PANEL_WIDTH,PANEL_HEIGHT,PANEL_DEPTH);
   }
   
   void draw() {
     fill(200,120,50);
-    box(PANEL_WIDTH,PANEL_HEIGHT,PANEL_DEPTH);
+    panel.draw();
     
     pushMatrix();
     translate(-PANEL_WIDTH/2-1,-PANEL_HEIGHT/2+7,PANEL_DEPTH/2);

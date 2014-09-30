@@ -19,21 +19,28 @@ int PANELS = 8;
 
 PeasyCam cam;
 Panel[] panels = new Panel[PANELS];
+PImage groundTexture;
+PImage background;
 
 void setup() {
   size(800, 600, P3D);
-  cam = new PeasyCam(this, 100);
+  cam = new PeasyCam(this, 200);
   cam.setMinimumDistance(200);
   cam.setMaximumDistance(500);
+  cam.setYawRotationMode();
   
   for (int i=0; i<PANELS; i++) {
     panels[i] = new Panel(this);
   }
+  
+  groundTexture = loadImage("Lost Lake.jpg");
+  background = loadImage("BMan11.jpg");
 }
 
 void draw() {
-  background(0);
- 
+  background(background);
+    
+  //drawGround();
  
   pushMatrix();
  
@@ -41,13 +48,43 @@ void draw() {
   pushMatrix();
   
   for (int i=0; i<PANELS; i++) {
-    translate(PANEL_WIDTH/2,0,0);
+    translate(PANEL_WIDTH,0,0);
     rotateY(TWO_PI/PANELS);   
-    translate(PANEL_WIDTH/2,0,0);
+    translate(PANEL_WIDTH,0,0);
 
     panels[i].draw();
   }
   
   popMatrix();
   popMatrix();
+  
 }
+
+void drawGround() {
+  stroke(92, 51);
+  fill(92, 51);
+  
+  int tilefactor = 20;
+  float bound = 1000;
+
+  for (int x = 0; x < tilefactor; x++) {
+    for (int y = 0; y < tilefactor; y++) {
+      pushMatrix();
+      translate(0, 0.5, 0);
+      
+      translate(bound/tilefactor*x-bound/2, PANEL_HEIGHT/2, bound/tilefactor*y-bound/2);
+      
+      beginShape();
+      texture(groundTexture);
+      textureMode(NORMAL);
+      
+      vertex(0,                .5, 0,                0, 0);
+      vertex(bound/tilefactor, .5, 0,                1, 0);
+      vertex(bound/tilefactor, .5, bound/tilefactor, 1, 1);
+      vertex(0,                .5, bound/tilefactor, 0, 1);
+      endShape();
+      popMatrix();
+    }
+  }
+}
+
