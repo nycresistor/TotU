@@ -4,6 +4,7 @@
 #
 #
 TARGETS-y += $(LIBDIR)/pario.bin
+TARGETS-y += $(LIBDIR)/test.bin
 
 BIN-y += test-pario
 test-pario.srcs += \
