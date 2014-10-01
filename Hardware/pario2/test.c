@@ -28,12 +28,12 @@ int main(void)
 	tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
 	prussdrv_pruintc_init(&pruss_intc_initdata);
 
-	printf("Initializing L3 memory\n");
-	void * pru_l3_mem;
-	prussdrv_map_l3mem(&pru_l3_mem);
+	printf("Initializing PRU memory\n");
+	void * pru_mem;
+	prussdrv_map_prumem(PRUSS0_SHARED_DATARAM, &pru_mem);
 
 
-	printf("%08x\n", pru_l3_mem);
+	printf("%08x\n", pru_mem);
 
 	printf("Shutting PRU back down\n");
 	//prussdrv_pru_wait_event(PRU_EVTOUT_0);
