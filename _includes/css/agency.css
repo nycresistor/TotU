@@ -259,11 +259,13 @@ fieldset[disabled] .btn-xl.active {
         border-radius: 3px;
     }
 
+    body.demo>.navbar-default,
     .navbar-default.navbar-shrink {
         padding: 10px 0;
         background-color: #222;
     }
 
+    body.demo>.navbar-default .navbar-brand,
     .navbar-default.navbar-shrink .navbar-brand {
         font-size: 1.5em;
     }

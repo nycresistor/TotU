@@ -1,0 +1,17 @@
+<video autoplay></autoplay>
+
+<script>
+	var video = document.querySelector("video");
+	navigator.getUserMedia = navigator.getUserMedia ||
+		navigator.webkitGetUserMedia ||
+		navigator.mozGetUserMedia ||
+		navigator.msGetUserMedia;
+
+	navigator.getUserMedia({video:true}, 
+		function(stream) {
+			video.src = window.URL.createObjectURL(stream);
+		}, 
+		function(err) { console.log(err) }
+	);
+
+</script>
