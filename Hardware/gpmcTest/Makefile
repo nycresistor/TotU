@@ -21,8 +21,17 @@
 
 all: blank
 
-blank: blank.cpp
-	g++ -o blank blank.cpp tft.c gpmc.c
+blank: blank.o tft.o gpmc.o 
+	g++ -o blank blank.o tft.o gpmc.o
+
+blank.o:
+	g++ -c blank.cpp
+
+tft.o:
+	g++ -c tft.c
+
+gpmc.o:
+	g++ -c gpmc.c
 
 clean:
 	rm -rf blank blank.o tft.o gpmc.o

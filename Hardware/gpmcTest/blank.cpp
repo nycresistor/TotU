@@ -23,6 +23,8 @@
 int main (int argc, char *argv[])
 {
 
+    setup_gpmc();
+	
     setup_tft();
 
     close_gpmc();

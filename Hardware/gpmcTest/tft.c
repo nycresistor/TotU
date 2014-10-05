@@ -1,4 +1,5 @@
 #include "tft.h"
+#include "stdio.h"
 
 ulong * pinconf1;
 int gfd;
@@ -6,11 +7,13 @@ int gfd;
 
 void setup_tft()
 {
-
+  
+  printf("Configuring DC line\n"); // GPIO 1_29 P8.26
   gfd = open("/dev/mem", O_RDWR | O_SYNC);
   pinconf1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);  
   pinconf1[OE_ADDR/4] &= (0xFFFFFFFF ^ (1 << 29));
 
+  printf("Sending display setup commands\n");
   writeCommand8(0xEF);
   writeData8(0x03);
   writeData8(0x80);

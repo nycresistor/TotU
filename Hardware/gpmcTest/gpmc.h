@@ -12,5 +12,5 @@ void write8(uint8_t data);
 void writeData8(uint8_t data);
 void writeCommand8(uint8_t data);
 void close_gpmc(void);
-
+void writeByte(uint8_t data);
 #endif
