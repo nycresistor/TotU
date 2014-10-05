@@ -22,7 +22,7 @@
 all: blank
 
 blank: blank.cpp
-	g++ -o blank blank.cpp
+	g++ -o blank blank.cpp tft.c gpmc.c
 
 clean:
-	rm -f runcircle runperlin runwash runtwinkle runwipe blank picture runcircle.o runperlin.o runwash.o runtwinkle.o pattern.o circle.o perlin.o wash.o twinkle.o wipe.o runwipe.o
+	rm -rf blank blank.o tft.o gpmc.o

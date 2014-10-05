@@ -1,5 +1,9 @@
 #include "tft.h"
 
+ulong * pinconf1;
+int gfd;
+
+
 void setup_tft()
 {
 
@@ -113,6 +117,18 @@ void setup_tft()
   writeCommand8(ILI9340_SLPOUT);    //Exit Sleep 
   usleep(120000); 		
   writeCommand8(ILI9340_DISPON);    //Display on 
+}
+
+void writeData8(uint8_t data)
+{
+    setDC(DATA);
+    write8(data);	
+}
+
+void writeCommand8(uint8_t cmd)
+{
+    setDC(CMD);
+    write8(cmd);
 }
 
 void setDC(uint8_t dc)

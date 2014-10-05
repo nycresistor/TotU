@@ -1,0 +1,16 @@
+#ifndef _gpmc_h_
+#define _gpmc_h_
+
+#include <stdint.h>
+
+#define DATA 0
+#define CMD 1
+
+void setup_gpmc(void);
+// void writeALot(uint16_t addr, uint16_t * data, uint16_t len);
+void write8(uint8_t data);
+void writeData8(uint8_t data);
+void writeCommand8(uint8_t data);
+void close_gpmc(void);
+
+#endif
