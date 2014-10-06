@@ -5,14 +5,32 @@ ulong * pinconf1;
 int gfd;
 
 
+void reset_tft()
+{
+  printf("Resetting TFT\n");
+  pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
+  usleep(100000);
+  pinconf1[GPIO_DATAOUT/4] ^= (1 << 31);
+  usleep(100000);
+  pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
+  usleep(100000);
+}
+
+void begin_tft()
+{
+  printf("Configuring DC and reset lines\n"); // GPIO 1_29 P8.26 and 1_31 P8.20
+  gfd = open("/dev/mem", O_RDWR | O_SYNC);
+  pinconf1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);
+  pinconf1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << 29) | (1 << 31)));
+
+}
+
 void setup_tft()
 {
-  
-  printf("Configuring DC line\n"); // GPIO 1_29 P8.26
-  gfd = open("/dev/mem", O_RDWR | O_SYNC);
-  pinconf1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);  
-  pinconf1[OE_ADDR/4] &= (0xFFFFFFFF ^ (1 << 29));
-
+ 
+  begin_tft();  
+  reset_tft();
+ 
   printf("Sending display setup commands\n");
   writeCommand8(0xEF);
   writeData8(0x03);
@@ -118,8 +136,29 @@ void setup_tft()
   writeData8(0x0F); 
 
   writeCommand8(ILI9340_SLPOUT);    //Exit Sleep 
-  usleep(120000); 		
+  usleep(100000); 		
   writeCommand8(ILI9340_DISPON);    //Display on 
+}
+
+void setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
+{
+
+  printf("Setting adder window to %d %d %d %d\n", x0, y0, x1, y1);
+
+  writeCommand8(ILI9340_CASET);
+  writeData8(x0 >> 8);
+  writeData8(x0 & 0xFF);     // XSTART 
+  writeData8(x1 >> 8);
+  writeData8(x1 & 0xFF);     // XEND
+
+  writeCommand8(ILI9340_PASET); // Row addr set
+  writeData8(y0>>8);
+  writeData8(y0);     // YSTART
+  writeData8(y1>>8);
+  writeData8(y1);     // YEND
+
+  writeCommand8(ILI9340_RAMWR); // write to RAM
+
 }
 
 void writeData8(uint8_t data)
@@ -130,6 +169,7 @@ void writeData8(uint8_t data)
 
 void writeCommand8(uint8_t cmd)
 {
+    printf("Writing command %02x\n", cmd);
     setDC(CMD);
     write8(cmd);
 }
@@ -137,8 +177,23 @@ void writeCommand8(uint8_t cmd)
 void setDC(uint8_t dc)
 {
     if (dc == CMD) {
-	pinconf1[GPIO_DATAOUT/4] ^= (1 << 29);
+//	printf("DC going LOW\n");
+	pinconf1[GPIO_DATAOUT/4] &= ~(1 << 29);
     } else {
+//	printf("DC going HIGH\n");
 	pinconf1[GPIO_DATAOUT/4] |= (1 << 29);
     }
 }
+
+void writeFrame(uint16_t * screen)
+{
+    setDC(DATA);
+    //gpmcWrite(screen, WIDTH * HEIGHT); 
+
+for (int i = 0; i < WIDTH * HEIGHT; i++) {
+        writeData8(0x00);
+        writeData8(0x00);
+    }
+
+}
+

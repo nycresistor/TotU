@@ -12,6 +12,9 @@
 
 #include "gpmc.h"
 
+#define WIDTH 320
+#define HEIGHT 240
+
 #define OE_ADDR 0x134
 #define GPIO_DATAOUT 0x13C
 #define GPIO_DATAIN 0x138
@@ -101,11 +104,14 @@
 #define ILI9340_YELLOW  0xFFE0  
 #define ILI9340_WHITE   0xFFFF
 
-
+void reset(void);
+void begin_tft(void);
 void setup_tft(void);
+void setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
 void setDC(uint8_t dc);
 void writeData8(uint8_t data);
 void writeCommand8(uint8_t data);
+void writeFrame(uint16_t * screen);
 
 #endif
 
