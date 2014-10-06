@@ -108,6 +108,7 @@ void reset(void);
 void begin_tft(void);
 void setup_tft(void);
 void setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
+void setRotation(uint8_t m);
 void setDC(uint8_t dc);
 void writeData8(uint8_t data);
 void writeCommand8(uint8_t data);

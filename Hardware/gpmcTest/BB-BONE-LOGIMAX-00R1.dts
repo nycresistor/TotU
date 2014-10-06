@@ -149,22 +149,22 @@
 				gpmc,sync-clk-ps = <25000>;	/* CONFIG2 */
 
 				gpmc,cs-on-ns = <0>;
-				gpmc,cs-rd-off-ns = <10>;
-				gpmc,cs-wr-off-ns = <20>;
+				gpmc,cs-rd-off-ns = <0>;
+				gpmc,cs-wr-off-ns = <0>;
 
 				gpmc,adv-on-ns = <0>;		/* CONFIG3 */
-				gpmc,adv-rd-off-ns = <20>;
-				gpmc,adv-wr-off-ns = <20>;
+				gpmc,adv-rd-off-ns = <0>;
+				gpmc,adv-wr-off-ns = <0>;
 
-				gpmc,we-on-ns = <100>;		/* CONFIG4 */
-				gpmc,we-off-ns = <150>;
-				gpmc,oe-on-ns = <50>;
-				gpmc,oe-off-ns = <50>;
+				gpmc,we-on-ns = <50>;		/* CONFIG4 */
+				gpmc,we-off-ns = <100>;
+				gpmc,oe-on-ns = <0>;
+				gpmc,oe-off-ns = <0>;
 
-				gpmc,page-burst-access-ns = <50>;	/* CONFIG 5 */
-				gpmc,access-ns = <50>;
+				gpmc,page-burst-access-ns = <25>;	/* CONFIG 5 */
+				gpmc,access-ns = <25>;
 				gpmc,rd-cycle-ns = <100>;
-				gpmc,wr-cycle-ns = <250>;
+				gpmc,wr-cycle-ns = <150>;
 				gpmc,wr-access-ns = <100>;		/* CONFIG 6 */
 				gpmc,wr-data-mux-bus-ns = <20>;
 

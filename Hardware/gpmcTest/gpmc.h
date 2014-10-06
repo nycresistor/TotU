@@ -6,8 +6,7 @@
 #define DATA 0
 #define CMD 1
 
-#define BLOCK_SIZE 2048
-
+#define BLOCK_SIZE 16384
 
 void setup_gpmc(void);
 // void writeALot(uint16_t addr, uint16_t * data, uint16_t len);

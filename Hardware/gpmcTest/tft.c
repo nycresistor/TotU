@@ -161,6 +161,34 @@ void setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
 
 }
 
+void setRotation(uint8_t m)
+{
+  printf("Setting rotation %d\n", m);
+  writeCommand8(ILI9340_MADCTL);
+  switch (m) {
+   case 0:
+     writeData8(ILI9340_MADCTL_MX | ILI9340_MADCTL_BGR);
+     //_width  = ILI9340_TFTWIDTH;
+     //_height = ILI9340_TFTHEIGHT;
+     break;
+   case 1:
+     writeData8(ILI9340_MADCTL_MV | ILI9340_MADCTL_BGR);
+     //_width  = ILI9340_TFTHEIGHT;
+     //_height = ILI9340_TFTWIDTH;
+     break;
+  case 2:
+    writeData8(ILI9340_MADCTL_MY | ILI9340_MADCTL_BGR);
+     //_width  = ILI9340_TFTWIDTH;
+     //_height = ILI9340_TFTHEIGHT;
+    break;
+   case 3:
+     writeData8(ILI9340_MADCTL_MV | ILI9340_MADCTL_MY | ILI9340_MADCTL_MX | ILI9340_MADCTL_BGR);
+     //_width  = ILI9340_TFTHEIGHT;
+     //_height = ILI9340_TFTWIDTH;
+     break;
+  }
+}
+
 void writeData8(uint8_t data)
 {
     setDC(DATA);

@@ -63,10 +63,11 @@ int main (int argc, char *argv[])
     generateScreen(screen0, 0x0000);
     generateScreen(screen1, 0xFFFF);
  
-    printf("Sending black\n");
 
-    setAddrWindow(0, 0, height - 1, width - 1);
-    
+    setRotation(3);
+    setAddrWindow(0, 0, width - 1, height - 1);
+
+    printf("COMMENCE\n");
     while(1) {
 	writeFrame(screen0);
     	writeFrame(screen1);
