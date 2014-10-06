@@ -188,12 +188,7 @@ void setDC(uint8_t dc)
 void writeFrame(uint16_t * screen)
 {
     setDC(DATA);
-    //gpmcWrite(screen, WIDTH * HEIGHT); 
-
-for (int i = 0; i < WIDTH * HEIGHT; i++) {
-        writeData8(0x00);
-        writeData8(0x00);
-    }
+    gpmcWrite(screen, WIDTH * HEIGHT); 
 
 }
 

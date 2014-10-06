@@ -33,5 +33,8 @@ tft.o:
 gpmc.o:
 	g++ -c gpmc.c
 
+test:
+	g++ -o test test.c
+
 clean:
 	rm -rf blank blank.o tft.o gpmc.o
