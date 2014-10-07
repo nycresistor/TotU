@@ -48,8 +48,7 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 
 	// Hold the bit expansion (every bit of a uint16_t becomes it's own uint16_t word)
 	uint16_t * output = (uint16_t *) malloc(len * 16 * sizeof(uint16_t));
-
-	// Do the bit expansion 
+	
 	// Right now this only supports one screen (hence CHECK_BIT() > 0 ? 0xFFFF : 0x0000)
 	for (int word = 0; word < len; word++) {
 		for (int bit = 0; bit < 16; bit++) {
@@ -64,26 +63,29 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 	
 	startTime = (float) clock() / CLOCKS_PER_SEC;
 
-	// Chunk the output into blocks of BLOCK_SIZE
-	uint16_t * out = (uint16_t *) malloc(BLOCK_SIZE * sizeof(uint16_t));
 	for (int block = 0; block < (len * 16) / BLOCK_SIZE; block++)
 	{
-		for (int word = 0; word < BLOCK_SIZE; word++)
-		{
-			out[word] = output[(block * BLOCK_SIZE) + word];
-		}
-		
-//		printf("Writing block %d\n", block);
-
 		// This is where the block (out) of size (BLOCK_SIZE * sizeof(uint16_t))
 		// gets written to the GPMC (filedescriptor fd) using address 0 (addressing not used)
 		// This could possibly be faster by diving into how the kernel module works
 		// but the overhead goes down as BLOCK_SIZE goes up
-		pwrite(fd, out, BLOCK_SIZE * sizeof(uint16_t), 0);
+	//	pwrite(fd, out, BLOCK_SIZE * sizeof(uint16_t), 0);
+	
+		pwrite(fd, output + (block * BLOCK_SIZE), BLOCK_SIZE * sizeof(uint16_t), 0);
 	}
 
 	elapsed = ((float) clock() / CLOCKS_PER_SEC) - startTime;
 	printf("Outputting time: %3.5f\n", elapsed);	
+
+}
+
+void gpmcWritePregenerated(uint16_t * output, uint32_t len)
+{
+        // Chunk the output into blocks of BLOCK_SIZE
+	for (int block = 0; block < (len * 16) / BLOCK_SIZE; block++)
+        {	
+                pwrite(fd, output + (block * BLOCK_SIZE), BLOCK_SIZE * sizeof(uint16_t), 0);
+        }
 
 }
 
