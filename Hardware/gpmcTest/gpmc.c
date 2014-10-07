@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int fd;
 
@@ -35,15 +36,8 @@ void writeByte(uint8_t data)
 
 void gpmcWrite(uint16_t * data, uint32_t len)
 {
-//    printf("GPMC block write\n");
- /* 
-    for (int i = 0; i < len; i++)
-	{
-		write8((*(data+i)) >> 8);
-		write8((*(data+i)) & 0xFF);
-	}
-*/
 
+	float startTime = (float) clock() / CLOCKS_PER_SEC;
 
 //	printf("Writing block of %d\n", len);
 	uint16_t * output = (uint16_t *) malloc(len * 16 * sizeof(uint16_t));
@@ -55,9 +49,13 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 		}
 	}
 
+	float elapsed = ((float) clock() / CLOCKS_PER_SEC) - startTime;
+	printf("Bitslicing time: %3.5f\n", elapsed);
+
 //	printf("Writing block of %d\n", (16 * sizeof(uint16_t) * len));
 	
-	
+	startTime = (float) clock() / CLOCKS_PER_SEC;
+
 	uint16_t * out = (uint16_t *) malloc(BLOCK_SIZE * sizeof(uint16_t));
 	for (int block = 0; block < (len * 16) / BLOCK_SIZE; block++)
 	{
@@ -68,15 +66,11 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 		
 //		printf("Writing block %d\n", block);
 		pwrite(fd, out, BLOCK_SIZE * sizeof(uint16_t), 0);
-	}	
+	}
 
-	//pwrite(fd, &output, 16 * sizeof(uint16_t) * len, 0);
+	elapsed = ((float) clock() / CLOCKS_PER_SEC) - startTime;
+	printf("Outputting time: %3.5f\n", elapsed);	
 
-
-/* 
-    printf("Writing screen of length %d\n", len);
-    for (int i = 0; i < len * 2; i++) pwrite(fd, &out, 1, 0);	
-*/
 }
 
 void close_gpmc()
