@@ -11,6 +11,7 @@ int fd;
 
 #define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
  
+// Open up the file descriptor to the logibone_mem kernel driver
 void setup_gpmc()
 {
 
@@ -18,6 +19,8 @@ void setup_gpmc()
 
 }
 
+// This is used for writing a byte to all GPMC channels in parallel
+// currently used for TFT setup commands
 void write8(uint8_t data)
 {
  //  printf("Got Byte %02x\n", data);
@@ -34,15 +37,20 @@ void writeByte(uint8_t data)
     pwrite(fd, &data, 1, 0);
 }
 
+// Write out chunk of data
+// Need to rewrite to go faster and support arbitrary lengths
 void gpmcWrite(uint16_t * data, uint32_t len)
 {
 
 	float startTime = (float) clock() / CLOCKS_PER_SEC;
 
 //	printf("Writing block of %d\n", len);
-	uint16_t * output = (uint16_t *) malloc(len * 16 * sizeof(uint16_t));
-//	printf("Output of %d\n", (len * 16 * sizeof(uint16_t)));
 
+	// Hold the bit expansion (every bit of a uint16_t becomes it's own uint16_t word)
+	uint16_t * output = (uint16_t *) malloc(len * 16 * sizeof(uint16_t));
+
+	// Do the bit expansion 
+	// Right now this only supports one screen (hence CHECK_BIT() > 0 ? 0xFFFF : 0x0000)
 	for (int word = 0; word < len; word++) {
 		for (int bit = 0; bit < 16; bit++) {
 			output[(word * 16) + (15 - bit)] = CHECK_BIT(*(data + word), bit) > 0 ? 0xFFFF : 0x0000;
@@ -56,6 +64,7 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 	
 	startTime = (float) clock() / CLOCKS_PER_SEC;
 
+	// Chunk the output into blocks of BLOCK_SIZE
 	uint16_t * out = (uint16_t *) malloc(BLOCK_SIZE * sizeof(uint16_t));
 	for (int block = 0; block < (len * 16) / BLOCK_SIZE; block++)
 	{
@@ -65,6 +74,11 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 		}
 		
 //		printf("Writing block %d\n", block);
+
+		// This is where the block (out) of size (BLOCK_SIZE * sizeof(uint16_t))
+		// gets written to the GPMC (filedescriptor fd) using address 0 (addressing not used)
+		// This could possibly be faster by diving into how the kernel module works
+		// but the overhead goes down as BLOCK_SIZE goes up
 		pwrite(fd, out, BLOCK_SIZE * sizeof(uint16_t), 0);
 	}
 
