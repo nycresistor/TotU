@@ -1,17 +1,23 @@
-<video autoplay></autoplay>
+<style>
+	video { border: 1px solid black; }
+	canvas { border: 1px solid black; }	
+	.row { margin-top: 100px; }
+</style>
 
-<script>
-	var video = document.querySelector("video");
-	navigator.getUserMedia = navigator.getUserMedia ||
-		navigator.webkitGetUserMedia ||
-		navigator.mozGetUserMedia ||
-		navigator.msGetUserMedia;
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 text-center">
+			<video width="320" height="240" autoplay></video>
+		</div>
+		<div class="col-md-4 text-center">
+			<canvas id="texture" width="320" height="240"></canvas>
+		</div>
 
-	navigator.getUserMedia({video:true}, 
-		function(stream) {
-			video.src = window.URL.createObjectURL(stream);
-		}, 
-		function(err) { console.log(err) }
-	);
-
-</script>
+		<div class="col-md-4 text-center">
+			<canvas id="threejs" width="320" height="240"></canvas>
+		</div>
+	</div>
+	<div class="text-center">
+		<button id="startVideo">Start</button>
+	</div>
+</div>
