@@ -6,6 +6,7 @@ function startVideo() {
  
 	navigator.getUserMedia({video:true}, 
 		function(stream) {
+			console.log("Starting stream");
 			$('video').attr('src',window.URL.createObjectURL(stream));
 		},
 		function(err) { console.log(err) }
@@ -60,4 +61,4 @@ function startThreeJs() {
 
 $('#startVideo').click(function() { startVideo(); startThreeJs(); });
 
-startThreeJs();
+//$(window).load(function() { startThreeJs(); });
