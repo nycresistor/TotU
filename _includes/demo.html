@@ -1,23 +1,47 @@
 <style>
-	video { border: 1px solid black; }
-	canvas { border: 1px solid black; }	
-	.row { margin-top: 100px; }
+	canvas { border: 1px solid black; margin-top: 100px; }	
+	#countdown-bar {
+		background-color: #f23d43;
+		color: white;
+		font-size: 40px;
+		text-align: center;
+		font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+		display:none;
+	}
+
+	#countdown-bar span {
+		width: 40px;
+		margin-left: 20px;
+		margin-right: 20px;
+		opacity: 0.4;
+	}
+
+	#countdown-bar span.active {
+		opacity: 1.0;
+	}
 </style>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-4 text-center">
-			<video width="320" height="240" autoplay></video>
-		</div>
-		<div class="col-md-4 text-center">
-			<canvas id="texture" width="320" height="240"></canvas>
-		</div>
+<video class="hide" width="320" height="240" autoplay></video>
+<canvas class="hide" id="threejs" width="320" height="240"></canvas>
+<audio src="/img/beep.wav" id="beep" preload="auto" ></audio>
+<audio src="/img/click.wav" id="click" preload="auto"></audio>
 
-		<div class="col-md-4 text-center">
-			<canvas id="threejs" width="320" height="240"></canvas>
-		</div>
-	</div>
+<div class="container">
 	<div class="text-center">
-		<button id="startVideo">Start</button>
+		<canvas id="app" width="800" height="600"></canvas>
+	</div>
+	<div id="btn-bar" class="text-center">
+		<img id="btn-photo" class="btn" data-action="photo" src="/img/btn-photo-inactive.png" />
+		<img id="btn-send" class="btn" data-action="send" src="/img/btn-send-inactive.png" />
+	</div>
+	<div id="countdown-bar">
+		<span id="countdown-1">3</span>
+		<span id="countdown-2">2</span>
+		<span id="countdown-3">1</span>
+		<span id="countdown-4"><img src="/img/icn-photo.png"></span>
+		<span id="countdown-5"><img src="/img/icn-photo.png"></span>
+		<span id="countdown-6"><img src="/img/icn-photo.png"></span>
+		<span id="countdown-7"><img src="/img/icn-photo.png"></span>
+
 	</div>
 </div>
