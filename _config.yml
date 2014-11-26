@@ -16,7 +16,7 @@ color:
 people:
 - name: Justin Day
   pic: 2
-  position: Unticketed Progenitor
+  position: Project Lead, Web App, Backend
   social:
     - title: twitter
       url: https://twitter.com/potatono
@@ -25,7 +25,7 @@ people:
 
 - name: Max Henstell
   pic: 1
-  position: Too Much Free Time
+  position: Hardware, Firmware
   social:
     - title: twitter
       url: https://twitter.com/mhenstell
