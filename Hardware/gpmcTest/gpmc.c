@@ -82,11 +82,17 @@ void gpmcWrite(uint16_t * data, uint32_t len)
 void gpmcWritePregenerated(uint16_t * output, uint32_t len)
 {
         // Chunk the output into blocks of BLOCK_SIZE
+	/*
 	for (int block = 0; block < (len * 16) / BLOCK_SIZE; block++)
         {	
                 pwrite(fd, output + (block * BLOCK_SIZE), BLOCK_SIZE * sizeof(uint16_t), 0);
         }
+*/
 
+	printf("Writing %u bytes\n", len);
+	for (int i = 0; i < len; i += BLOCK_SIZE) {
+		pwrite(fd, output + i, BLOCK_SIZE * sizeof(uint16_t), 0);
+	}
 }
 
 void close_gpmc()

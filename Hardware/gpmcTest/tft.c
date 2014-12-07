@@ -220,9 +220,9 @@ void writeFrame(uint16_t * screen)
 
 }
 
-void writeFramePregenerated(uint16_t * screen)
+void writeFramePregenerated(uint16_t * screen, uint32_t len)
 {
 	setDC(DATA);
-	gpmcWritePregenerated(screen, WIDTH * HEIGHT);
+	gpmcWritePregenerated(screen, len);
 
 }

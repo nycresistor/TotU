@@ -113,7 +113,7 @@ void setDC(uint8_t dc);
 void writeData8(uint8_t data);
 void writeCommand8(uint8_t data);
 void writeFrame(uint16_t * screen);
-void writeFramePregenerated(uint16_t * screen);
+void writeFramePregenerated(uint16_t * screen, uint32_t len);
 
 #endif
 

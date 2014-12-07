@@ -8,6 +8,7 @@
 
 #define BLOCK_SIZE 16384
 
+
 void setup_gpmc(void);
 // void writeALot(uint16_t addr, uint16_t * data, uint16_t len);
 void write8(uint8_t data);
