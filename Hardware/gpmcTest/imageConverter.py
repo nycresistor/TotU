@@ -4,7 +4,7 @@ import sys, os
 openFolder = sys.argv[1]
 files = os.listdir(openFolder)
 
-minImage = 0
+minImage = 1
 maxImage = 0
 
 images = []
@@ -17,6 +17,7 @@ images = {}
 def imageTo16BPP(image):
 	sixteenBPP = []
 	pixels = image.load()
+	print("Loading image (%s, %s)" % (image.size[0], image.size[1]))
 	for y in range(image.size[1]):
 		for x in range(image.size[0]):
 			r = pixels[x, y][0] >> 3
@@ -26,13 +27,15 @@ def imageTo16BPP(image):
 			
 			hi, lo = split(rgb)
 
-			hiBits, loBits = []
+			hiBits, loBits = [], []
 			for bit in range(8):
 				hiBits.append((hi >> 7-bit) & 1 > 0)
 				loBits.append((lo >> 7-bit) & 1 > 0)
 
 			sixteenBPP.append(hiBits)
 			sixteenBPP.append(loBits)
+
+	print("Returning %s 8-bit bytes" % len(sixteenBPP))
 	return sixteenBPP
 
 def split(byte16):
@@ -71,6 +74,14 @@ output = bytearray()
 
 #
 
+def getByte(frameNum, byteNum):
+	output = []
+	imageData = images[frameNum]
+	for base in range(len(basenames)):
+		output.append(imageData[base][byteNum])
+	return output
+
+
 if __name__ == "__main__":
 
 	# Get basenames, min and max image numbers (format: image-0.bmp)
@@ -84,32 +95,53 @@ if __name__ == "__main__":
 		if basename not in basenames:
 			basenames.append(basename)
 
+	print("Min: %s Max: %s" % (minImage, maxImage))
+
 	# Compile dict of image numbers vs basenames
 	for num in range(minImage, maxImage + 1):
 		imageNames[num] = [basename for basename in basenames]
+
+	print(imageNames)
 
 	# Open the images, get 16 bpp pixel list, append it to images dict
 	for num, basenames in imageNames.items():
 		images[num] = []
 		for basename in basenames:
+			openFile = os.path.join(openFolder, "%s-%s%s" % (basename, num, ext))
+			print openFile
 			im = Image.open(openFile).convert("RGB")
 			sixteenBPP = imageTo16BPP(im)
 			images[num].append(sixteenBPP)
 
-	for num, pixelList in images.items():
-		zippedPixels = [0 for 0 in (320 * 240 * 16 * 2)]
-		numImages = len(pixelList)
+	outputBytes = []
 
-		for byte8 in len(zippedPixels):
-			for image in pixelList:
-				for x in range(8)
-					zippedPixels[byte8] <<= 1
-					zippedPixels[byte8] & pixelList[byte8][x]
+	# Handle all frames
+	for frame in range(minImage, maxImage + 1):
 
- # 	print("Length output %s" % len(zippedPixels))
-	# with open(filebase + ".bin", "wb") as bin:
-	# 	bin.write(zippedPixels)	
+		print("Starting frame %s" % frame)
+		explodedBytes = []
 
+		# All bytes in the output array
+		for byteNum in range(153600):
 
+			# get the x byte from each image
+			bytes = getByte(frame, byteNum)
+			
+			for i in range(8):
+				explodedBytes.append([byte[i] for byte in bytes])			
 
+		outputBytes = bytearray()
+		for byte in explodedBytes:
+			num = 0
+			for bit in byte:
+				num <<= 1
+				num |= int(bit)
 
+				hi, lo = split(num)
+			outputBytes.append(lo)	
+			outputBytes.append(hi)
+
+		print("Frame %s output size %s" % (frame, len(outputBytes)))
+
+		with open(os.path.join("seq", "seq-%s.bin" % frame), 'wb') as bin:
+			bin.write(outputBytes)
