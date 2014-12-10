@@ -46,41 +46,21 @@ def split(byte16):
 frame = bytearray()
 output = bytearray()
 
-
-# for x in range(320 * 240 * 8):
-# 	if x % 2 == 0:
-# 		sixteenBPP.append(65535)
-# 		sixteenBPP.append(65535)
-# 	else:
-# 		sixteenBPP.append(0)
-# 		sixteenBPP.append(0)
-
-# print("Length sixteenBPP %s" % len(sixteenBPP))
-# for byte in sixteenBPP:
-# 	hi = byte >> 8
-# 	lo = byte & 255
-# 	frame.append(hi)
-# 	frame.append(lo)
-
-# print("Length sixteenBPP %s" % len(sixteenBPP))
-# for byte in sixteenBPP:
-# 	for i in range(16):
-# 		if (byte >> 15-i) & 1 > 0:
-# 			output.append(255)
-# 			output.append(255)
-# 		else:
-# 			output.append(0)
-# 			output.append(0)
-
-#
-
-def getByte(frameNum, byteNum):
+def getByte(imageData, frameNum, byteNum):
 	output = []
-	imageData = images[frameNum]
 	for base in range(len(basenames)):
 		output.append(imageData[base][byteNum])
 	return output
 
+def getImageData(frameNum):
+	imageData = []
+	for basename in basenames:
+		openFile = os.path.join(openFolder, "%s-%s%s" % (basename, frameNum, ext))
+		print openFile
+		im = Image.open(openFile).convert("RGB")
+		sixteenBPP = imageTo16BPP(im)
+		imageData.append(sixteenBPP)
+	return imageData
 
 if __name__ == "__main__":
 
@@ -103,16 +83,6 @@ if __name__ == "__main__":
 
 	print(imageNames)
 
-	# Open the images, get 16 bpp pixel list, append it to images dict
-	for num, basenames in imageNames.items():
-		images[num] = []
-		for basename in basenames:
-			openFile = os.path.join(openFolder, "%s-%s%s" % (basename, num, ext))
-			print openFile
-			im = Image.open(openFile).convert("RGB")
-			sixteenBPP = imageTo16BPP(im)
-			images[num].append(sixteenBPP)
-
 	outputBytes = []
 
 	# Handle all frames
@@ -120,12 +90,13 @@ if __name__ == "__main__":
 
 		print("Starting frame %s" % frame)
 		explodedBytes = []
+		imageData = getImageData(frame)
 
 		# All bytes in the output array
 		for byteNum in range(153600):
 
 			# get the x byte from each image
-			bytes = getByte(frame, byteNum)
+			bytes = getByte(imageData, frame, byteNum)
 			
 			for i in range(8):
 				explodedBytes.append([byte[i] for byte in bytes])			
