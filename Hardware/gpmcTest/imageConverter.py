@@ -1,5 +1,6 @@
 from PIL import Image
-import sys, os
+import sys, os, time
+import numpy
 
 openFolder = sys.argv[1]
 files = os.listdir(openFolder)
@@ -17,7 +18,6 @@ images = {}
 def imageTo16BPP(image):
 	sixteenBPP = []
 	pixels = image.load()
-	print("Loading image (%s, %s)" % (image.size[0], image.size[1]))
 	for y in range(image.size[1]):
 		for x in range(image.size[0]):
 			r = pixels[x, y][0] >> 3
@@ -35,7 +35,7 @@ def imageTo16BPP(image):
 			sixteenBPP.append(hiBits)
 			sixteenBPP.append(loBits)
 
-	print("Returning %s 8-bit bytes" % len(sixteenBPP))
+	# print("Returning %s 8-bit bytes" % len(sixteenBPP))
 	return sixteenBPP
 
 def split(byte16):
@@ -56,16 +56,21 @@ def getImageData(frameNum):
 	imageData = []
 	for basename in basenames:
 		openFile = os.path.join(openFolder, "%s-%s%s" % (basename, frameNum, ext))
-		print openFile
-		im = Image.open(openFile).convert("RGB")
-		sixteenBPP = imageTo16BPP(im)
+		image = Image.open(openFile).convert("RGB")
+		print("\tLoading image %s (%s, %s)" % (openFile, image.size[0], image.size[1]))
+		sixteenBPP = imageTo16BPP(image)
 		imageData.append(sixteenBPP)
-	return imageData
+		# imageData.extend(sixteenBPP)
+
+	out = numpy.array(imageData, dtype=numpy.uint8)
+	return out
 
 if __name__ == "__main__":
+	print("\n\n")
 
 	# Get basenames, min and max image numbers (format: image-0.bmp)
 	for filename in files:
+		print filename
 		filename = os.path.splitext(filename)[0]
 		num = int(filename.split('-')[1])
 		minImage = min(minImage, num)
@@ -75,13 +80,9 @@ if __name__ == "__main__":
 		if basename not in basenames:
 			basenames.append(basename)
 
-	print("Min: %s Max: %s" % (minImage, maxImage))
-
 	# Compile dict of image numbers vs basenames
 	for num in range(minImage, maxImage + 1):
 		imageNames[num] = [basename for basename in basenames]
-
-	print(imageNames)
 
 	outputBytes = []
 
@@ -89,30 +90,68 @@ if __name__ == "__main__":
 	for frame in range(minImage, maxImage + 1):
 
 		print("Starting frame %s" % frame)
+		start = time.time()
 		explodedBytes = []
 		imageData = getImageData(frame)
+		outputBytes = bytearray()
+
+		print("image data %s %s" % (len(imageData), len(imageData[0])))
+
+		unpacked = numpy.unpackbits(imageData, axis = 1)
+
+		print unpacked
+
+		stacked = numpy.column_stack(unpacked)
+
+		print stacked
+
+		packed = numpy.packbits(stacked, axis = 1)
+
+		print packed
+
+		for byte in packed:
+			outputBytes.append(byte[1])
+			outputBytes.append(byte[0])
+
+		
+
+
+		# for byteNum in xrange(153600):
+		# 	bytes = []
+		# 	for q in range(len(basenames)):
+		# 		bytes.append(imageData[byteNum + (153600 * q)])
+
+		# 	for i in range(8):
+		# 		for byte in [[byte[i] for byte in bytes]]:
+		# 			num = 0
+		# 			for bit in byte:
+		# 				num <<= 1
+		# 				num |= int(bit)
+
+		# 			hi, lo = split(num)
+		# 			outputBytes.append(lo)	
+		# 			outputBytes.append(hi)
+
 
 		# All bytes in the output array
-		for byteNum in range(153600):
+		# for byteNum in xrange(153600):
 
-			# get the x byte from each image
-			bytes = getByte(imageData, frame, byteNum)
-			
-			for i in range(8):
-				explodedBytes.append([byte[i] for byte in bytes])			
+		# 	# get the x byte from each image
+		# 	bytes = getByte(imageData, frame, byteNum)
+		
+		# 	for i in range(8):
+		# 		for byte in [[byte[i] for byte in bytes]]:
+		# 			num = 0
+		# 			for bit in byte:
+		# 				num <<= 1
+		# 				num |= int(bit)
 
-		outputBytes = bytearray()
-		for byte in explodedBytes:
-			num = 0
-			for bit in byte:
-				num <<= 1
-				num |= int(bit)
+		# 			hi, lo = split(num)
+		# 			outputBytes.append(lo)	
+		# 			outputBytes.append(hi)			
 
-				hi, lo = split(num)
-			outputBytes.append(lo)	
-			outputBytes.append(hi)
-
-		print("Frame %s output size %s" % (frame, len(outputBytes)))
+		took = time.time() - start
+		print("Frame %s output size %s took %s seconds" % (frame, len(outputBytes), took))
 
 		with open(os.path.join("seq", "seq-%s.bin" % frame), 'wb') as bin:
 			bin.write(outputBytes)
