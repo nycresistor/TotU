@@ -1,6 +1,7 @@
 from PIL import Image
 import sys, os, time
 import numpy
+# import threading, Queue
 
 openFolder = sys.argv[1]
 files = os.listdir(openFolder)
@@ -15,6 +16,8 @@ basenames = []
 imageNames = {}
 images = {}
 
+
+
 def imageTo16BPP(image):
 	sixteenBPP = []
 	pixels = image.load()
@@ -27,8 +30,11 @@ def imageTo16BPP(image):
 			# b = pixels[x, y][2] >> 3
 			# rgb = (r << 11) + (g << 5) + b
 
-			b1 = ((pixels[x, y][0] >> 3) << 3) + (pixels[x, y][1] >> 5)
-			b2 = ((pixels[x, y][1] >> 3) << 3) + (pixels[x, y][2] >> 3)
+			# b1 = ((pixels[x, y][0] >> 3) << 3) + (pixels[x, y][1] >> 5)
+			# b2 = ((pixels[x, y][1] >> 3) << 3) + (pixels[x, y][2] >> 3)
+
+			b1 = (pixels[x, y][0] & 0xF8) + (pixels[x, y][1] & 0x07)
+			b2 = (pixels[x, y][1] & 0xE0) + (pixels[x, y][2] & 0x1F)
 			
 			# hi, lo = split(rgb)
 			# hiBits, loBits = [], []
