@@ -1,0 +1,17 @@
+python3.4 -m cProfile -s cumulative imageConverter.py testgif
+
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    127/1    0.005    0.000   25.699   25.699 {built-in method exec}
+        1    2.256    2.256   25.699   25.699 imageConverter.py:1(<module>)
+        1    0.001    0.001   21.396   21.396 imageConverter.py:70(getImageData)
+       16    8.930    0.558   18.544    1.159 imageConverter.py:18(imageTo16BPP)
+  1228855    8.056    0.000    8.056    0.000 {built-in method array}
+  1228801    3.320    0.000    3.320    0.000 {built-in method unpackbits}
+       16    0.002    0.000    0.917    0.057 Image.py:780(convert)
+       16    0.902    0.056    0.906    0.057 ImageFile.py:130(load)
+        1    0.865    0.865    0.865    0.865 {built-in method packbits}
+        1    0.000    0.000    0.411    0.411 shape_base.py:278(column_stack)
+        1    0.411    0.411    0.411    0.411 {built-in method concatenate}
+  2463238    0.388    0.000    0.388    0.000 {method 'append' of 'list' objects}
+  2457600    0.309    0.000    0.309    0.000 {method 'append' of 'bytearray' objects}
+        4    0.001    0.000    0.282    0.071 __init__.py:1(<module>)

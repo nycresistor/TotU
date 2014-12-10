@@ -18,24 +18,39 @@ images = {}
 def imageTo16BPP(image):
 	sixteenBPP = []
 	pixels = image.load()
+	start = time.time()
 	for y in range(image.size[1]):
 		for x in range(image.size[0]):
-			r = pixels[x, y][0] >> 3
-			g = pixels[x, y][1] >> 2
-			b = pixels[x, y][2] >> 3
-			rgb = (r << 11) + (g << 5) + b
+
+			# r = pixels[x, y][0] >> 3
+			# g = pixels[x, y][1] >> 2
+			# b = pixels[x, y][2] >> 3
+			# rgb = (r << 11) + (g << 5) + b
+
+			b1 = ((pixels[x, y][0] >> 3) << 3) + (pixels[x, y][1] >> 5)
+			b2 = ((pixels[x, y][1] >> 3) << 3) + (pixels[x, y][2] >> 3)
 			
-			hi, lo = split(rgb)
+			# hi, lo = split(rgb)
+			# hiBits, loBits = [], []
+			# for bit in range(8):
+			# 	# hiBits.append((hi >> 7-bit) & 1 > 0)
+			# 	# loBits.append((lo >> 7-bit) & 1 > 0)
+			# 	hiBits.append((b1 >> 7-bit) & 1 > 0)
+			# 	loBits.append((b2 >> 7-bit) & 1 > 0)
 
-			hiBits, loBits = [], []
-			for bit in range(8):
-				hiBits.append((hi >> 7-bit) & 1 > 0)
-				loBits.append((lo >> 7-bit) & 1 > 0)
+			a = numpy.array([[b1], [b2]], dtype=numpy.uint8)
+			up = numpy.unpackbits(a, axis=1)
 
-			sixteenBPP.append(hiBits)
-			sixteenBPP.append(loBits)
+			# sixteenBPP.append(hiBits)
+			# sixteenBPP.append(loBits)
+
+			sixteenBPP.append(up[1])
+			sixteenBPP.append(up[0])
+
+
 
 	# print("Returning %s 8-bit bytes" % len(sixteenBPP))
+	print("\tTook %.2f seconds to convert image to 16BPP" % (time.time() - start))
 	return sixteenBPP
 
 def split(byte16):
@@ -54,13 +69,17 @@ def getByte(imageData, frameNum, byteNum):
 
 def getImageData(frameNum):
 	imageData = []
+	startGID = time.time()
 	for basename in basenames:
+		startBN = time.time()
 		openFile = os.path.join(openFolder, "%s-%s%s" % (basename, frameNum, ext))
 		image = Image.open(openFile).convert("RGB")
 		print("\tLoading image %s (%s, %s)" % (openFile, image.size[0], image.size[1]))
 		sixteenBPP = imageTo16BPP(image)
 		imageData.append(sixteenBPP)
 		# imageData.extend(sixteenBPP)
+		print("\tTook %.2f seconds to open and convert image" % (time.time() - startBN))
+	print("\tTook %.2f seconds to get all image data" % (time.time() - startGID))
 
 	out = numpy.array(imageData, dtype=numpy.uint8)
 	return out
@@ -70,7 +89,7 @@ if __name__ == "__main__":
 
 	# Get basenames, min and max image numbers (format: image-0.bmp)
 	for filename in files:
-		print filename
+		print(filename)
 		filename = os.path.splitext(filename)[0]
 		num = int(filename.split('-')[1])
 		minImage = min(minImage, num)
@@ -99,15 +118,15 @@ if __name__ == "__main__":
 
 		unpacked = numpy.unpackbits(imageData, axis = 1)
 
-		print unpacked
+		# print unpacked
 
 		stacked = numpy.column_stack(unpacked)
 
-		print stacked
+		# print stacked
 
 		packed = numpy.packbits(stacked, axis = 1)
 
-		print packed
+		# print packed
 
 		for byte in packed:
 			outputBytes.append(byte[1])
