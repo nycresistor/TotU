@@ -15,3 +15,22 @@ ncalls  tottime  percall  cumtime  percall filename:lineno(function)
         1    0.362    0.362    0.362    0.362 {built-in method concatenate}
   2457600    0.222    0.000    0.222    0.000 {method 'append' of 'bytearray' objects}
         4    0.001    0.000    0.188    0.047 __init__.py:1(<module>)
+
+
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.003    0.003   41.936   41.936 {execfile}
+        1   21.189   21.189   41.933   41.933 imageConverter.py:1(<module>)
+        1   11.848   11.848   11.848   11.848 imageConverter.py:32(rotate)
+        1    0.019    0.019    6.284    6.284 imageConverter.py:50(getImageData)
+       16    4.413    0.276    5.018    0.314 imageConverter.py:19(pixelsToBytes)
+       16    0.947    0.059    1.013    0.063 imageConverter.py:27(bytesToBits)
+        1    0.089    0.089    0.942    0.942 Image.py:27(<module>)
+        1    0.070    0.070    0.894    0.894 __init__.py:106(<module>)
+        1    0.000    0.000    0.807    0.807 _imaging.py:1(<module>)
+        1    0.009    0.009    0.807    0.807 _imaging.py:1(__bootstrap__)
+        1    0.020    0.020    0.709    0.709 pkg_resources.py:14(<module>)
+  2457600    0.693    0.000    0.693    0.000 {method 'append' of 'bytearray' objects}
+  2467612    0.584    0.000    0.584    0.000 {method 'append' of 'list' objects}
+        1    0.012    0.012    0.545    0.545 add_newdocs.py:9(<module>)
+        3    0.064    0.021    0.523    0.174 __init__.py:1(<module>)
+        1    0.000    0.000    0.458    0.458 pkg_resources.py:698(Environment)
