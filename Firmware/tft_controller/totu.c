@@ -85,11 +85,11 @@ int main (int argc, char *argv[])
     FILE * imageFile;
     for (int frame = 0; frame < numFrames; frame++)
     {
-    	frames[i] = (uint16_t *) calloc(frameSize, sizeof(uint16_t));
+    	frames[frame] = (uint16_t *) calloc(frameSize, sizeof(uint16_t));
         char filename[100];
         sprintf(filename, "%s/%02d.bin", inputfolder, frame);
 	    imageFile = fopen(filename, "rb");
-    	fread(frames[i], sizeof(uint16_t), frameSize, imageFile);
+    	fread(frames[frame], sizeof(uint16_t), frameSize, imageFile);
     }
 
     // Set up the GPMC and send TFT setup commands
@@ -108,7 +108,7 @@ int main (int argc, char *argv[])
     	
         for (int frame = 0; frame < numFrames; frame++)
     	{
-    		writeFramePregenerated(frames[frame], frameSize);
+		writeFramePregenerated(frames[frame], frameSize);
     	}
 
     	float fps = (1 / (((float) clock() / CLOCKS_PER_SEC) - startTime)) / 2;
