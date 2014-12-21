@@ -22,7 +22,9 @@ void begin_tft()
   gfd = open("/dev/mem", O_RDWR | O_SYNC);
   gpio1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);
   gpio2 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO2_ADDR);
-  // pinconf1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << 29) | (1 << 31)));
+  
+ // gpio1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << DC) | (1 << RESET)));
+ // gpio2[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << MUXS_0) | (1 << MUXS_1)));
 }
 
 void reset_tft()
@@ -37,6 +39,17 @@ void reset_tft()
   // pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
   set_gpio(gpio1, RESET);
   usleep(100000);
+}
+
+void activateBank(int bank)
+{
+	if (bank == 0) {
+		set_gpio(gpio2, MUXS_0);
+		clear_gpio(gpio2, MUXS_1);
+	} else {
+		clear_gpio(gpio2, MUXS_0);
+		set_gpio(gpio2, MUXS_1);
+	}
 }
 
 void setup_tft()

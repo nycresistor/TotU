@@ -68,7 +68,7 @@ int main (int argc, char *argv[])
     for (int frame = 0; frame < 100; frame++)
     {
         char filename[100];
-        sprintf(filename, "%s/%02d.bin", inputfolder, frame);
+        sprintf(filename, "%s/%02d-A.bin", inputfolder, frame);
         if (access(filename, F_OK) != -1) {
             numFrames = frame + 1;
         } else {
@@ -116,7 +116,8 @@ int main (int argc, char *argv[])
         for (int frame = 0; frame < numFrames; frame++)
     	{
             for (int bank = 0; bank < 2; bank++) {
-                writeFramePregenerated(frames[bank][frame], frameSize);
+                activateBank(bank);
+		writeFramePregenerated(frames[bank][frame], frameSize);
             }
     	}
 
