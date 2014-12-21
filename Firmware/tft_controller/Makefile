@@ -19,13 +19,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #==============================================================================================
 
-all: blank
+all: totu
 
-blank: blank.o tft.o gpmc.o 
-	g++ -o blank blank.o tft.o gpmc.o
+totu: totu.o tft.o gpmc.o 
+	g++ -o totu totu.o tft.o gpmc.o
 
-blank.o:
-	g++ -c blank.cpp
+totu.o:
+	g++ -c totu.c
 
 tft.o:
 	g++ -c tft.c
@@ -37,4 +37,4 @@ test:
 	g++ -o test test.c
 
 clean:
-	rm -rf blank blank.o tft.o gpmc.o
+	rm -rf totu totu.o tft.o gpmc.o
