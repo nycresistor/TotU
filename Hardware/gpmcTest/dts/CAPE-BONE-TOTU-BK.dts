@@ -1,0 +1,138 @@
+/*
+* pru dts file BB-BONE-PRU-00A0.dts
+*/
+
+/dts-v1/;
+/plugin/;
+
+/ {
+  compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+  /* identification */
+  part-number = "BB-BONE-TOTU-BK";
+  version = "00A0";
+
+  exclusive-use =
+  	// gpio 0: 7, 20
+  	
+  	// gpio 2: 6, 7, 8, 9, 10, 11, 12, 13
+  	"P8.45", "P8.46", "P8.43", "P8.44", "P8.41", "P8.42", "P8.39", "P8.40",
+
+	// gpio 3: 14, 15, 16, 17, 18, 19, 20, 21
+	"P9.31", "P9.29", "P9.30", "P9.28", "P9.42", "P9.27", "P9.41", P9.25";
+
+  fragment@0 {
+    target = <&am33xx_pinmux>;
+    __overlay__ {
+      mygpio: pinmux_mygpio {
+        pinctrl-single,pins = <
+        
+        // gpio 2
+        0x0a0 0x7	// P8.45
+        0x0a4 0x7	// P8.46
+        0x0a8 0x7	// P8.43
+        0x0ac 0x7	// P8.44
+        0x0b0 0x7	// P8.41
+        0x0b4 0x7	// P8.42
+        0x0b8 0x7	// P8.39
+        0x0bc 0x7	// P8.40
+
+        // gpio 3
+        0x190 0x7	// P9.31
+        0x194 0x7	// P9.29
+        0x198 0x7	// P9.30
+        0x19c 0x7	// P9.28
+        0x1a0 0x7	// P9.42B
+        0x1a4 0x7	// P9.27
+        0x1a8 0x7	// P9.41B
+        0x1ac 0x7	// P9.25
+
+        // gpio 0 (HI-Z for conflicting ports)
+        0x1b4 0x27	// P9.41A
+        0x164 0x27	// P9.42A
+
+        >;
+      };
+    };
+  };
+
+  fragment@1 {
+    target = <&ocp>;
+    __overlay__ {
+      test_helper: helper {
+        compatible = "bone-pinmux-helper";
+        pinctrl-names = "default";
+        pinctrl-0 = <&mygpio>;
+        status = "okay";
+      };
+    };
+  };
+
+  fragment@2{
+    target = <&pruss>;
+    __overlay__ {
+      status = "okay";
+    };
+  };
+
+/*
+  // import of am335x_pwm-00A0.dts
+  // but pru can't write to pwm?
+
+	fragment@3 {
+		target = <&epwmss0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@4 {
+		target = <&ehrpwm0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&ecap0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@6 {
+		target = <&epwmss1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@7 {
+		target = <&ehrpwm1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@8 {
+		target = <&epwmss2>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@9 {
+		target = <&ehrpwm2>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@10 {
+		target = <&ecap2>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+*/
+};
