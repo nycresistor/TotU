@@ -95,22 +95,30 @@ OUTPUT_LOOP:
 		//LBBO output0, data_addr, 0, 4*4
                 
                 SUB output0, output0, 1
- /*               SUB output1, output1, 1
+                SUB output1, output1, 1
                 SUB output2, output2, 1
-                SUB output3, output3, 1
-                SUB output4, output4, 1
-                SUB output5, output5, 1
-                SUB output6, output6, 1
-                SUB output7, output7, 1
-*/
+                //SUB output3, output3, 1
+                //SUB output4, output4, 1
+                //SUB output5, output5, 1
+                //SUB output6, output6, 1
+                //SUB output7, output7, 1
 
+                
+                MOV set_out, gpio2_mask
+                
                 QBNE SKIP0, output0, #0
-                MOV set_out, #0
+                CLR set_out.t6
                 SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
-                            
 SKIP0:
-		// advance to the next output
-		SUB count, count, 1
+                QBNE SKIP1, output1, #0
+                CLR set_out.t7
+                SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
+SKIP1:
+                QBNE SKIP2, output2, #0
+                CLR set_out.t8		
+                SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
+SKIP2:
+                SUB count, count, 1
 		QBA OUTPUT_LOOP
 
 EXIT:

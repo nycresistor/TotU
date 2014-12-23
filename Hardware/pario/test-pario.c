@@ -20,11 +20,16 @@ int main(void)
 	while (1)
 	{       
                 for (int i = 1; i < 256; i++) {
-                        p->cmd->output0 = i;
-                        usleep(10000);
+                        uint8_t r = (rand() % (255+1-0));
+                        p->cmd->output0 = r;
+                        p->cmd->output1 = i;
+                        p->cmd->output2 = 2*i;
+			usleep(10000);
                 }
 		for (int i = 255; i > 0; i--) {
 			p->cmd->output0 = i;
+			p->cmd->output1 = i;
+                        p->cmd->output2 = 2*i;
 			usleep(10000);
 		}
 	}

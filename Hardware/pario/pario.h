@@ -23,12 +23,24 @@ typedef struct
 {
 	uintptr_t phys_addr;
 	uint32_t period; // length in bytes is num_bits*4*4
-	uint32_t output0;
-	uint32_t gpio1_mask;
 	uint32_t gpio2_mask;
 	uint32_t gpio3_mask;
-	uint32_t clock_mask; // clock in gpio1, would be best in r30
-	uint32_t delay_time; // in 10 ns increments
+	uint32_t output0;
+	uint32_t output1;
+	uint32_t output2;
+	uint32_t output3;
+	uint32_t output4;
+	uint32_t output5;
+	uint32_t output6;
+	uint32_t output7;
+	uint32_t output8;
+	uint32_t output9;
+	uint32_t output10;
+	uint32_t output11;
+	uint32_t output12;
+	uint32_t output13;
+	uint32_t output14;
+	uint32_t output15;
 } pario_cmd_t;
 
 

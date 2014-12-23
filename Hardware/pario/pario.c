@@ -97,7 +97,7 @@ pario_init(
 		.output13	= 0,
 		.output14	= 0,
 		.output15	= 0,
-	}
+	};
 
 	pario_gpio_init(p->cmd);
 	pru_exec(pru, "./pario.bin");
