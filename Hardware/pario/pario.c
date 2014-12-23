@@ -23,12 +23,6 @@
  *
  * \todo: Find a way to unify this with the defines in the .p file
  */
-static const uint8_t gpios0[] = {
-};
-
-static const uint8_t gpios1[] = {
-};
-
 static const uint8_t gpios2[] = {
 	6, 7, 8, 9, 10, 11, 12, 13
 };
@@ -51,12 +45,6 @@ pario_gpio_init(
 	pario_cmd_t * const cmd
 )
 {
-	for (unsigned i = 0 ; i < ARRAY_COUNT(gpios1) ; i++)
-	{
-		pru_gpio(1, gpios1[i], 1, 0);
-		cmd->gpio1_mask |= 1 << gpios1[i];
-	}
-
 	for (unsigned i = 0 ; i < ARRAY_COUNT(gpios2) ; i++)
 	{
 		pru_gpio(2, gpios2[i], 1, 0);
@@ -91,13 +79,25 @@ pario_init(
 	*p->cmd = (pario_cmd_t) {
 		.phys_addr	= 0,
 		.period		= 0,
-		.output0	= 0,
-		.gpio1_mask	= 0,
 		.gpio2_mask	= 0,
 		.gpio3_mask	= 0,
-		.clock_mask	= 0,
-		.delay_time	= 0,
-	};
+		.output0	= 0,
+		.output1	= 0,
+		.output2	= 0,
+		.output3	= 0,
+		.output4	= 0,
+		.output5	= 0,
+		.output6	= 0,
+		.output7	= 0,
+		.output8	= 0,
+		.output9	= 0,
+		.output10	= 0,
+		.output11	= 0,
+		.output12	= 0,
+		.output13	= 0,
+		.output14	= 0,
+		.output15	= 0,
+	}
 
 	pario_gpio_init(p->cmd);
 	pru_exec(pru, "./pario.bin");

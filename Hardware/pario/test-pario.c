@@ -8,7 +8,6 @@ int main(void)
 {
 	pario_t * const p = pario_init(0);
 
-	//p->cmd->output0 = 10;
 
 	printf("virt: %p\n", (const void*) p->virt);
 	printf("phys: %p\n", (const void*) p->phys);

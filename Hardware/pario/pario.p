@@ -37,28 +37,32 @@ START:
 // The first 8 must agree with the struct pario_cmd_t in pario.h
 #define data_addr	r0
 #define count		r1
-#define output0 	r2
-#define gpio1_mask	r3
-#define gpio2_mask	r4
-#define gpio3_mask	r5
-#define clock_mask	r6
-#define delay_count	r7
-#define gpio0_base	r10
-#define gpio1_base	r11
-#define gpio2_base	r12
-#define gpio3_base	r13
+#define gpio2_mask	r2
+#define gpio3_mask	r3
+#define output0     r4
+#define output1     r5
+#define output2     r6
+#define output3     r7
+#define output4     r8
+#define output5     r9
+#define output6     r10
+#define output7     r11
+#define output8     r12
+#define output9     r13
+#define output10    r14
+#define output11    r15
+#define output12    r16
+#define output13    r17
+#define output14    r18
+#define output15    r19
 
-//define output0 	r14
-#define output1 	r15
-#define output2 	r16
-#define output3 	r17
-#define output4         r18
-#define output5         r19
-#define output6         r20
-#define output7         r21
+#define gpio0_base	r20
+#define gpio1_base	r21
+#define gpio2_base	r22
+#define gpio3_base	r23
 
-#define clr_out		r22
-#define set_out		r23 // must be clr_out+1
+#define clr_out		r24
+#define set_out		r25 // must be clr_out+1
 
 	MOV gpio0_base, GPIO0
 	MOV gpio1_base, GPIO1
