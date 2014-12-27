@@ -61,8 +61,8 @@ START:
 #define gpio2_base	r22
 #define gpio3_base	r23
 
-#define clr_out		r24
-#define set_out		r25 // must be clr_out+1
+#define set_out2	r24
+#define set_out3	r25
 
 	MOV gpio0_base, GPIO0
 	MOV gpio1_base, GPIO1
@@ -73,51 +73,90 @@ RESET:
 	MOV data_addr, 0
 	SBCO data_addr, CONST_PRUDRAM, 0, 4
 
-        MOV set_out, 0xFFFFFFFF
-        AND set_out, set_out, gpio2_mask
-        SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
-
 READ_LOOP:
         // Load the eight word command structure from the PRU DRAM, which is
 	// mapped into the user space.
-        LBCO      data_addr, CONST_PRUDRAM, 0, 8*4
+        LBCO      data_addr, CONST_PRUDRAM, 0, 20*4
 
         // Wait for a non-zero command
  //       QBEQ READ_LOOP, data_addr, #0
 
         // Command of 0xFF is the signal to exit
-  //      QBEQ EXIT, data_addr, #0xFF
+        QBEQ EXIT, data_addr, #0xFF
+
+        MOV set_out2, gpio2_mask
+        MOV set_out3, gpio3_mask
 
 OUTPUT_LOOP:
 		QBEQ RESET, count, #0
                 
-		// read four gpio outputs worth of data
-		//LBBO output0, data_addr, 0, 4*4
-                
                 SUB output0, output0, 1
                 SUB output1, output1, 1
                 SUB output2, output2, 1
-                //SUB output3, output3, 1
-                //SUB output4, output4, 1
-                //SUB output5, output5, 1
-                //SUB output6, output6, 1
-                //SUB output7, output7, 1
+                SUB output3, output3, 1
+                SUB output4, output4, 1
+                SUB output5, output5, 1
+                SUB output6, output6, 1
+                SUB output7, output7, 1
+                SUB output8, output8, 1
+                SUB output9, output9, 1
+                SUB output10, output10, 1
+                SUB output11, output11, 1
+                SUB output12, output12, 1
+                SUB output13, output13, 1
+                SUB output14, output14, 1
+                SUB output15, output15, 1
 
-                
-                MOV set_out, gpio2_mask
-                
                 QBNE SKIP0, output0, #0
-                CLR set_out.t6
-                SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
+                CLR set_out2.t6
 SKIP0:
                 QBNE SKIP1, output1, #0
-                CLR set_out.t7
-                SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
+                CLR set_out2.t7
 SKIP1:
                 QBNE SKIP2, output2, #0
-                CLR set_out.t8		
-                SBBO set_out, gpio2_base, GPIO_DATAOUT, 4
+                CLR set_out2.t8
 SKIP2:
+                QBNE SKIP3, output3, #0
+                CLR set_out2.t9
+SKIP3:
+                QBNE SKIP4, output4, #0
+                CLR set_out2.t10
+SKIP4:
+                QBNE SKIP5, output5, #0
+                CLR set_out2.t11
+SKIP5:
+                QBNE SKIP6, output6, #0
+                CLR set_out2.t12
+SKIP6:
+                QBNE SKIP7, output7, #0
+                CLR set_out2.t13
+SKIP7:
+                QBNE SKIP8, output8, #0
+                CLR set_out3.t14 
+SKIP8:
+                QBNE SKIP9, output9, #0
+                CLR set_out3.t15
+SKIP9:
+                QBNE SKIP10, output10, #0
+                CLR set_out3.t16
+SKIP10:
+                QBNE SKIP11, output11, #0
+                CLR set_out3.t17
+SKIP11:
+                QBNE SKIP12, output12, #0
+                CLR set_out3.t18
+SKIP12:
+                QBNE SKIP13, output13, #0
+                CLR set_out3.t19
+SKIP13:
+                QBNE SKIP14, output14, #0
+                CLR set_out3.t20
+SKIP14:
+                QBNE SKIP15, output15, #0
+                CLR set_out3.t21
+SKIP15:
+                SBBO set_out2, gpio2_base, GPIO_DATAOUT, 4
+                SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
                 SUB count, count, 1
 		QBA OUTPUT_LOOP
 

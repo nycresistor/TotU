@@ -12,25 +12,26 @@ int main(void)
 	printf("virt: %p\n", (const void*) p->virt);
 	printf("phys: %p\n", (const void*) p->phys);
 	printf("cmd:  %p\n", (const void*) p->cmd);
-	printf("output0:  %08x\n", p->cmd->output0);
-
+	printf("gpio2_mask:  %08x\n", p->cmd->gpio2_mask);
+	printf("gpio3_mask:  %08x\n", p->cmd->gpio3_mask);
 
 	p->cmd->period = 256;
 
 	while (1)
 	{       
                 for (int i = 1; i < 256; i++) {
-                        uint8_t r = (rand() % (255+1-0));
-                        p->cmd->output0 = r;
-                        p->cmd->output1 = i;
-                        p->cmd->output2 = 2*i;
-			usleep(10000);
+                        p->cmd->output0 = i;
+                        p->cmd->output1 = 256 - i;
+			p->cmd->output8 = i;
+			p->cmd->output9 = 256 - i;
+			usleep(1000);
                 }
 		for (int i = 255; i > 0; i--) {
 			p->cmd->output0 = i;
-			p->cmd->output1 = i;
-                        p->cmd->output2 = 2*i;
-			usleep(10000);
+                        p->cmd->output1 = 256 - i;
+			p->cmd->output8 = i;
+			p->cmd->output9 = 256 - i;
+			usleep(1000);
 		}
 	}
 
