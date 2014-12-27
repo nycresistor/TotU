@@ -30,7 +30,7 @@ def bytesToBits(bytes):
 	return up
 
 def rotate(data):
-	return zip(*data[::-1])
+	return list(zip(*data[::-1]))
 
 def getImageData(frameNum):
 	imageData = []
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
 
 		rotated = rotate(imageData)
-
+		imageData = None
 		# unpacked = numpy.unpackbits(imageData, axis = 1)
 
 		# # print unpacked
