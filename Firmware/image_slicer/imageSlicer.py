@@ -10,7 +10,7 @@ minImage = 1
 maxImage = 0
 
 images = []
-imageExt = ".bmp"
+ext = os.path.splitext(files[0])[1]
 
 basenames = []
 imageNames = {}
@@ -37,8 +37,7 @@ def getImageData(frameNum):
 	startGID = time.time()
 	for basename in basenames:
 		startBN = time.time()
-		openFile = os.path.join(openFolder, "%s-%s%s" % (basename, frameNum, imageExt))
-		print(openFile)
+		openFile = os.path.join(openFolder, "%s-%s%s" % (basename, frameNum, ext))
 		image = Image.open(openFile).convert("RGB")
 		print("\tLoading image %s (%s, %s)" % (openFile, image.size[0], image.size[1]))
 		
@@ -55,17 +54,16 @@ if __name__ == "__main__":
 	print("\n\n")
 
 	# Get basenames, min and max image numbers (format: image-0.bmp)
-	for path in files:
-		filename, ext = os.path.splitext(path)
-		if ext == ".bmp":
-			print(path)
-			num = int(filename.split('-')[1])
-			minImage = min(minImage, num)
-			maxImage = max(maxImage, num)
+	for filename in files:
+		print(filename)
+		filename = os.path.splitext(filename)[0]
+		num = int(filename.split('-')[1])
+		minImage = min(minImage, num)
+		maxImage = max(maxImage, num)
 
-			basename = filename.split('-')[0]
-			if basename not in basenames:
-				basenames.append(basename)
+		basename = filename.split('-')[0]
+		if basename not in basenames:
+			basenames.append(basename)
 
 	# Compile dict of image numbers vs basenames
 	for num in range(minImage, maxImage + 1):
@@ -87,8 +85,17 @@ if __name__ == "__main__":
 
 		rotated = rotate(imageData)
 		imageData = None
+		# unpacked = numpy.unpackbits(imageData, axis = 1)
+
+		# # print unpacked
+
+		# stacked = numpy.column_stack(unpacked)
+
+		# # print stacked
 
 		packed = numpy.packbits(rotated, axis = 1)
+
+		# print packed
 
 		for byte in packed:
 			outputBytes.append(byte[1])
