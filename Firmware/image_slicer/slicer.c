@@ -3,19 +3,28 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>     /* strcat */
+#include <dirent.h>
+#include <unistd.h>
 
 uint16_t imageData[16][76800];
+const char * outputfolder = "seq";
 
-void readImages(void)
+void readImages(char * inputfolder, int framenumber)
 {
 	uint8_t image[230400];
 
 	for (int i = 0; i < 16; i++)
 	{		
-		char fileName[100];
-		sprintf(fileName, "testgif/%d-1.bmp-RGB.bin", i);
-		printf("%s\n", fileName);
-		FILE * filePointer = fopen(fileName, "rb");
+		char filename[100];
+		sprintf(filename, "%s/%02d-%02d.rgb", inputfolder, framenumber, i);
+		printf("Reading from %s\n", filename);
+
+		if (access(filename, F_OK) == -1) {
+			printf("ERROR: Missing file: %s\n", filename);
+			exit(-1);
+		}
+
+		FILE * filePointer = fopen(filename, "rb");
 
 		fread(image, sizeof(uint8_t), 230400, filePointer);
 
@@ -52,13 +61,12 @@ const char *byte_to_binary(int x)
     return b;
 }
 
-void outputBinary(void)
+void outputBinary(char * filename)
 {
-	FILE * outputFile = fopen("seq/output.bin", "wb");
+	FILE * outputFile = fopen(filename, "wb");
 
 	for (int byte = 0; byte < 76800; byte++)
 	{
-
 		uint16_t * byteArray[16];
 		for (int x = 0; x < 16; x++)
 		{
@@ -88,8 +96,42 @@ void outputBinary(void)
 
 int main (int argc, char *argv[])
 {	
+	char * inputfolder = argv[1];
+	if (inputfolder == NULL)
+	{
+		printf("Input folder not specified.\n");
+		exit(-1);
+	}
+	if (argv[2] != NULL)
+	{
+		outputfolder = argv[2];
+	}
+	if (access(outputfolder, F_OK) == -1) {
+		printf("Output folder %s doesn't exist.\n", outputfolder);
+		exit(-1);
+	}
+
+	int numframes = 0;
+	for (int i = 0; i < 100; i++)
+	{
+		char filename[100];
+		sprintf(filename, "%s/%02d-00.rgb", inputfolder, i);
+		if (access(filename, F_OK) != -1) {
+			numframes = i + 1;
+		} else {
+			break;
+		}
+	}
+
+	printf("Found %d frames\n", numframes);
+
+	for (int frameno = 0; frameno < numframes; frameno++)
+	{
+		readImages(inputfolder, frameno);
+		char filename[100];
+		sprintf(filename, "%s/%02d.bin", outputfolder, frameno);
+		outputBinary(filename);
+	}
 	
-	readImages();
-	outputBinary();
 	
 }
