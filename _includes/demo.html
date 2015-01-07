@@ -57,10 +57,14 @@
 		opacity: 1;
 	}
 
+	canvas {
+		width: 800px;
+		height: 600px;
+	}
+
 </style>
 
 <video class="hide" width="320" height="240" autoplay></video>
-<canvas class="hide" id="threejs" width="320" height="240"></canvas>
 <audio src="/img/beep.wav" id="beep" preload="auto" ></audio>
 <audio src="/img/click.wav" id="click" preload="auto"></audio>
 
@@ -72,7 +76,7 @@
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
 		</div>
 		<div class="text-center">
-			<canvas id="app" width="800" height="600"></canvas>
+			<canvas id="app" width="320" height="240"></canvas>
 		</div>
 		<div id="btn-bar" class="text-center">
 			<img id="btn-photo" class="btn" src="/img/btn-photo.png" />

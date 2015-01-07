@@ -1,0 +1,15 @@
+<section id="blog">
+  <div class="container">
+  <h2 class="section-heading text-center">Blog</h2>
+  <h3 class="section-subheading text-center">All Posts</h3>
+
+  {% for post in site.posts %}
+  <div class="container">
+      <h4>{{ post.title }} <a href="{{ post.url }}"><i class="fa fa-link"></i></a></h4>
+      <h5>{{ post.date | date: "%b %-d, %Y" }}</h5>
+      <p class="section-text">{{ post.content }}</p>
+  </div>
+  <hr />
+  {% endfor %}
+</div>
+</section>
