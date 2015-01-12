@@ -6,10 +6,11 @@
     {% for post in site.posts limit:1 %}
     <div class="container">
         <h4>{{ post.title }} <a href="{{ post.url }}"><i class="fa fa-link"></i></a></h4>
-        <h5>{{ post.date | date: "%b %-d, %Y" }}</h5>
-        <p class="section-text">{{ post.excerpt }}</p>
+        <h5>{{ post.date | date: "%b %-d, %Y" }} &nbsp; ( <a href="http://localhost:4000/#team"> {{ post.author }} </a> )</h5>
+        <p class="section-text">{{ post.excerpt }}<a href="{{ post.url }}">Read More...</a></p>
 
     </div>
+
     {% endfor %}
 
     
