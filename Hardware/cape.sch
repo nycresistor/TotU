@@ -3757,102 +3757,6 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <label x="-12.7" y="53.34" size="1.4224" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="BL2" class="0">
-<segment>
-<wire x1="388.62" y1="60.96" x2="391.16" y2="60.96" width="0.1524" layer="91"/>
-<label x="391.16" y="60.96" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL3" class="0">
-<segment>
-<wire x1="388.62" y1="35.56" x2="391.16" y2="35.56" width="0.1524" layer="91"/>
-<label x="391.16" y="35.56" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL4" class="0">
-<segment>
-<wire x1="434.34" y1="60.96" x2="436.88" y2="60.96" width="0.1524" layer="91"/>
-<label x="436.88" y="60.96" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL5" class="0">
-<segment>
-<wire x1="434.34" y1="35.56" x2="436.88" y2="35.56" width="0.1524" layer="91"/>
-<label x="436.88" y="35.56" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL6" class="0">
-<segment>
-<wire x1="480.06" y1="60.96" x2="482.6" y2="60.96" width="0.1524" layer="91"/>
-<label x="482.6" y="60.96" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL7" class="0">
-<segment>
-<wire x1="480.06" y1="35.56" x2="482.6" y2="35.56" width="0.1524" layer="91"/>
-<label x="482.6" y="35.56" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL0" class="0">
-<segment>
-<wire x1="342.9" y1="60.96" x2="345.44" y2="60.96" width="0.1524" layer="91"/>
-<label x="345.44" y="60.96" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL1" class="0">
-<segment>
-<wire x1="342.9" y1="35.56" x2="345.44" y2="35.56" width="0.1524" layer="91"/>
-<label x="345.44" y="35.56" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL10" class="0">
-<segment>
-<wire x1="388.62" y1="116.84" x2="391.16" y2="116.84" width="0.1524" layer="91"/>
-<label x="391.16" y="116.84" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL11" class="0">
-<segment>
-<wire x1="388.62" y1="91.44" x2="391.16" y2="91.44" width="0.1524" layer="91"/>
-<label x="391.16" y="91.44" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL12" class="0">
-<segment>
-<wire x1="434.34" y1="116.84" x2="436.88" y2="116.84" width="0.1524" layer="91"/>
-<label x="436.88" y="116.84" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL13" class="0">
-<segment>
-<wire x1="434.34" y1="91.44" x2="436.88" y2="91.44" width="0.1524" layer="91"/>
-<label x="436.88" y="91.44" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL15" class="0">
-<segment>
-<wire x1="480.06" y1="91.44" x2="482.6" y2="91.44" width="0.1524" layer="91"/>
-<label x="482.6" y="91.44" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL8" class="0">
-<segment>
-<wire x1="342.9" y1="116.84" x2="345.44" y2="116.84" width="0.1524" layer="91"/>
-<label x="345.44" y="116.84" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL9" class="0">
-<segment>
-<wire x1="342.9" y1="91.44" x2="345.44" y2="91.44" width="0.1524" layer="91"/>
-<label x="345.44" y="91.44" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="BL14" class="0">
-<segment>
-<wire x1="480.06" y1="116.84" x2="482.6" y2="116.84" width="0.1524" layer="91"/>
-<label x="482.6" y="116.84" size="1.4224" layer="95" xref="yes"/>
-</segment>
-</net>
 <net name="1A" class="0">
 <segment>
 <pinref part="IC4" gate="G$1" pin="Y1"/>
@@ -5034,13 +4938,6 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <label x="195.58" y="162.56" size="1.4224" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N$22" class="0">
-<segment>
-<pinref part="U$9" gate="G$6" pin="6"/>
-<wire x1="-167.64" y1="45.72" x2="-167.64" y2="43.18" width="0.1524" layer="91"/>
-<label x="-167.64" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
-</segment>
-</net>
 <net name="BL-14-2" class="0">
 <segment>
 <pinref part="U$10" gate="G$7" pin="6"/>
@@ -5190,12 +5087,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-294.64" y1="45.72" x2="-294.64" y2="43.18" width="0.1524" layer="91"/>
 <label x="-294.64" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q1" gate="G$1" pin="D"/>
+<wire x1="332.74" y1="116.84" x2="330.2" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="330.2" y1="116.84" x2="330.2" y2="114.3" width="0.1524" layer="91"/>
+<label x="332.74" y="116.84" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-6-2" class="0">
 <segment>
 <pinref part="U$9" gate="G$9" pin="6"/>
 <wire x1="-287.02" y1="76.2" x2="-287.02" y2="78.74" width="0.1524" layer="91"/>
 <label x="-287.02" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q1" gate="G$2" pin="D"/>
+<wire x1="332.74" y1="91.44" x2="330.2" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="330.2" y1="91.44" x2="330.2" y2="88.9" width="0.1524" layer="91"/>
+<label x="332.74" y="91.44" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-7-1" class="0">
@@ -5204,12 +5113,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-269.24" y1="45.72" x2="-269.24" y2="43.18" width="0.1524" layer="91"/>
 <label x="-269.24" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q10" gate="G$1" pin="D"/>
+<wire x1="378.46" y1="116.84" x2="375.92" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="116.84" x2="375.92" y2="114.3" width="0.1524" layer="91"/>
+<label x="378.46" y="116.84" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-2-1" class="0">
 <segment>
 <pinref part="U$9" gate="G$3" pin="6"/>
 <wire x1="-243.84" y1="45.72" x2="-243.84" y2="43.18" width="0.1524" layer="91"/>
 <label x="-243.84" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q11" gate="G$1" pin="D"/>
+<wire x1="424.18" y1="116.84" x2="421.64" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="421.64" y1="116.84" x2="421.64" y2="114.3" width="0.1524" layer="91"/>
+<label x="424.18" y="116.84" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-3-1" class="0">
@@ -5218,12 +5139,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-218.44" y1="45.72" x2="-218.44" y2="43.18" width="0.1524" layer="91"/>
 <label x="-218.44" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q13" gate="G$2" pin="D"/>
+<wire x1="332.74" y1="35.56" x2="330.2" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="330.2" y1="35.56" x2="330.2" y2="33.02" width="0.1524" layer="91"/>
+<label x="332.74" y="35.56" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-13-1" class="0">
 <segment>
 <pinref part="U$9" gate="G$5" pin="6"/>
 <wire x1="-193.04" y1="45.72" x2="-193.04" y2="43.18" width="0.1524" layer="91"/>
 <label x="-193.04" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q12" gate="G$2" pin="D"/>
+<wire x1="469.9" y1="91.44" x2="467.36" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="467.36" y1="91.44" x2="467.36" y2="88.9" width="0.1524" layer="91"/>
+<label x="469.9" y="91.44" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-9-1" class="0">
@@ -5232,12 +5165,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-142.24" y1="45.72" x2="-142.24" y2="43.18" width="0.1524" layer="91"/>
 <label x="-142.24" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q15" gate="G$2" pin="D"/>
+<wire x1="424.18" y1="35.56" x2="421.64" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="421.64" y1="35.56" x2="421.64" y2="33.02" width="0.1524" layer="91"/>
+<label x="424.18" y="35.56" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-10-1" class="0">
 <segment>
 <pinref part="U$9" gate="G$8" pin="6"/>
 <wire x1="-116.84" y1="45.72" x2="-116.84" y2="43.18" width="0.1524" layer="91"/>
 <label x="-116.84" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q16" gate="G$2" pin="D"/>
+<wire x1="469.9" y1="35.56" x2="467.36" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="467.36" y1="35.56" x2="467.36" y2="33.02" width="0.1524" layer="91"/>
+<label x="469.9" y="35.56" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-7-2" class="0">
@@ -5246,12 +5191,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-261.62" y1="76.2" x2="-261.62" y2="78.74" width="0.1524" layer="91"/>
 <label x="-261.62" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q10" gate="G$2" pin="D"/>
+<wire x1="378.46" y1="91.44" x2="375.92" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="91.44" x2="375.92" y2="88.9" width="0.1524" layer="91"/>
+<label x="378.46" y="91.44" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-2-2" class="0">
 <segment>
 <pinref part="U$9" gate="G$11" pin="6"/>
 <wire x1="-236.22" y1="76.2" x2="-236.22" y2="78.74" width="0.1524" layer="91"/>
 <label x="-236.22" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q11" gate="G$2" pin="D"/>
+<wire x1="424.18" y1="91.44" x2="421.64" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="421.64" y1="91.44" x2="421.64" y2="88.9" width="0.1524" layer="91"/>
+<label x="424.18" y="91.44" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-3-2" class="0">
@@ -5260,12 +5217,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-210.82" y1="76.2" x2="-210.82" y2="78.74" width="0.1524" layer="91"/>
 <label x="-210.82" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q13" gate="G$1" pin="D"/>
+<wire x1="332.74" y1="60.96" x2="330.2" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="330.2" y1="60.96" x2="330.2" y2="58.42" width="0.1524" layer="91"/>
+<label x="332.74" y="60.96" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-13-2" class="0">
 <segment>
 <pinref part="U$9" gate="G$13" pin="6"/>
 <wire x1="-185.42" y1="76.2" x2="-185.42" y2="78.74" width="0.1524" layer="91"/>
 <label x="-185.42" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q12" gate="G$1" pin="D"/>
+<wire x1="469.9" y1="116.84" x2="467.36" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="467.36" y1="116.84" x2="467.36" y2="114.3" width="0.1524" layer="91"/>
+<label x="469.9" y="116.84" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-12-2" class="0">
@@ -5274,6 +5243,12 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-160.02" y1="76.2" x2="-160.02" y2="78.74" width="0.1524" layer="91"/>
 <label x="-160.02" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q14" gate="G$1" pin="D"/>
+<wire x1="378.46" y1="60.96" x2="375.92" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="60.96" x2="375.92" y2="58.42" width="0.1524" layer="91"/>
+<label x="378.46" y="60.96" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-9-2" class="0">
 <segment>
@@ -5281,12 +5256,24 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <wire x1="-134.62" y1="76.2" x2="-134.62" y2="78.74" width="0.1524" layer="91"/>
 <label x="-134.62" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="Q15" gate="G$1" pin="D"/>
+<wire x1="424.18" y1="60.96" x2="421.64" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="421.64" y1="60.96" x2="421.64" y2="58.42" width="0.1524" layer="91"/>
+<label x="424.18" y="60.96" size="1.27" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BL-10-2" class="0">
 <segment>
 <pinref part="U$9" gate="G$16" pin="6"/>
 <wire x1="-109.22" y1="76.2" x2="-109.22" y2="78.74" width="0.1524" layer="91"/>
 <label x="-109.22" y="78.74" size="1.4224" layer="95" rot="R90" xref="yes"/>
+</segment>
+<segment>
+<pinref part="Q16" gate="G$1" pin="D"/>
+<wire x1="469.9" y1="60.96" x2="467.36" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="467.36" y1="60.96" x2="467.36" y2="58.42" width="0.1524" layer="91"/>
+<label x="469.9" y="60.96" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BL-11-2" class="0">
@@ -5703,116 +5690,17 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <label x="251.46" y="60.96" size="1.4224" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="Q13" gate="G$1" pin="D"/>
-<wire x1="332.74" y1="60.96" x2="330.2" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="330.2" y1="60.96" x2="330.2" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$6" class="0">
-<segment>
-<pinref part="Q13" gate="G$2" pin="D"/>
-<wire x1="332.74" y1="35.56" x2="330.2" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="330.2" y1="35.56" x2="330.2" y2="33.02" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$9" class="0">
-<segment>
-<pinref part="Q14" gate="G$1" pin="D"/>
-<wire x1="378.46" y1="60.96" x2="375.92" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="375.92" y1="60.96" x2="375.92" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$10" class="0">
+<net name="BL-12-1" class="0">
 <segment>
 <pinref part="Q14" gate="G$2" pin="D"/>
 <wire x1="378.46" y1="35.56" x2="375.92" y2="35.56" width="0.1524" layer="91"/>
 <wire x1="375.92" y1="35.56" x2="375.92" y2="33.02" width="0.1524" layer="91"/>
+<label x="378.46" y="35.56" size="1.27" layer="95" xref="yes"/>
 </segment>
-</net>
-<net name="N$11" class="0">
 <segment>
-<pinref part="Q15" gate="G$1" pin="D"/>
-<wire x1="424.18" y1="60.96" x2="421.64" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="421.64" y1="60.96" x2="421.64" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$12" class="0">
-<segment>
-<pinref part="Q15" gate="G$2" pin="D"/>
-<wire x1="424.18" y1="35.56" x2="421.64" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="421.64" y1="35.56" x2="421.64" y2="33.02" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$13" class="0">
-<segment>
-<pinref part="Q16" gate="G$1" pin="D"/>
-<wire x1="469.9" y1="60.96" x2="467.36" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="467.36" y1="60.96" x2="467.36" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$14" class="0">
-<segment>
-<pinref part="Q16" gate="G$2" pin="D"/>
-<wire x1="469.9" y1="35.56" x2="467.36" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="467.36" y1="35.56" x2="467.36" y2="33.02" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="Q1" gate="G$1" pin="D"/>
-<wire x1="332.74" y1="116.84" x2="330.2" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="330.2" y1="116.84" x2="330.2" y2="114.3" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$16" class="0">
-<segment>
-<pinref part="Q1" gate="G$2" pin="D"/>
-<wire x1="332.74" y1="91.44" x2="330.2" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="330.2" y1="91.44" x2="330.2" y2="88.9" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$17" class="0">
-<segment>
-<pinref part="Q10" gate="G$1" pin="D"/>
-<wire x1="378.46" y1="116.84" x2="375.92" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="375.92" y1="116.84" x2="375.92" y2="114.3" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$18" class="0">
-<segment>
-<pinref part="Q10" gate="G$2" pin="D"/>
-<wire x1="378.46" y1="91.44" x2="375.92" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="375.92" y1="91.44" x2="375.92" y2="88.9" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$19" class="0">
-<segment>
-<pinref part="Q11" gate="G$1" pin="D"/>
-<wire x1="424.18" y1="116.84" x2="421.64" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="421.64" y1="116.84" x2="421.64" y2="114.3" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$20" class="0">
-<segment>
-<pinref part="Q11" gate="G$2" pin="D"/>
-<wire x1="424.18" y1="91.44" x2="421.64" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="421.64" y1="91.44" x2="421.64" y2="88.9" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$21" class="0">
-<segment>
-<pinref part="Q12" gate="G$1" pin="D"/>
-<wire x1="469.9" y1="116.84" x2="467.36" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="467.36" y1="116.84" x2="467.36" y2="114.3" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$23" class="0">
-<segment>
-<pinref part="Q12" gate="G$2" pin="D"/>
-<wire x1="469.9" y1="91.44" x2="467.36" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="467.36" y1="91.44" x2="467.36" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="U$9" gate="G$6" pin="6"/>
+<wire x1="-167.64" y1="45.72" x2="-167.64" y2="43.18" width="0.1524" layer="91"/>
+<label x="-167.64" y="43.18" size="1.4224" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
 </nets>
