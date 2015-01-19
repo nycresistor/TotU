@@ -159,7 +159,7 @@
 <wire x1="0" y1="3.5" x2="0" y2="0" width="0" layer="20"/>
 <text x="111.652515625" y="61.93334375" size="1.5" layer="1" font="vector" ratio="11" rot="R45">Temple of the
 Unticketed</text>
-<text x="112.676778125" y="60.45760625" size="1" layer="1" font="vector" ratio="10" rot="R45">Rev B 2014</text>
+<text x="112.676778125" y="60.45760625" size="1" layer="1" font="vector" ratio="10" rot="R45">Rev B 2015</text>
 <wire x1="114.6347375" y1="75.059296875" x2="114.63285" y2="75.0398625" width="0.1524" layer="29"/>
 <wire x1="114.63285" y1="75.0398625" x2="114.61090625" y2="74.911615625" width="0.1524" layer="29"/>
 <wire x1="114.61090625" y1="74.911615625" x2="114.5696" y2="74.77295625" width="0.1524" layer="29"/>
@@ -566,7 +566,7 @@ Unticketed</text>
 <wire x1="107.612865625" y1="71.708415625" x2="107.5886625" y2="71.700809375" width="0" layer="19"/>
 <text x="111.652515625" y="61.93334375" size="1.5" layer="29" font="vector" ratio="11" rot="R45">Temple of the
 Unticketed</text>
-<text x="112.676778125" y="60.45760625" size="1" layer="29" font="vector" ratio="10" rot="R45">Rev B 2014</text>
+<text x="112.676778125" y="60.45760625" size="1" layer="29" font="vector" ratio="10" rot="R45">Rev B 2015</text>
 <text x="98.7" y="51.8" size="3.81" layer="1">CROSSOVER</text>
 <text x="98.8" y="57" size="3.81" layer="1">NO</text>
 <text x="112" y="46.8" size="3.81" layer="1">CABLES</text>
