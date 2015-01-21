@@ -3289,8 +3289,12 @@ by exp-lbrs.ulp</description>
 <part name="GND21" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND22" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY8" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="IC4" library="cape" deviceset="74VHC541" device=""/>
-<part name="IC5" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC4" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
+<part name="IC5" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND24" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="VCC3V3" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
@@ -3300,47 +3304,49 @@ by exp-lbrs.ulp</description>
 <part name="GND25" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND26" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q2" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND10" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q3" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND11" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q4" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND13" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND15" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q5" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND28" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND29" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q6" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND30" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND31" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q7" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND32" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND33" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q8" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND34" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q9" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND36" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND37" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY2" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="IC2" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC2" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND38" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="C6" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
@@ -3348,74 +3354,90 @@ by exp-lbrs.ulp</description>
 <part name="U$4" library="adafruit" deviceset="FIDUCIAL" device=""/>
 <part name="U$5" library="adafruit" deviceset="FIDUCIAL" device=""/>
 <part name="U$6" library="adafruit" deviceset="FIDUCIAL" device=""/>
-<part name="J3" library="cape" deviceset="RJ45-8P8C-16" device="FCI-16"/>
+<part name="J3" library="cape" deviceset="RJ45-8P8C-16" device="FCI-16">
+<attribute name="PARTNO" value="10118074-500A010LF"/>
+</part>
 <part name="GND5" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND6" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="J2" library="cape" deviceset="RJ45-8P8C-16" device="FCI-16"/>
+<part name="J2" library="cape" deviceset="RJ45-8P8C-16" device="FCI-16">
+<attribute name="PARTNO" value="10118074-500A010LF"/>
+</part>
 <part name="GND7" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q1" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND14" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND16" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q10" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND23" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND27" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q11" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND40" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND41" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q12" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND42" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND43" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q13" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND44" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND45" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q14" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND46" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND47" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q15" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND48" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND49" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q16" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="DMN6040SSD-13"/>
 </part>
 <part name="GND50" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND51" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="IC1" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC1" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="VCC3V2" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="C1" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
 <part name="GND52" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="IC3" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC3" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND54" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="VCC3V4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="C2" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
 <part name="GND55" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="IC6" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC6" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="VCC3V5" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="C3" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
 <part name="GND53" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="IC7" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC7" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND56" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="VCC3V6" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
 <part name="GND57" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="IC8" library="cape" deviceset="74VHC541" device=""/>
-<part name="IC9" library="cape" deviceset="74VHC541" device=""/>
+<part name="IC8" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
+<part name="IC9" library="cape" deviceset="74VHC541" device="">
+<attribute name="PARTNO" value="MC74LCX245DTR2G"/>
+</part>
 <part name="GND58" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND59" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="VCC3V7" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
@@ -3424,18 +3446,36 @@ by exp-lbrs.ulp</description>
 <part name="C7" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
 <part name="GND60" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND61" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R1" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R2" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R3" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R4" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R5" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R6" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R7" library="cape" deviceset="RESISTOR-X8" device="0603"/>
+<part name="R1" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R2" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R3" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R4" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R5" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R6" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R7" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
 <part name="J1" library="cape" deviceset="MOLEX-P4" device=""/>
 <part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
 <part name="GND62" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R8" library="cape" deviceset="RESISTOR-X8" device="0603"/>
-<part name="R9" library="cape" deviceset="RESISTOR-X8" device="0603"/>
+<part name="R8" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
+<part name="R9" library="cape" deviceset="RESISTOR-X8" device="0603">
+<attribute name="PARTNO" value="742C163220JP"/>
+</part>
 <part name="VCC3V8" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="VCC5V" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="VCC3V9" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
@@ -3508,8 +3548,12 @@ by exp-lbrs.ulp</description>
 <instance part="GND21" gate="1" x="254" y="93.98" rot="R90"/>
 <instance part="GND22" gate="1" x="177.8" y="93.98" rot="R270"/>
 <instance part="SUPPLY8" gate="G$1" x="172.72" y="27.94"/>
-<instance part="IC4" gate="G$1" x="2.54" y="81.28"/>
-<instance part="IC5" gate="G$1" x="2.54" y="40.64"/>
+<instance part="IC4" gate="G$1" x="2.54" y="81.28">
+<attribute name="PARTNO" x="2.54" y="81.28" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="IC5" gate="G$1" x="2.54" y="40.64">
+<attribute name="PARTNO" x="2.54" y="40.64" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND3" gate="1" x="17.78" y="58.42"/>
 <instance part="GND24" gate="1" x="17.78" y="17.78"/>
 <instance part="VCC3V3" gate="G$1" x="43.18" y="33.02"/>
@@ -3567,7 +3611,9 @@ by exp-lbrs.ulp</description>
 <instance part="GND36" gate="1" x="330.2" y="144.78"/>
 <instance part="GND37" gate="1" x="330.2" y="170.18"/>
 <instance part="SUPPLY2" gate="G$1" x="266.7" y="25.4"/>
-<instance part="IC2" gate="G$1" x="2.54" y="-2.54"/>
+<instance part="IC2" gate="G$1" x="2.54" y="-2.54">
+<attribute name="PARTNO" x="2.54" y="-2.54" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND38" gate="1" x="17.78" y="-25.4"/>
 <instance part="SUPPLY4" gate="G$1" x="43.18" y="-10.16"/>
 <instance part="C6" gate="G$1" x="27.94" y="-17.78"/>
@@ -3575,7 +3621,9 @@ by exp-lbrs.ulp</description>
 <instance part="U$4" gate="G$1" x="-147.32" y="15.24"/>
 <instance part="U$5" gate="G$1" x="-132.08" y="20.32"/>
 <instance part="U$6" gate="G$1" x="-139.7" y="20.32"/>
-<instance part="J3" gate="G$1" x="-289.56" y="53.34" rot="R90"/>
+<instance part="J3" gate="G$1" x="-289.56" y="53.34" rot="R90">
+<attribute name="PARTNO" x="-289.56" y="53.34" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J3" gate="G$2" x="-264.16" y="53.34" rot="R90"/>
 <instance part="J3" gate="G$3" x="-238.76" y="53.34" rot="R90"/>
 <instance part="J3" gate="G$4" x="-213.36" y="53.34" rot="R90"/>
@@ -3593,7 +3641,9 @@ by exp-lbrs.ulp</description>
 <instance part="J3" gate="G$16" x="-114.3" y="68.58" rot="R270"/>
 <instance part="GND5" gate="1" x="-93.98" y="30.48" rot="R90"/>
 <instance part="GND6" gate="1" x="-93.98" y="91.44" rot="R90"/>
-<instance part="J2" gate="G$1" x="-289.56" y="134.62" rot="R90"/>
+<instance part="J2" gate="G$1" x="-289.56" y="134.62" rot="R90">
+<attribute name="PARTNO" x="-289.56" y="134.62" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J2" gate="G$2" x="-264.16" y="134.62" rot="R90"/>
 <instance part="J2" gate="G$3" x="-238.76" y="134.62" rot="R90"/>
 <instance part="J2" gate="G$4" x="-213.36" y="134.62" rot="R90"/>
@@ -3659,28 +3709,40 @@ by exp-lbrs.ulp</description>
 <instance part="Q16" gate="G$2" x="467.36" y="27.94"/>
 <instance part="GND50" gate="1" x="467.36" y="17.78"/>
 <instance part="GND51" gate="1" x="467.36" y="43.18"/>
-<instance part="IC1" gate="G$1" x="-43.18" y="-53.34"/>
+<instance part="IC1" gate="G$1" x="-43.18" y="-53.34">
+<attribute name="PARTNO" x="-43.18" y="-53.34" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND4" gate="1" x="-27.94" y="-76.2"/>
 <instance part="VCC3V2" gate="G$1" x="-2.54" y="-60.96"/>
 <instance part="C1" gate="G$1" x="-17.78" y="-68.58"/>
 <instance part="GND52" gate="1" x="-58.42" y="-71.12"/>
-<instance part="IC3" gate="G$1" x="-43.18" y="-104.14"/>
+<instance part="IC3" gate="G$1" x="-43.18" y="-104.14">
+<attribute name="PARTNO" x="-43.18" y="-104.14" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND54" gate="1" x="-27.94" y="-127"/>
 <instance part="VCC3V4" gate="G$1" x="-2.54" y="-111.76"/>
 <instance part="C2" gate="G$1" x="-17.78" y="-119.38"/>
 <instance part="GND55" gate="1" x="-58.42" y="-121.92"/>
-<instance part="IC6" gate="G$1" x="76.2" y="-53.34"/>
+<instance part="IC6" gate="G$1" x="76.2" y="-53.34">
+<attribute name="PARTNO" x="76.2" y="-53.34" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND2" gate="1" x="91.44" y="-76.2"/>
 <instance part="VCC3V5" gate="G$1" x="116.84" y="-63.5"/>
 <instance part="C3" gate="G$1" x="101.6" y="-68.58"/>
 <instance part="GND53" gate="1" x="60.96" y="-71.12"/>
-<instance part="IC7" gate="G$1" x="76.2" y="-104.14"/>
+<instance part="IC7" gate="G$1" x="76.2" y="-104.14">
+<attribute name="PARTNO" x="76.2" y="-104.14" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND56" gate="1" x="91.44" y="-127"/>
 <instance part="VCC3V6" gate="G$1" x="116.84" y="-111.76"/>
 <instance part="C4" gate="G$1" x="101.6" y="-119.38"/>
 <instance part="GND57" gate="1" x="60.96" y="-121.92"/>
-<instance part="IC8" gate="G$1" x="81.28" y="81.28"/>
-<instance part="IC9" gate="G$1" x="81.28" y="40.64"/>
+<instance part="IC8" gate="G$1" x="81.28" y="81.28">
+<attribute name="PARTNO" x="81.28" y="81.28" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="IC9" gate="G$1" x="81.28" y="40.64">
+<attribute name="PARTNO" x="81.28" y="40.64" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND58" gate="1" x="96.52" y="58.42"/>
 <instance part="GND59" gate="1" x="96.52" y="17.78"/>
 <instance part="VCC3V7" gate="G$1" x="121.92" y="33.02"/>
@@ -3689,18 +3751,36 @@ by exp-lbrs.ulp</description>
 <instance part="C7" gate="G$1" x="106.68" y="25.4"/>
 <instance part="GND60" gate="1" x="66.04" y="63.5"/>
 <instance part="GND61" gate="1" x="66.04" y="22.86"/>
-<instance part="R1" gate="G$1" x="101.6" y="86.36" rot="MR0"/>
-<instance part="R2" gate="G$1" x="101.6" y="45.72" rot="MR0"/>
-<instance part="R3" gate="G$1" x="27.94" y="86.36" rot="MR0"/>
-<instance part="R4" gate="G$1" x="22.86" y="45.72" rot="MR0"/>
-<instance part="R5" gate="G$1" x="22.86" y="2.54" rot="MR0"/>
-<instance part="R6" gate="G$1" x="96.52" y="-48.26" rot="MR0"/>
-<instance part="R7" gate="G$1" x="96.52" y="-99.06" rot="MR0"/>
+<instance part="R1" gate="G$1" x="101.6" y="86.36" rot="MR0">
+<attribute name="PARTNO" x="101.6" y="86.36" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R2" gate="G$1" x="101.6" y="45.72" rot="MR0">
+<attribute name="PARTNO" x="101.6" y="45.72" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R3" gate="G$1" x="27.94" y="86.36" rot="MR0">
+<attribute name="PARTNO" x="27.94" y="86.36" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R4" gate="G$1" x="22.86" y="45.72" rot="MR0">
+<attribute name="PARTNO" x="22.86" y="45.72" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R5" gate="G$1" x="22.86" y="2.54" rot="MR0">
+<attribute name="PARTNO" x="22.86" y="2.54" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R6" gate="G$1" x="96.52" y="-48.26" rot="MR0">
+<attribute name="PARTNO" x="96.52" y="-48.26" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R7" gate="G$1" x="96.52" y="-99.06" rot="MR0">
+<attribute name="PARTNO" x="96.52" y="-99.06" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="J1" gate="G$1" x="-157.48" y="-22.86"/>
 <instance part="SUPPLY5" gate="G$1" x="-137.16" y="2.54"/>
 <instance part="GND62" gate="1" x="-137.16" y="-27.94"/>
-<instance part="R8" gate="G$1" x="-22.86" y="-48.26" rot="MR0"/>
-<instance part="R9" gate="G$1" x="-22.86" y="-99.06" rot="MR0"/>
+<instance part="R8" gate="G$1" x="-22.86" y="-48.26" rot="MR0">
+<attribute name="PARTNO" x="-22.86" y="-48.26" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="R9" gate="G$1" x="-22.86" y="-99.06" rot="MR0">
+<attribute name="PARTNO" x="-22.86" y="-99.06" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="VCC3V8" gate="G$1" x="-58.42" y="-63.5" rot="R90"/>
 <instance part="VCC5V" gate="G$1" x="-17.78" y="-12.7" rot="R90"/>
 <instance part="VCC3V9" gate="G$1" x="-17.78" y="30.48" rot="R90"/>
