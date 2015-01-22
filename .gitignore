@@ -5,3 +5,4 @@
 *.swp
 *.bin
 .DS_Store
+_site
