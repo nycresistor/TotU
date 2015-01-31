@@ -893,3 +893,10 @@ body {
     z-index: 1;
     left: 0;
 }
+
+#virtual {
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
