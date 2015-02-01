@@ -1,0 +1,5 @@
+ifconfig usb0 192.168.2.2
+route add gw 192.168.2.1
+echo '8.8.8.8' > /etc/resolv.conf
+
+dtc -O dtb -o CAPE-BONE-OCTO-00A0.dtbo -b 0 -@ cape-bone-octo.dts
