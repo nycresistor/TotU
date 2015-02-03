@@ -23,11 +23,11 @@ var TOTUEMU = (function() {
 		var material = new THREE.MeshFaceMaterial([m3, m2, m1, m1, m3, m2]);
 
 		var mesh = new THREE.Mesh(geometry, material);
-
-		scene.add(mesh);
 		mesh.rotateOnAxis(yaxis, rx);
 		mesh.translateZ(radius);
 		mesh.translateX(radius);
+
+		scene.add(mesh);
 		return mesh;
 	};
 	
@@ -39,8 +39,7 @@ var TOTUEMU = (function() {
 		material.side = THREE.BackSide;
 
 		var mesh = new THREE.Mesh(geometry, material);
-		//mesh.rotateOnAxis(xaxis, -Math.PI/2);
-		mesh.translateZ(-4);
+		mesh.translateY(-4);
 
 		scene.add(mesh);
 		return mesh;
@@ -53,8 +52,8 @@ var TOTUEMU = (function() {
         var material = new THREE.MeshLambertMaterial( { map: map, color: 0x010101, fog: false } );
 		
 		var mesh = new THREE.Mesh(geometry, material);
+		mesh.translateY(-4);
 		mesh.rotateOnAxis(xaxis, -Math.PI/2);
-		mesh.translateZ(-4);
 
 		scene.add(mesh);
 		return mesh;
