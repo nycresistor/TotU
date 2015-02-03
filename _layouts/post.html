@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+    <body id="page-top" class="index">
+
+    {% include header.html %}
+    <div class="container">
+      <h4>{{ page.title }} <a href="{{ page.url }}"><i class="fa fa-link"></i></a></h4>
+      <h5>{{ page.date | date: "%b %-d, %Y" }} &nbsp; ( <a href="http://localhost:4000/#team"> {{ page.author }} </a> )</h5>
+      <p class="section-text">{{ content }}</p>
+  </div>
+  <br/>
+  <div class="container">
+      <h4><a href="/blog">All blog posts</a></h4>
+    </div> 
+
+    <hr/>
+    {% include footer.html %}
+
+    </body>
+</html>

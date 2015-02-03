@@ -1,0 +1,95 @@
+<style>
+	body { font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;}
+	#inner { margin-top: 100px; }
+	canvas { border: 1px solid black;  }	
+	#countdown-bar {
+		background-color: #f23d43;
+		color: white;
+		font-size: 40px;
+		text-align: center;
+		display:none;
+	}
+
+	#countdown-bar span {
+		width: 40px;
+		margin-left: 20px;
+		margin-right: 20px;
+		opacity: 0.4;
+	}
+
+	#countdown-bar span.active {
+		opacity: 1.0;
+	}
+
+	#success { display: none; }
+
+	#flash {
+		position: fixed;
+		background-color: white;
+		z-index: 100000;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: none;
+	}
+
+	.fade { 
+		transition: opacity 0.5s ease; 
+		-webkit-transition: opacity 0.5s ease; 
+		-moz-transition: opacity 0.5s ease; 
+		-ms-transition: opacity 0.5s ease; 
+
+	}
+	
+	.nofade { 
+		transition: none; 
+		-webkit-transition: none;
+		-moz-transition: none;
+		-ms-transition: none;
+	}
+
+	.transparent {
+		opacity: 0 !important;
+	}
+
+	.opaque {
+		opacity: 1;
+	}
+
+	canvas {
+		width: 800px;
+		height: 600px;
+	}
+
+</style>
+
+<video class="hide" width="320" height="240" autoplay></video>
+<audio src="/img/beep.wav" id="beep" preload="auto" ></audio>
+<audio src="/img/click.wav" id="click" preload="auto"></audio>
+
+<div id="flash" class="transparent"></div>
+<div class="container">
+	<div id="inner">
+		<div class="alert alert-info" id="success">
+			Your photos have been submitted.  They will appear on the temple soon.
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+		</div>
+		<div class="text-center">
+			<canvas id="app" width="320" height="240"></canvas>
+		</div>
+		<div id="btn-bar" class="text-center">
+			<img id="btn-photo" class="btn" src="/img/btn-photo.png" />
+			<img id="btn-send" class="btn" disabled="disabled" src="/img/btn-send-inactive.png" />
+		</div>
+		<div id="countdown-bar">
+			<span id="countdown-1">3</span>
+			<span id="countdown-2">2</span>
+			<span id="countdown-3">1</span>
+			<span id="countdown-4"><img src="/img/icn-photo.png"></span>
+			<span id="countdown-5"><img src="/img/icn-photo.png"></span>
+			<span id="countdown-6"><img src="/img/icn-photo.png"></span>
+			<span id="countdown-7"><img src="/img/icn-photo.png"></span>
+		</div>
+	</div>
+</div>

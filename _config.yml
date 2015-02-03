@@ -1,0 +1,43 @@
+url: http://templeoftheunticketed.net
+baseurl: 
+
+# Site settings
+title: The Temple of the Unticketed
+email: totu@nycresistor.com
+description: "The Temple of the Unticketed"
+
+# Color settings (hex-codes without the leading hash-tag)
+color:
+  primary: cc9933
+  secondary: 333 
+  secondary-dark: 000
+
+# Team names, titles and social links
+people:
+- name: Justin Day
+  pic: 2
+  position: Project Lead, Web App, Backend
+  social:
+    - title: twitter
+      url: https://twitter.com/potatono
+    - title: github
+      url: https://github.com/potatono
+
+- name: Max Henstell
+  pic: 1
+  position: Hardware, Firmware
+  social:
+    - title: twitter
+      url: https://twitter.com/mhenstell
+    - title: github
+      url: https://github.com/mhenstell
+
+# Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
+social:
+  - title: github
+    url: http://github.com/nycresistor/TotU
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+excerpt_separator: "<!--more-->"

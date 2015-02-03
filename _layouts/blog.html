@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+    <body id="page-top" class="index">
+    {% include header.html %}
+
+    <h1>Blog Posts</h1>
+
+    {% for post in site.posts %}
+    <div class="container">
+        <h4>{{ post.title }} <a href="{{ post.url }}"><i class="fa fa-link"></i></a></h4>
+        <h5>{{ post.date | date: "%b %-d, %Y" }} &nbsp; ( <a href="http://localhost:4000/#team"> {{ post.author }} </a> )</h5>
+        <p class="section-text">{{ post.excerpt }}<a href="{{ post.url }}">Read More...</a></p>
+
+    </div>
+
+    <hr/>
+
+    {% endfor %}
+
+    {% include footer.html %}
+
+    </body>
+</html>
