@@ -92,42 +92,79 @@ var TOTUEMU = (function() {
 		var material = new THREE.MeshFaceMaterial(materials);
 
 		this.mesh = new THREE.Mesh(geometry, material);
-		this.mesh.position.x = 0;
-		this.mesh.position.y = 0;
-		this.mesh.position.z = 0;
 
-		this.mesh.rotateOnAxis(new THREE.Vector3(0,1,0), -Math.PI/4);
+		this.mesh.position.x = Math.cos((n/8)*(Math.PI*2))*18;
+		this.mesh.position.y = 0;
+		this.mesh.position.z = Math.sin((n/8)*(Math.PI*2))*18;
+
+		this.mesh.rotateOnAxis(new THREE.Vector3(0,1,0), -Math.PI/4 * n + Math.PI/4);
 
 		scene.add(this.mesh);
 	};
 	
+	// TODO Break up
 	function init3d() {
 		texture = THREE.ImageUtils.loadTexture('/img/texture-wood.jpg');
 		var scene = new THREE.Scene();
 		var camera = new THREE.PerspectiveCamera( 75, $('#virtual').width() / $('#virtual').height(), 0.1, 1000 );
 		var renderer = new THREE.WebGLRenderer({ canvas: $('#virtual')[0] });
-		var controls = new THREE.TrackballControls( camera );
+
+		// TODO lighting needs some work
 		var pointLight = new THREE.PointLight(0xFFFFFF,5,50);
-		pointLight.position.set(10, 10, 25);
+		pointLight.position.set(20, 25, 20);
 		scene.add(pointLight);
 
-		
-		controls.rotateSpeed = 1.0;
-		controls.zoomSpeed = 1.2;
-		controls.panSpeed = 0.8;
+		pointLight = new THREE.PointLight(0xFFFFFF,5,50);
+		pointLight.position.set(-20, 25, -20);
+		scene.add(pointLight);
 
-		controls.noZoom = false;
-		controls.noPan = false;
+		scene.add(new THREE.AmbientLight(0xAAAAAA));
 
-		controls.staticMoving = true;
-		controls.dynamicDampingFactor = 0.3;
+		// My new controls
+		var controls = new THREE.GameControls(camera, $('#virtual')[0]);
+		var rig = controls.getObject();
+		scene.add(rig);
+		rig.position.z = 36;
 
-		controls.keys = [ 65, 83, 68 ];
+		// Ground
+		var groundTexture = THREE.ImageUtils.loadTexture('/img/texture-ground.jpg');
+		groundTexture.wrapS = THREE.RepeatWrapping;
+		groundTexture.wrapT = THREE.RepeatWrapping;
+		groundTexture.repeat.set(512,512);
+		var groundGeometry = new THREE.PlaneGeometry(10000,10000);
+		var groundMaterial =  new THREE.MeshLambertMaterial({ map: groundTexture });
+		var ground = new THREE.Mesh(groundGeometry,groundMaterial);
+		ground.rotation.x = -Math.PI/2;
+		ground.position.y = -4;
+		scene.add(ground);
 
-		camera.position.z = 8;
-		camera.position.y = 5;
+		// Skybox
+		var urls = ['/img/texture-sky-front.jpg', '/img/texture-sky-back.jpg',
+			'/img/texture-sky-top.jpg', '/img/texture-sky-down.jpg',
+			'/img/texture-sky-left.jpg', '/img/texture-sky-right.jpg'];
+		var textureCube = THREE.ImageUtils.loadTextureCube(urls);
+		textureCube.format = THREE.RGBFormat;
+		console.log(textureCube);
+		var shader = THREE.ShaderLib["cube"];
+		shader.uniforms['tCube'].value = textureCube;
 
-		var panel = new Panel(scene,0);
+		var material = new THREE.ShaderMaterial({
+    		fragmentShader: shader.fragmentShader,
+    		vertexShader: shader.vertexShader,
+    		uniforms: shader.uniforms,
+    		depthWrite: false,
+    		side: THREE.BackSide
+		});		
+		skyboxMesh = new THREE.Mesh(new THREE.BoxGeometry(1000, 1000, 1000, 1, 1, 1, null, true), material);
+		scene.add(skyboxMesh);
+
+		// Panels
+		var panels = [];
+
+		for (var i=0; i<8; i++) {
+			var panel = new Panel(scene,i);
+			panels.push(panel);
+		}
 
 		function render() {
 			requestAnimationFrame(render);
