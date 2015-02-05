@@ -20,8 +20,6 @@ THREE.GameControls = function(c,e) {
 	yaw.add(pitch);
 
 	function pointerlockchange(e) {
-		console.log("POINTER LOCK CHANGED");
-		console.log(e);
 		if (document.pointerLockElement || document.mozPointerLockElement || document.webkitPointerLockElement) {
 			document.addEventListener('mousemove', mousemove, false);
 		}
@@ -92,7 +90,6 @@ THREE.GameControls = function(c,e) {
 
 	document.addEventListener('keydown', keydown, false);
 	document.addEventListener('keyup', keyup, false);
-	
 
 	var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -111,8 +108,7 @@ THREE.GameControls = function(c,e) {
 		
 	}
 	else {
-		console.log("NO POINTER LOCK");
-
+		// TODO implement drag controls for browsers/phones without pointer lock
 	}
 
 	this.getObject = function() {
@@ -142,7 +138,8 @@ THREE.GameControls = function(c,e) {
 			canJump = true;
 		}
 
-		// TODO Parameterize for general use
+		// TODO Parameterize for general use 
+		// TODO Make this a circle
 		if (yaw.position.z<-100) {
 			yaw.position.z = -100;
 			velocity.z = 0;
@@ -160,6 +157,7 @@ THREE.GameControls = function(c,e) {
 			yaw.position.x = 100;
 			velocity.x = 0;
 		}
+		
 
 		prevTime = time;
 	}
