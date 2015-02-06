@@ -1,5 +1,6 @@
 var TOTUEMU = (function() {
 	var config = {
+		scaledown: 1,
 		screen: { width: 320, height: 240, paddingLeft: 160, paddingTop: 120 },
 		panel: { paddingBottom: 500, paddingTop: 50, paddingLeft: 0, paddingRight: 0 }
 	};
@@ -9,6 +10,7 @@ var TOTUEMU = (function() {
 	var firebase;
 	var camera;
 	var scene;
+	var stats;
 						
 	function inTriangle (px,py,t) {
 		var v0 = [t[4]-t[0],t[5]-t[1]];
@@ -36,90 +38,144 @@ var TOTUEMU = (function() {
 		this.pantex = paneltexture;
 		this.n = 0;
 
-		this.y = Math.floor(n / 4) * config.screen.height + 
-			config.screen.paddingTop * (Math.floor(n / 4) + 1) +
-			config.panel.paddingTop;
+		this.setSize = function setSize() {
+			this.width = config.screen.width / config.scaledown;
+			this.height = config.screen.height / config.scaledown;
+			this.y = Math.floor(n / 4) * this.height + 
+				config.screen.paddingTop / config.scaledown * (Math.floor(n / 4) + 1) +
+				config.panel.paddingTop / config.scaledown;
 
-		this.x = (n % 4) * config.screen.width + 
-			config.screen.paddingLeft * ((n % 4 )+ 1) +
-			config.panel.paddingLeft;
+			this.x = ((n % 4) * config.screen.width + 
+				config.screen.paddingLeft * ((n % 4 )+ 1) +
+				config.panel.paddingLeft) / config.scaledown;
+		}
+
+		this.setSize();
 		
 		this.paint = function paint() {
 			if (TOTUEMU.submissions.length) {
 				var sub = self.subno % TOTUEMU.submissions.length;
 				var photos = TOTUEMU.submissions[sub].photos;
 
-				self.pantex.ctx.drawImage(photos[self.n], self.x, self.y, config.screen.width, config.screen.height);
+				self.pantex.ctx.drawImage(photos[self.n], self.x, self.y, self.width, self.height);
 				self.n++;
 				if (self.n>=photos.length) self.n=0;
 
 			}
 			else {
 				self.pantex.ctx.fillStyle = "black";
-				self.pantex.ctx.fillRect(self.x, self.y, config.screen.width, config.screen.height);
+				self.pantex.ctx.fillRect(self.x, self.y, self.width, self.height);
 			}
 
-			self.pantex.texture.needsUpdate = true;
+			return true;
+		}
+
+		this.updateResolution = function() {
+			self.setSize();
 		}
 	}
 
 	function PanelTexture(parent,panel,side) {
+		var self = this;
+
 		this.panel = panel;
 		this.side = side;
 		this.parent = parent;
 
 		// Set up a hidden canvas to draw the texture
-		var canvasWidth = (config.screen.width + config.screen.paddingLeft) * 4 + 
-			config.screen.paddingLeft + config.panel.paddingLeft + config.panel.paddingRight;
-		var canvasHeight = (config.screen.height + config.screen.paddingTop) * 8 + 
-			config.screen.paddingTop + config.panel.paddingTop + config.panel.paddingBottom;
-		this.canvas = $('<canvas width="' + canvasWidth + '" height="' + canvasHeight + '" class="texture"></canvas>')[0];
-		$('#page-top').append(this.canvas);
-		this.ctx = this.canvas.getContext('2d');
-		this.texture = new THREE.Texture(this.canvas);
+		this.setupCanvas = function setupCanvas() {
+			this.canvas = $('<canvas width="' + this.canvasWidth + '" height="' + this.canvasHeight + '" class="texture"></canvas>')[0];
+			$('#vcon').append(this.canvas);
+			this.ctx = this.canvas.getContext('2d');
+			this.texture = new THREE.Texture(this.canvas);
+		}
 
-		// Tile on the wood texture
-		for (var x=0; x<canvasWidth; x+=textureImage.width) {
-			for (var y=0; y<canvasHeight; y+=textureImage.height) {
-				this.ctx.drawImage(textureImage,x,y);
+		this.paintBackground = function paintBackground() {
+			// Tile on the wood texture
+			for (var x=0; x<this.canvasWidth; x+=textureImage.width) {
+				for (var y=0; y<this.canvasHeight; y+=textureImage.height) {
+					this.ctx.drawImage(textureImage,x,y);
+				}
 			}
 		}
 
-		// Set up the screens and paint the first pass
-		this.screens = [];
-		for (var i=0; i<32; i++) {
-			this.screens.push(new Screen(this, i));
-			this.screens[i].paint();
+		this.setSize = function setSize() {
+			this.canvasWidth = ((config.screen.width + config.screen.paddingLeft) * 4 + 
+				config.screen.paddingLeft + config.panel.paddingLeft + config.panel.paddingRight) / 
+				config.scaledown;
+			this.canvasHeight = ((config.screen.height + config.screen.paddingTop) * 8 + 
+				config.screen.paddingTop + config.panel.paddingTop + config.panel.paddingBottom) /
+				config.scaledown;
 		}
-		this.texture.needsUpdate = true;
 
-		// Triangle from which the camera can see the panel
-		var a = parent.a + Math.PI/2*panel
-		var a1 = a + (side === 1 ? Math.PI*0.6 : Math.PI/6);
-		var a2 = a - (side === 1 ? Math.PI/6 : Math.PI*0.6);
+		this.resizeCanvas = function resizeCanvas() {
+			this.setSize();
+			this.canvas.width = this.canvasWidth;
+			this.canvas.height = this.canvasHeight;
+		}
 
-		this.view = [
-			parent.x,parent.y,
-			parent.x+Math.cos(a1)*200,parent.y+Math.sin(a1)*200,
-			parent.x+Math.cos(a2)*200,parent.y+Math.sin(a2)*200
-		];
 
-		// Set up the screen update timer
-		var self = this;
-		window.setInterval(
-			function() {
-				// If camera is in view triangle, update the screens
-				var cx = camera.parent.parent.position.x;
-				var cy = camera.parent.parent.position.z;
+		this.paintScreens = function paintScreens() {
+			for (var i=0; i<32; i++) {
+				this.screens[i].paint();
+			}
+			
+			this.texture.needsUpdate = true;
+		}
 
-				if (inTriangle(cx,cy,self.view)) {
-					for (var i=0; i<32; i++) {
-						self.screens[i].paint();
-					}
-					self.texture.needsUpdate = true;
+		this.setupScreens = function setupScreens() {
+			// Set up the screens and paint the first pass
+			this.screens = [];
+			for (var i=0; i<32; i++) {
+				this.screens.push(new Screen(this, i));
+			}
+
+			this.paintScreens();
+		}
+
+		this.setupView = function setupView() {
+			// Triangle from which the camera can see the panel
+			var a = parent.a + Math.PI/2*panel
+			var a1 = a + (side === 1 ? Math.PI*0.6 : Math.PI/6);
+			var a2 = a - (side === 1 ? Math.PI/6 : Math.PI*0.6);
+
+			this.view = [
+				parent.x,parent.y,
+				parent.x+Math.cos(a1)*200,parent.y+Math.sin(a1)*200,
+				parent.x+Math.cos(a2)*200,parent.y+Math.sin(a2)*200
+			];
+		}
+
+		this.paint = function() {
+			// If camera is in view triangle, update the screens
+			var cx = camera.parent.parent.position.x;
+			var cy = camera.parent.parent.position.z;
+
+			if (inTriangle(cx,cy,self.view)) {
+				for (var i=0; i<32; i++) {
+					self.screens[i].paint();
 				}
-			}, 
-		750);
+				return 1;
+			}
+
+			return 0;
+		}
+
+		this.updateResolution = function() {
+			self.resizeCanvas();
+			self.paintBackground();
+			for (var i=0; i<32; i++) {
+				self.screens[i].updateResolution();
+			}
+			self.paintScreens();
+		}
+
+		
+		this.setSize();
+		this.setupCanvas();
+		this.paintBackground();
+		this.setupScreens();
+		this.setupView();
 	}
 
 	function Panel(scene,n) {
@@ -150,6 +206,24 @@ var TOTUEMU = (function() {
 		this.mesh.rotateOnAxis(new THREE.Vector3(0,1,0), this.a + Math.PI/4);
 
 		scene.add(this.mesh);
+
+		this.paint = function() {
+			var n = 0;
+
+			for (var i=0; i<this.activeTextures.length; i++) {
+				var painted = this.activeTextures[i].paint();
+				this.activeTextures[i].texture.needsUpdate = (painted > 0);
+				n += painted;
+			}
+
+			return n;
+		}
+
+		this.updateResolution = function() {
+			for (var i=0; i<this.activeTextures.length; i++) {
+				this.activeTextures[i].updateResolution();
+			}
+		}
 	};
 	
 	// TODO Break up
@@ -216,10 +290,34 @@ var TOTUEMU = (function() {
 			panels.push(panel);
 		}
 
+		// Set up the screen update timer
+		window.setInterval(
+			function() {
+				var n = 0;
+				for (var i=0; i<panels.length; i++) {
+					n += panels[i].paint();
+				}
+			}, 750
+		);
+
+		window.setInterval(
+			function() {			
+				var fps = parseInt($('#stats').text().replace(/^(\d+).*$/,'$1'));
+				if (fps < 50 && config.scaledown < 11) {
+					config.scaledown++;
+					console.log("Increasing scaledown to " + config.scaledown);
+					for (var i=0; i<panels.length; i++) {
+						panels[i].updateResolution();
+					}
+				}
+			}, 5000
+		);
+
 		function render() {
 			requestAnimationFrame(render);
 			controls.update();
 			renderer.render(scene, camera);
+			stats.update();
 		}
 	
 		render();
@@ -236,7 +334,6 @@ var TOTUEMU = (function() {
 		}
 
 		exports.submissions.push(sub);
-		console.log(exports.submissions.length);
 	}
 
 	function initDb() {
@@ -245,12 +342,23 @@ var TOTUEMU = (function() {
 		firebase.child('submissions').limitToLast(512).on('child_added', appendSubmission);
 	}
 
+	function initStats() {
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '100px';
+		stats.domElement.style.left = '20px';
+		stats.domElement.style.zIndex = 10000;
+		$('#vcon').append(stats.domElement);
+	}
+
 	exports.init = function() {
 		if ($('#virtual').length) {
 			textureImage = new Image();
 			textureImage.onload = function() {
 				initDb();
+				initStats();
 				init3d();
+				
 			}
 			textureImage.src = "/img/texture-wood.jpg";
 		}

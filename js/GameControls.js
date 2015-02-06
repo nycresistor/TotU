@@ -79,8 +79,8 @@ THREE.GameControls = function(c,e) {
 	}
 
 	function mousemove(e) {
-		var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-		var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+		var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
+		var movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
 
 		yaw.rotation.y -= movementX * 0.002;
 		pitch.rotation.x -= movementY * 0.002;
@@ -108,7 +108,26 @@ THREE.GameControls = function(c,e) {
 		
 	}
 	else {
+		console.log("NO POINTER LOCK AVAILABLE");
 		// TODO implement drag controls for browsers/phones without pointer lock
+
+		var down = false;
+		var lastX = null;
+		var lastY = null;
+		element.addEventListener("mousedown", function(e) { down = true; });
+		element.addEventListener("mouseup", function(e) { down = false; });
+		element.addEventListener("mouseout", function(e) { down = false; });
+
+		element.addEventListener("mousemove", function(e) {
+
+			if (down && lastX != null && lastY != null) {
+				mousemove({ movementX: e.x-lastX, movementY: e.y-lastY });
+			}
+
+			lastX = e.x;
+			lastY = e.y;
+
+		})
 	}
 
 	this.getObject = function() {
@@ -117,7 +136,7 @@ THREE.GameControls = function(c,e) {
 
 	this.update = function() {
 		var time = performance.now();
-		var delta = (time-prevTime)/1000;
+		var delta = Math.min((time-prevTime)/1000,0.25);
 
 		velocity.x -= velocity.x*10.0*delta;
 		velocity.z -= velocity.z*10.0*delta;
@@ -158,6 +177,9 @@ THREE.GameControls = function(c,e) {
 			velocity.x = 0;
 		}
 		
+		if (this.trackball) {
+			this.trackball.update();
+		}
 
 		prevTime = time;
 	}
