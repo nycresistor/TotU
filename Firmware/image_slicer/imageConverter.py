@@ -1,5 +1,5 @@
 from PIL import Image
-import sys, os
+import sys, os, subprocess
 
 openFolder = sys.argv[1]
 files = os.listdir(openFolder)
@@ -17,3 +17,5 @@ if __name__ == "__main__":
 					bin.write(bytes([pixels[x, y][0]]))
 					bin.write(bytes([pixels[x, y][1]]))
 					bin.write(bytes([pixels[x, y][2]]))
+
+	subprocess.call(["./slicer", "rgb"])
