@@ -48,7 +48,10 @@
 		
 		"P8.26",	/* DC */
 		"P8.20",	/* RST */
-	
+		
+		"P8.28",	/* MUX_S0 */
+		"P8.27", 	/* MUX_S1 */
+
 		"gpmc",
 		/* the reset pin */
 		"eMMC_RSTn";
@@ -84,9 +87,12 @@
 					0x094 0x08	/* gpmc_oen_ren.gpmc_oen_ren MODE0 | OUTPUT */
 					0x098 0x08	/* gpmc_wen.gpmc_wen MODE0 | OUTPUT */
 					0x09C 0x08	/* gpmc_ben0_cle.gpmc_ben0_cle MODE0 | OUTPUT */
-					0x078 0x08	/* gpmc_ben1_cle.gpmc_ben1_cle MODE0 | OUTPUT */
+					/*0x078 0x08	/* gpmc_ben1_cle.gpmc_ben1_cle MODE0 | OUTPUT */
 					0x07c 0x7	/* P8.26 gpio1.29 */
 					0x084 0x7	/* P8.20 gpio1.31 */
+
+					0x0e8 0x7	/* P8.28 gpio2.24 */
+					0x0e0 0x7	/* P8.27 gpio2.22 */
 				>;
 			};
 		
@@ -141,13 +147,13 @@
 				gpmc,async-write;		/* GPMC_CONFIG1_WRITETYPE_ASYNC */
 				gpmc,mux-add-data = <0>;	/* GPMC_CONFIG1_MUXTYPE(2) */
 
-				gpmc,we-on-ns = <25>;		/* CONFIG4 */
-				gpmc,we-off-ns = <25>;/* 50 */
+				gpmc,we-on-ns = <8>;		/* CONFIG4 */
+				gpmc,we-off-ns = <8>;/* 50 */
 
 			/*	gpmc,page-burst-access-ns = <25>;*/	/* CONFIG 5 */
 				gpmc,access-ns = <0>;  /* 25*/
 			/*	gpmc,rd-cycle-ns = <100>;*/
-				gpmc,wr-cycle-ns = <75>;
+				gpmc,wr-cycle-ns = <16>;
 			/*	gpmc,wr-access-ns = <100>;	*/	/* CONFIG 6 */
 				gpmc,wr-data-mux-bus-ns = <20>;
 
