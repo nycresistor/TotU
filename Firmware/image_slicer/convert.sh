@@ -1,0 +1,16 @@
+convert test.jpg rgb/00-00.rgb
+convert test.jpg rgb/00-01.rgb
+convert test.jpg rgb/00-02.rgb
+convert test.jpg rgb/00-03.rgb
+convert test.jpg rgb/00-04.rgb
+convert test.jpg rgb/00-05.rgb
+convert test.jpg rgb/00-06.rgb
+convert test.jpg rgb/00-07.rgb
+convert test.jpg rgb/00-08.rgb
+convert test.jpg rgb/00-09.rgb
+convert test.jpg rgb/00-10.rgb
+convert test.jpg rgb/00-11.rgb
+convert test.jpg rgb/00-12.rgb
+convert test.jpg rgb/00-13.rgb
+convert test.jpg rgb/00-14.rgb
+convert test.jpg rgb/00-15.rgb
