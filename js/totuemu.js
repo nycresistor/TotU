@@ -345,8 +345,8 @@ var TOTUEMU = (function() {
 	function initStats() {
 		stats = new Stats();
 		stats.domElement.style.position = 'absolute';
-		stats.domElement.style.top = '100px';
-		stats.domElement.style.left = '20px';
+		stats.domElement.style.top = '0px';
+		stats.domElement.style.left = '0px';
 		stats.domElement.style.zIndex = 10000;
 		$('#vcon').append(stats.domElement);
 	}
