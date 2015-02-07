@@ -26,71 +26,95 @@
 #define frameSize (screenSize * 16)
 
 uint16_t * frames[100];
-const char * seqfolder = "./seq";
-char sequence_filenames[256][256];
+// char sequence_filenames[256][256];
 
-int get_image_sequence(const char * folder, char filenames[256][256])
-{
-    DIR *d;
-    struct dirent *dir;
-    int numframes = 0;
-    d = opendir(folder);
-    if (d)
-    {
-        while ((dir = readdir(d)) != NULL)
-        {
-            char * ext = strrchr(dir->d_name, '.');
-            if (strcmp(ext, ".bin") == 0) {
-                strcpy(filenames[numframes++], dir->d_name);
-            }
-        }
-        closedir(d);
-    } else {
-        printf("Folder does not exist.\n");
-        exit(-1);
-    }
-    return(numframes);
-}
+// int get_image_sequence(const char * folder, char filenames[256][256])
+// {
+//     DIR *d;
+//     struct dirent *dir;
+//     int numframes = 0;
+//     d = opendir(folder);
+//     if (d)
+//     {
+//         while ((dir = readdir(d)) != NULL)
+//         {
+//             char * ext = strrchr(dir->d_name, '.');
+//             if (strcmp(ext, ".bin") == 0) {
+//                 strcpy(filenames[numframes++], dir->d_name);
+//             }
+//         }
+//         closedir(d);
+//     } else {
+//         printf("Folder does not exist.\n");
+//         exit(-1);
+//     }
+//     return(numframes);
+// }
 	
 int main (int argc, char *argv[])
 {
 
-    setup_gpmc();
-    setup_tft();
-    setRotation(3);
-    
-    int numframes = get_image_sequence(seqfolder, sequence_filenames);
-
-    if (!numframes > 0) {
-        printf("No frames found.\n");
+    // Check that the input folder is specified
+    char * inputfolder = argv[1];
+    if (inputfolder == NULL)
+    {
+        printf("Input folder not specified.\n");
         exit(-1);
     }
 
-    FILE * imagefile;
-    for (int i = 0; i < numframes; i++)
+    // Iterate through .bin files and count
+    // how many frames there are to load in
+    int numFrames = 0;
+    for (int frame = 0; frame < 100; frame++)
     {
-    	frames[i] = (uint16_t *) calloc(frameSize, sizeof(uint16_t));
-	    imagefile = fopen("seq/seq-1.bin", "rb");
-    	fread(frames[i], sizeof(uint16_t), frameSize, imagefile);
+        char filename[100];
+        sprintf(filename, "%s/%02d.bin", inputfolder, frame);
+        if (access(filename, F_OK) != -1) {
+            numFrames = frame + 1;
+        } else {
+            if (numFrames == 0) {
+                printf("No frames found.\n");
+                exit(-1);
+            }
+            break;
+        }
     }
 
+    // For each .bin frame found, calloc a frame in the frames array, 
+    // assemble the filename, and read the file into the frame
+    FILE * imageFile;
+    for (int frame = 0; frame < numFrames; frame++)
+    {
+    	frames[i] = (uint16_t *) calloc(frameSize, sizeof(uint16_t));
+        char filename[100];
+        sprintf(filename, "%s/%02d.bin", inputfolder, frame);
+	    imageFile = fopen(filename, "rb");
+    	fread(frames[i], sizeof(uint16_t), frameSize, imageFile);
+    }
+
+    // Set up the GPMC and send TFT setup commands
+    setup_gpmc();
+    setup_tft();
+    setRotation(3);
+
+    // Set up timer and TFT window
     float lastTime = 0;
     printf("COMMENCE\n");
     setAddrWindow(0, 0, 319, 239);
+
+    // Iterate through frames and write them to the GPMC
     while(1) {
-	float startTime = (float)clock() / CLOCKS_PER_SEC;
-	for (int i = 0; i < numframes; i++)
-	{
-		writeFramePregenerated(frames[i], frameSize);
-	}
+    	float startTime = (float)clock() / CLOCKS_PER_SEC;
+    	
+        for (int frame = 0; frame < numFrames; frame++)
+    	{
+    		writeFramePregenerated(frames[frame], frameSize);
+    	}
 
-	float fps = (1 / (((float) clock() / CLOCKS_PER_SEC) - startTime)) / 2;
-
-	printf("Frame time: %3.5f\n", fps);
-   	
- }
+    	float fps = (1 / (((float) clock() / CLOCKS_PER_SEC) - startTime)) / 2;
+    	printf("Frame time: %3.5f\n", fps);
+    }
 
     close_gpmc();
-
     return 0;
 }

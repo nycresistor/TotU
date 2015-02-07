@@ -1,28 +1,42 @@
 #include "tft.h"
 #include "stdio.h"
 
-ulong * pinconf1;
+ulong * gpio1;
+ulong * gpio2;
 int gfd;
 
+#define set_gpio(gpio, num) gpio[GPIO_DATAOUT/4] |= (1 << num)
+#define clear_gpio(gpio, num) gpio[GPIO_DATAOUT/4] &= ~(1 << num)
+
+#define RESET   31
+#define DC      29
+#define MUXS_0  24
+#define MUXS_1  22
+
+void begin_tft()
+{
+  // Configure TFT Data/Command line (GPIO1_29 P8.26)
+  // TFT Reset line (GPIO1_31 P8.20)
+  // and MUX_S0 (GPIO2_24 P8.28) and MUXS_1 (GPIO2_22 P8.27)
+  printf("Configuring DC and reset lines\n");
+  gfd = open("/dev/mem", O_RDWR | O_SYNC);
+  gpio1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);
+  gpio2 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO2_ADDR);
+  // pinconf1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << 29) | (1 << 31)));
+}
 
 void reset_tft()
 {
   printf("Resetting TFT\n");
-  pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
+  // pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
+  set_gpio(gpio1, RESET);
   usleep(100000);
-  pinconf1[GPIO_DATAOUT/4] ^= (1 << 31);
+  // pinconf1[GPIO_DATAOUT/4] ^= (1 << 31);
+  clear_gpio(gpio1, RESET);
   usleep(100000);
-  pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
+  // pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
+  set_gpio(gpio1, RESET);
   usleep(100000);
-}
-
-void begin_tft()
-{
-  printf("Configuring DC and reset lines\n"); // GPIO 1_29 P8.26 and 1_31 P8.20
-  gfd = open("/dev/mem", O_RDWR | O_SYNC);
-  pinconf1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);
-  pinconf1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << 29) | (1 << 31)));
-
 }
 
 void setup_tft()
@@ -206,10 +220,12 @@ void setDC(uint8_t dc)
 {
     if (dc == CMD) {
 //	printf("DC going LOW\n");
-	pinconf1[GPIO_DATAOUT/4] &= ~(1 << 29);
+	// pinconf1[GPIO_DATAOUT/4] &= ~(1 << 29);
+      clear_gpio(gpio1, DC);
     } else {
 //	printf("DC going HIGH\n");
-	pinconf1[GPIO_DATAOUT/4] |= (1 << 29);
+	// pinconf1[GPIO_DATAOUT/4] |= (1 << 29);
+      set_gpio(gpio1, DC);
     }
 }
 
