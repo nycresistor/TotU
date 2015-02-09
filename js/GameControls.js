@@ -134,6 +134,14 @@ THREE.GameControls = function(c,e) {
 		return yaw;
 	}
 
+	this.boundsCallback = function() {
+		return true;
+	}
+
+	this.setBoundsCallback = function(boundsCallback) {
+		this.boundsCallback = boundsCallback;
+	}
+
 	this.update = function() {
 		var time = performance.now();
 		var delta = Math.min((time-prevTime)/1000,0.25);
@@ -142,14 +150,19 @@ THREE.GameControls = function(c,e) {
 		velocity.z -= velocity.z*10.0*delta;
 		velocity.y -= 9.8 * 10.0 * delta;
 
-		if (moveForward) velocity.z -= 400.0*delta;
-		if (moveBackward) velocity.z += 400.0*delta;
-		if (moveLeft) velocity.x -= 400.0*delta;
-		if (moveRight) velocity.x += 400.0*delta;
+		if (moveForward) velocity.z -= 200.0*delta;
+		if (moveBackward) velocity.z += 200.0*delta;
+		if (moveLeft) velocity.x -= 200.0*delta;
+		if (moveRight) velocity.x += 200.0*delta;
 
 		yaw.translateX(velocity.x*delta);
 		yaw.translateY(velocity.y*delta);
 		yaw.translateZ(velocity.z*delta);
+
+		if (!this.boundsCallback(yaw.position)) {
+			yaw.translateX(-velocity.x*delta);
+			yaw.translateZ(-velocity.z*delta);
+		}
 
 		if (yaw.position.y<1) {
 			velocity.y = 0;

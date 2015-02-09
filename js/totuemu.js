@@ -10,6 +10,7 @@ var TOTUEMU = (function() {
 	var firebase;
 	var camera;
 	var scene;
+	var panels;
 	var stats;
 						
 	function inTriangle (px,py,t) {
@@ -207,6 +208,9 @@ var TOTUEMU = (function() {
 
 		scene.add(this.mesh);
 
+		this.bounds = new THREE.BoundingBoxHelper(this.mesh,0xff0000);
+		this.bounds.update();
+
 		this.paint = function() {
 			var n = 0;
 
@@ -225,6 +229,20 @@ var TOTUEMU = (function() {
 			}
 		}
 	};
+
+	function checkBounds(position) {
+		for (var i=0; i<panels.length; i++) {
+			var box = panels[i].bounds.box;
+
+			if (position.x >= box.min.x && position.x <= box.max.x &&
+				position.z >= box.min.z && position.z <= box.max.z) {
+
+				return false;
+			}
+
+		}
+		return true;
+	}
 	
 	// TODO Break up
 	function init3d() {
@@ -249,6 +267,7 @@ var TOTUEMU = (function() {
 		var rig = controls.getObject();
 		scene.add(rig);
 		rig.position.z = 36;
+		controls.setBoundsCallback(checkBounds);
 
 		// Ground
 		var groundTexture = THREE.ImageUtils.loadTexture('/img/texture-ground.jpg');
@@ -283,12 +302,17 @@ var TOTUEMU = (function() {
 		scene.add(skyboxMesh);
 
 		// Panels
-		var panels = [];
-
+		panels = [];
 		for (var i=0; i<8; i++) {
 			var panel = new Panel(scene,i);
 			panels.push(panel);
 		}
+
+		// Debugging, can remove
+		exports.panels = panels;
+		exports.camera = camera;
+		exports.scene = scene;
+		exports.controls = controls;
 
 		// Set up the screen update timer
 		window.setInterval(
