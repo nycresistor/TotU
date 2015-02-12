@@ -1,4 +1,5 @@
-THREE.GameControls = function(c,e) {
+// Heavily based on PointerLockControls with the keyboard controls added in and a fallback
+THREE.GameControls = function(c,e,s) {
 	var self = this;
 	var moveForward = false;
 	var moveBackward = false;
@@ -10,9 +11,7 @@ THREE.GameControls = function(c,e) {
 	var prevTime = performance.now();
 	var camera = c;
 	var element = e;
-
-	var maxPitch = Math.PI ;
-
+	var maxPitch = Math.PI;
 
 	var pitch = new THREE.Object3D();
 	var yaw = new THREE.Object3D();
@@ -86,6 +85,8 @@ THREE.GameControls = function(c,e) {
 		pitch.rotation.x -= movementY * 0.002;
 
 		pitch.rotation.x = Math.max(-maxPitch, Math.min(maxPitch, pitch.rotation.x));
+
+		self.moveHandler(this);
 	}
 
 	document.addEventListener('keydown', keydown, false);
@@ -121,7 +122,12 @@ THREE.GameControls = function(c,e) {
 		element.addEventListener("mousemove", function(e) {
 
 			if (down && lastX != null && lastY != null) {
-				mousemove({ movementX: e.x-lastX, movementY: e.y-lastY });
+				mousemove({ 
+					movementX: e.x-lastX, 
+					movementY: e.y-lastY, 
+					mouseX: (event.clientX/window.innerWidth)*2-1,
+					mouseY: -(event.clientY/window.innerHeight)*2+1
+				});
 			}
 
 			lastX = e.x;
@@ -134,12 +140,33 @@ THREE.GameControls = function(c,e) {
 		return yaw;
 	}
 
-	this.boundsCallback = function() {
+	this.getDirection = function() {
+	    var direction = new THREE.Vector3(0,0,-1);
+    	var rotation = new THREE.Euler(0,0,0,"YXZ");
+
+    	return function(v) {
+        	rotation.set(pitch.rotation.x, yaw.rotation.y, 0);
+        	v.copy(direction).applyEuler(rotation);
+        	return v;
+    	}
+	}();
+
+	this.getPosition = function() {
+		return yaw.position;
+	}
+
+	this.boundsHandler = function() {
 		return true;
 	}
 
-	this.setBoundsCallback = function(boundsCallback) {
-		this.boundsCallback = boundsCallback;
+	this.onboundscheck = function(boundsHandler) {
+		this.boundsHandler = boundsHandler;
+	}
+
+	this.moveHandler = function() {}
+
+	this.onmove = function(moveHandler) {
+		this.moveHandler = moveHandler;
 	}
 
 	this.update = function() {
@@ -159,7 +186,7 @@ THREE.GameControls = function(c,e) {
 		yaw.translateY(velocity.y*delta);
 		yaw.translateZ(velocity.z*delta);
 
-		if (!this.boundsCallback(yaw.position)) {
+		if (!this.boundsHandler(this,yaw.position)) {
 			yaw.translateX(-velocity.x*delta);
 			yaw.translateZ(-velocity.z*delta);
 		}
@@ -189,9 +216,9 @@ THREE.GameControls = function(c,e) {
 			yaw.position.x = 100;
 			velocity.x = 0;
 		}
-		
-		if (this.trackball) {
-			this.trackball.update();
+
+		if (velocity.x || velocity.y || velocity.z) {
+			this.moveHandler(this);
 		}
 
 		prevTime = time;

@@ -1,4 +1,6 @@
-var TOTU = (function() {
+var TOTU = TOTU || {};
+
+TOTU.create = (function() {
 	var states = ["off", "preview", "record", "postview" ];
 	var state = 0;
 	var exports;
@@ -189,52 +191,9 @@ var TOTU = (function() {
 		);
 	}
 
-	function startVisualizer() {
-		var scene = new THREE.Scene();
-		var camera = new THREE.PerspectiveCamera( 75, $('#app').width() / $('#app').height(), 0.1, 1000 );
-		var renderer = new THREE.WebGLRenderer({ canvas: app });
-		var controls = new THREE.TrackballControls( camera );
-
-		controls.rotateSpeed = 1.0;
-		controls.zoomSpeed = 1.2;
-		controls.panSpeed = 0.8;
-
-		controls.noZoom = false;
-		controls.noPan = false;
-
-		controls.staticMoving = true;
-		controls.dynamicDampingFactor = 0.3;
-
-		controls.keys = [ 65, 83, 68 ];
-
-		var geometry = new THREE.BoxGeometry(10,1,1);
-//		var texture = new THREE.Texture($('#texture')[0]);
-//		var textureContext = $('#texture')[0].getContext('2d');
-//		texture.minFilter = THREE.LinearFilter;
-//		texture.magFilter = THREE.LinearFilter;
-		var material = new THREE.MeshBasicMaterial( { /*map: texture, overdraw: 0.5*/ } );
-		var cube = new THREE.Mesh( geometry, material );
-		scene.add( cube );
-		camera.position.z = 5;
-
-
-		function render() {
-			requestAnimationFrame(render);
-//				if (video.readyState === video.HAVE_ENOUGH_DATA) {
-//					textureContext.drawImage(video, 0, 0, 320, 240);
-//					texture.needsUpdate = true;
-//				}
-				controls.update();
-				renderer.render(scene, camera);
-		}
-		
-		render();
-	}
-
 	$(window).load(init);
 
 	return exports;
 }());
 
-//$(window).load(function() { startThreeJs(); });
 
