@@ -7,8 +7,6 @@
  * in uBoot or in uEnv and then delete
  */
 
-
-
 /dts-v1/;
 /plugin/;
 
@@ -95,14 +93,6 @@
 					0x0e0 0x7	/* P8.27 gpio2.22 */
 				>;
 			};
-		
-			fpga_config_pins: pinmux_fpga_config_pins {
-				pinctrl-single,pins = <
-					/* config clk and data */
-					/* 0x198 0x37        spi1_d1 MODE3 | INPUT | PULLUP , serial data config */
-					/* 0x190 0x37	 spi1_sclk MODE3 | INPUT | PULLUP, serial clock config  */
-				>;
-			};
 		};
 	};
 
@@ -165,52 +155,9 @@
 				dmas = <&edma 20>;
 				dma-names = "logibone";
 
-				fpga,config {
-					i2c-adapter = <&i2c2>;
-
-					/* need it to stop the whinning */
-					#address-cells = <1>;
-					#size-cells = <0>;
-
-					/* fake i2c device node */
-					pca9534 {
-						compatible = "logibone";
-						reg = <0x24>;
-					};
-				};
-
 			};
 
 		};
 	};
-
-	fragment@2 {
-        target = <&spi0>;
-        __overlay__ {
-            #address-cells     = <1>;
-            #size-cells     = <0>;
-            status            = "okay";
-            pinctrl-names    = "default";
-            pinctrl-0        = <&fpga_config_pins>;
- 
-            spi0_0{
-                #address-cells       = <1>;
-                #size-cells       = <0>;
-                compatible           = "spidev";
-                reg               = <0>;
-                spi-max-frequency = <16000000>;
-                spi-cpha;
-            };
-            spi0_1{
-                #address-cells       = <1>;
-                #size-cells       = <0>;
-                compatible           = "spidev";
-                reg               = <1>;
-                spi-max-frequency = <16000000>;
-                // Mode 0 (CPOL = 0, CPHA = 0)
-            };
-        };
-    };
-
  };
 
