@@ -99,8 +99,8 @@
 			fpga_config_pins: pinmux_fpga_config_pins {
 				pinctrl-single,pins = <
 					/* config clk and data */
-					0x198 0x37      /*  spi1_d1 MODE3 | INPUT | PULLUP , serial data config */
-					0x190 0x37	/* spi1_sclk MODE3 | INPUT | PULLUP, serial clock config  */
+					/* 0x198 0x37        spi1_d1 MODE3 | INPUT | PULLUP , serial data config */
+					/* 0x190 0x37	 spi1_sclk MODE3 | INPUT | PULLUP, serial clock config  */
 				>;
 			};
 		};
@@ -147,13 +147,13 @@
 				gpmc,async-write;		/* GPMC_CONFIG1_WRITETYPE_ASYNC */
 				gpmc,mux-add-data = <0>;	/* GPMC_CONFIG1_MUXTYPE(2) */
 
-				gpmc,we-on-ns = <8>;		/* CONFIG4 */
-				gpmc,we-off-ns = <8>;/* 50 */
+				gpmc,we-on-ns = <10>;		/* CONFIG4 */
+				gpmc,we-off-ns = <15>;/* 50 */
 
 			/*	gpmc,page-burst-access-ns = <25>;*/	/* CONFIG 5 */
 				gpmc,access-ns = <0>;  /* 25*/
 			/*	gpmc,rd-cycle-ns = <100>;*/
-				gpmc,wr-cycle-ns = <16>;
+				gpmc,wr-cycle-ns = <25>;
 			/*	gpmc,wr-access-ns = <100>;	*/	/* CONFIG 6 */
 				gpmc,wr-data-mux-bus-ns = <20>;
 
