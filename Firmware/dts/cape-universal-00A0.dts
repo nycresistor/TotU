@@ -124,17 +124,17 @@
 /*      "P9.45",    GND     */
 /*      "P9.46",    GND     */
 
-        "uart1",
-        "uart2",
-        "uart4",
+//        "uart1",
+//        "uart2",
+//        "uart4",
 //      "uart5",    /* Conflicts with HDMI  */
 
-        "ehrpwm0A",
-        "ehrpwm0B",
-        "ehrpwm1A",
-        "ehrpwm1B",
-        "ehrpwm2A",
-        "ehrpwm2B",
+//        "ehrpwm0A",
+//        "ehrpwm0B",
+//        "ehrpwm1A",
+//        "ehrpwm1B",
+//        "ehrpwm2A",
+//        "ehrpwm2B",
 
 //        "epwmss0",
 //        "ehrpwm0",
@@ -145,11 +145,11 @@
 //        "ehrpwm2",
 //        "ecap2",
 
-        "i2c1",
-        "spi1",
-        "spi0",
-        "dcan0",
-        "dcan1",
+//        "i2c1",
+//        "spi1",
+//        "spi0",
+//        "dcan0",
+//        "dcan1",
 
         "pru0",
         "pru1",
@@ -241,7 +241,7 @@
                 pinctrl-single,pins = <0x0E8  0x05>; };     /* Mode 5, Pull-Down */
             P8_28_pruin_pin: pinmux_P8_28_pruin_pin {
                 pinctrl-single,pins = <0x0E8  0x26>; };     /* Mode 6, Pull-Down, RxActive */
-                
+
             /* P8_29 (ZCZ ball R5 ) hdmi    */
             /* P8_30 (ZCZ ball R6 ) hdmi    */
             /* P8_31 (ZCZ ball V4 ) hdmi    */
@@ -669,152 +669,17 @@
             /************************/
             /* P8 Header            */
             /************************/
-
-            P8_07_pinmux {
+            P8_20_pinmux {
                 compatible = "bone-pinmux-helper";
                 status = "okay";
 
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "timer";
-                pinctrl-0 = <&P8_07_default_pin>;
-                pinctrl-1 = <&P8_07_gpio_pin>;
-                pinctrl-2 = <&P8_07_gpio_pu_pin>;
-                pinctrl-3 = <&P8_07_gpio_pd_pin>;
-                pinctrl-4 = <&P8_07_timer_pin>;
-            };
-
-            P8_08_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "timer";
-                pinctrl-0 = <&P8_08_default_pin>;
-                pinctrl-1 = <&P8_08_gpio_pin>;
-                pinctrl-2 = <&P8_08_gpio_pu_pin>;
-                pinctrl-3 = <&P8_08_gpio_pd_pin>;
-                pinctrl-4 = <&P8_08_timer_pin>;
-            };
-
-            P8_09_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "timer";
-                pinctrl-0 = <&P8_09_default_pin>;
-                pinctrl-1 = <&P8_09_gpio_pin>;
-                pinctrl-2 = <&P8_09_gpio_pu_pin>;
-                pinctrl-3 = <&P8_09_gpio_pd_pin>;
-                pinctrl-4 = <&P8_09_timer_pin>;
-            };
-
-            P8_10_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "timer";
-                pinctrl-0 = <&P8_10_default_pin>;
-                pinctrl-1 = <&P8_10_gpio_pin>;
-                pinctrl-2 = <&P8_10_gpio_pu_pin>;
-                pinctrl-3 = <&P8_10_gpio_pd_pin>;
-                pinctrl-4 = <&P8_10_timer_pin>;
-            };
-
-            P8_11_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruout", "qep";
-                pinctrl-0 = <&P8_11_default_pin>;
-                pinctrl-1 = <&P8_11_gpio_pin>;
-                pinctrl-2 = <&P8_11_gpio_pu_pin>;
-                pinctrl-3 = <&P8_11_gpio_pd_pin>;
-                pinctrl-4 = <&P8_11_pruout_pin>;
-                pinctrl-5 = <&P8_11_qep_pin>;
-            };
-
-            P8_12_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruout", "qep";
-                pinctrl-0 = <&P8_12_default_pin>;
-                pinctrl-1 = <&P8_12_gpio_pin>;
-                pinctrl-2 = <&P8_12_gpio_pu_pin>;
-                pinctrl-3 = <&P8_12_gpio_pd_pin>;
-                pinctrl-4 = <&P8_12_pruout_pin>;
-                pinctrl-5 = <&P8_12_qep_pin>;
-            };
-
-            P8_13_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pwm";
-                pinctrl-0 = <&P8_13_default_pin>;
-                pinctrl-1 = <&P8_13_gpio_pin>;
-                pinctrl-2 = <&P8_13_gpio_pu_pin>;
-                pinctrl-3 = <&P8_13_gpio_pd_pin>;
-                pinctrl-4 = <&P8_13_pwm_pin>;
-            };
-
-            P8_14_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pwm";
-                pinctrl-0 = <&P8_14_default_pin>;
-                pinctrl-1 = <&P8_14_gpio_pin>;
-                pinctrl-2 = <&P8_14_gpio_pu_pin>;
-                pinctrl-3 = <&P8_14_gpio_pd_pin>;
-                pinctrl-4 = <&P8_14_pwm_pin>;
-            };
-
-            P8_15_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruin", "qep";
-                pinctrl-0 = <&P8_15_default_pin>;
-                pinctrl-1 = <&P8_15_gpio_pin>;
-                pinctrl-2 = <&P8_15_gpio_pu_pin>;
-                pinctrl-3 = <&P8_15_gpio_pd_pin>;
-                pinctrl-4 = <&P8_15_pruin_pin>;
-                pinctrl-5 = <&P8_15_qep_pin>;
-            };
-
-            P8_16_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruin", "qep";
-                pinctrl-0 = <&P8_16_default_pin>;
-                pinctrl-1 = <&P8_16_gpio_pin>;
-                pinctrl-2 = <&P8_16_gpio_pu_pin>;
-                pinctrl-3 = <&P8_16_gpio_pd_pin>;
-                pinctrl-4 = <&P8_16_pruin_pin>;
-                pinctrl-5 = <&P8_16_qep_pin>;
-            };
-
-            P8_17_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pwm";
-                pinctrl-0 = <&P8_17_default_pin>;
-                pinctrl-1 = <&P8_17_gpio_pin>;
-                pinctrl-2 = <&P8_17_gpio_pu_pin>;
-                pinctrl-3 = <&P8_17_gpio_pd_pin>;
-                pinctrl-4 = <&P8_17_pwm_pin>;
-            };
-
-            P8_18_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd";
-                pinctrl-0 = <&P8_18_default_pin>;
-                pinctrl-1 = <&P8_18_gpio_pin>;
-                pinctrl-2 = <&P8_18_gpio_pu_pin>;
-                pinctrl-3 = <&P8_18_gpio_pd_pin>;
-            };
-
-            P8_19_pinmux {
-                compatible = "bone-pinmux-helper";
-                status = "okay";
-                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pwm";
-                pinctrl-0 = <&P8_19_default_pin>;
-                pinctrl-1 = <&P8_19_gpio_pin>;
-                pinctrl-2 = <&P8_19_gpio_pu_pin>;
-                pinctrl-3 = <&P8_19_gpio_pd_pin>;
-                pinctrl-4 = <&P8_19_pwm_pin>;
+                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruout", "pruin";
+                pinctrl-0 = <&P8_20_default_pin>;
+                pinctrl-1 = <&P8_20_gpio_pin>;
+                pinctrl-2 = <&P8_20_gpio_pu_pin>;
+                pinctrl-3 = <&P8_20_gpio_pd_pin>;
+                pinctrl-4 = <&P8_20_pruout_pin>;
+                pinctrl-5 = <&P8_20_pruin_pin>;
             };
 
             P8_26_pinmux {
@@ -825,6 +690,30 @@
                 pinctrl-1 = <&P8_26_gpio_pin>;
                 pinctrl-2 = <&P8_26_gpio_pu_pin>;
                 pinctrl-3 = <&P8_26_gpio_pd_pin>;
+            };
+
+            P8_27_pinmux {
+                compatible = "bone-pinmux-helper";
+                status = "okay";
+                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruout", "pruin";
+                pinctrl-0 = <&P8_27_default_pin>;
+                pinctrl-1 = <&P8_27_gpio_pin>;
+                pinctrl-2 = <&P8_27_gpio_pu_pin>;
+                pinctrl-3 = <&P8_27_gpio_pd_pin>;
+                pinctrl-4 = <&P8_27_pruout_pin>;
+                pinctrl-5 = <&P8_27_pruin_pin>;
+            };
+
+            P8_28_pinmux {
+                compatible = "bone-pinmux-helper";
+                status = "okay";
+                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "pruout", "pruin";
+                pinctrl-0 = <&P8_28_default_pin>;
+                pinctrl-1 = <&P8_28_gpio_pin>;
+                pinctrl-2 = <&P8_28_gpio_pu_pin>;
+                pinctrl-3 = <&P8_28_gpio_pd_pin>;
+                pinctrl-4 = <&P8_28_pruout_pin>;
+                pinctrl-5 = <&P8_28_pruin_pin>;
             };
 
 
@@ -1143,82 +1032,9 @@
                 status = "okay";
                 pinctrl-names = "default";
                 pinctrl-0 = <>;
-
-                P8_07 {
-                    gpio-name = "P8_07";
-                    gpio = <&gpio3 2 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_08 {
-                    gpio-name = "P8_08";
-                    gpio = <&gpio3 3 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_09 {
-                    gpio-name = "P8_09";
-                    gpio = <&gpio3 5 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_10 {
-                    gpio-name = "P8_10";
-                    gpio = <&gpio3 4 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_11 {
-                    gpio-name = "P8_11";
-                    gpio = <&gpio2 13 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_12 {
-                    gpio-name = "P8_12";
-                    gpio = <&gpio2 12 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_13 {
-                    gpio-name = "P8_13";
-                    gpio = <&gpio1 23 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_14 {
-                    gpio-name = "P8_14";
-                    gpio = <&gpio1 26 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_15 {
-                    gpio-name = "P8_15";
-                    gpio = <&gpio2 15 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_16 {
-                    gpio-name = "P8_16";
-                    gpio = <&gpio2 14 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_17 {
-                    gpio-name = "P8_17";
-                    gpio = <&gpio1 27 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_18 {
-                    gpio-name = "P8_18";
-                    gpio = <&gpio3 1 0>;
-                    input;
-                    dir-changeable;
-                };
-                P8_19 {
-                    gpio-name = "P8_19";
-                    gpio = <&gpio1 22 0>;
+                P8_20 {
+                    gpio-name = "P8_20";
+                    gpio = <&gpio2 31 0>;
                     input;
                     dir-changeable;
                 };
@@ -1228,8 +1044,18 @@
                     input;
                     dir-changeable;
                 };
-
-
+                P8_27 {
+                    gpio-name = "P8_27";
+                    gpio = <&gpio3 22 0>;
+                    input;
+                    dir-changeable;
+                };
+                P8_28 {
+                    gpio-name = "P8_28";
+                    gpio = <&gpio3 24 0>;
+                    input;
+                    dir-changeable;
+                };
                 P9_11 {
                     gpio-name = "P9_11";
                     gpio = <&gpio1 30 0>;
