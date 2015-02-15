@@ -121,7 +121,7 @@
 				compatible = "logibone_r1_dma";
 				status = "okay";
 				pinctrl-names = "default";
-				pinctrl-0 = <&fpga_config_pins>;
+				/* pinctrl-0 = <&fpga_config_pins>;*/
 
 				reset = <&rstctl 0 0>;
 				reset-names = "eMMC_RSTn-LOGIBONE";

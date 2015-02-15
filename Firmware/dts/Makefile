@@ -1,6 +1,7 @@
 all: \
 	CAPE-BONE-TOTU-00A0.dtbo \
-	BB-BONE-LOGIMAX-00A0.dtbo
+	BB-BONE-LOGIMAX-00A0.dtbo \
+	gpio-P9.21-00A0.dtbo
 
 install:
 	cp -v *.dtbo /lib/firmware
@@ -8,7 +9,7 @@ install:
 active:	
 	echo "CAPE-BONE-TOTU" > /sys/devices/bone_capemgr.9/slots
 	echo "BB-BONE-LOGIMAX" > /sys/devices/bone_capemgr.9/slots
-
+	
 clean: 
 	rm *.dtbo
 
