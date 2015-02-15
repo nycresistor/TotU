@@ -1,6 +1,7 @@
 #include "tft.h"
 #include "stdio.h"
 
+ulong * gpio0;
 ulong * gpio1;
 ulong * gpio2;
 int gfd;
@@ -13,6 +14,8 @@ int gfd;
 #define MUXS_0  24
 #define MUXS_1  22
 
+#define P9_21	3
+
 void begin_tft()
 {
   // Configure TFT Data/Command line (GPIO1_29 P8.26)
@@ -20,11 +23,13 @@ void begin_tft()
   // and MUX_S0 (GPIO2_24 P8.28) and MUXS_1 (GPIO2_22 P8.27)
   printf("Configuring DC and reset lines\n");
   gfd = open("/dev/mem", O_RDWR | O_SYNC);
+//  gpio0 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO0_ADDR);
   gpio1 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO1_ADDR);
   gpio2 = (ulong*) mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, gfd, GPIO2_ADDR);
   
- // gpio1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << DC) | (1 << RESET)));
- // gpio2[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << MUXS_0) | (1 << MUXS_1)));
+//  gpio0[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << P9_21)));
+  gpio1[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << DC) | (1 << RESET)));
+  gpio2[OE_ADDR/4] &= (0xFFFFFFFF ^ ((1 << MUXS_0) | (1 << MUXS_1)));
 }
 
 void reset_tft()
@@ -46,9 +51,12 @@ void activateBank(int bank)
 	if (bank == 0) {
 		set_gpio(gpio2, MUXS_0);
 		clear_gpio(gpio2, MUXS_1);
-	} else {
+	} else if (bank == 1) {
 		clear_gpio(gpio2, MUXS_0);
 		set_gpio(gpio2, MUXS_1);
+	} else {
+		clear_gpio(gpio2, MUXS_0);
+		clear_gpio(gpio2, MUXS_1);
 	}
 }
 
@@ -57,7 +65,7 @@ void setup_tft()
  
   begin_tft();  
   reset_tft();
- 
+  activateBank(-1);
   printf("Sending display setup commands\n");
   writeCommand8(0xEF);
   writeData8(0x03);
