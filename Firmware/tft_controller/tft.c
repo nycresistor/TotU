@@ -252,7 +252,9 @@ void setDC(uint8_t dc)
 
 void writeFramePregenerated(uint16_t * screen, uint32_t len)
 {
+	printf("Calling setDC\n");
 	setDC(DATA);
+	printf("Calling gpmcWritePregenerated\n");
 	gpmcWritePregenerated(screen, len);
 
 }
