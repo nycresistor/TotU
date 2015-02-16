@@ -87,8 +87,7 @@ READ_LOOP:
         // Command of 0xFF is the signal to exit
         QBEQ EXIT, data_addr, 0x000000FF
 
-        LBCO group0, CONST_PRUDRAM, 6*4, 8*4
-
+        
 
         MOV set_out0, gpio0_mask
         MOV set_out1, gpio1_mask
@@ -96,8 +95,13 @@ READ_LOOP:
         MOV set_out3, gpio3_mask
 
 OUTPUT_LOOP:
-		  QBEQ READ_LOOP, count, #0
-                
+		        QBEQ READ_LOOP, count, #0
+            
+// = = = = = = = = = = = = = = = = = = =
+// Load in channels 0 - 7
+
+                LBCO group0, CONST_PRUDRAM, 6*4, 8*4
+
                 SUB group0, group0, #1
                 SUB group1, group1, #1
                 SUB group2, group2, #1
@@ -132,17 +136,128 @@ OUTPUT_LOOP:
                 CLR set_out3.t17
         SKIP7:
 
-        //         AND check, group0, 0x0000FF00
-        //         QBNE SKIP2, check, #0
-        //         CLR set_out0.t1 //??
+// = = = = = = = = = = = = = = = = = = =
+// Load in channels 8 - 15
 
-        // SKIP2:
+                LBCO group0, CONST_PRUDRAM, 14*4, 8*4
 
-        //         AND check, group0, 0x000000FF
-        //         QBNE SKIP3, check, #0
-//         //         CLR set_out0.t2 //??
+                SUB group0, group0, #1
+                SUB group1, group1, #1
+                SUB group2, group2, #1
+                SUB group3, group3, #1
+                SUB group4, group4, #1
+                SUB group5, group5, #1
+                SUB group6, group6, #1
+                SUB group7, group7, #1
+               
+                QBNE SKIP8, group0, #0
+                CLR set_out1.t17
+        SKIP8:
+                QBNE SKIP9, group1, #0
+                CLR set_out0.t14
+        SKIP9:
+                QBNE SKIP10, group2, #0
+                CLR set_out0.t3
+        SKIP10:
+                QBNE SKIP11, group3, #0
+                CLR set_out0.t15
+        SKIP11:
+                QBNE SKIP12, group4, #0
+                CLR set_out0.t13
+        SKIP12:
+                QBNE SKIP13, group5, #0
+                CLR set_out0.t2
+        SKIP13:
+                QBNE SKIP14, group6, #0
+                CLR set_out0.t4
+        SKIP14:
+                QBNE SKIP15, group7, #0
+                CLR set_out0.t12
+        SKIP15:
+
+
+// = = = = = = = = = = = = = = = = = = =
+// Load in channels 16 - 23
+
+                LBCO group0, CONST_PRUDRAM, 22*4, 8*4
+
+                SUB group0, group0, #1
+                SUB group1, group1, #1
+                SUB group2, group2, #1
+                SUB group3, group3, #1
+                SUB group4, group4, #1
+                SUB group5, group5, #1
+                SUB group6, group6, #1
+                SUB group7, group7, #1
+               
+                QBNE SKIP16, group0, #0
+                CLR set_out0.t11
+        SKIP16:
+                QBNE SKIP17, group1, #0
+                CLR set_out0.t10
+        SKIP17:
+                QBNE SKIP18, group2, #0
+                CLR set_out2.t17
+        SKIP18:
+                QBNE SKIP19, group3, #0
+                CLR set_out0.t9
+        SKIP19:
+                QBNE SKIP20, group4, #0
+                CLR set_out2.t16
+        SKIP20:
+                QBNE SKIP21, group5, #0
+                CLR set_out0.t8
+        SKIP21:
+                QBNE SKIP22, group6, #0
+                CLR set_out2.t13
+        SKIP22:
+                QBNE SKIP23, group7, #0
+                CLR set_out2.t12
+        SKIP23:
+
+// = = = = = = = = = = = = = = = = = = =
+// Load in channels 24 - 32
+
+                LBCO group0, CONST_PRUDRAM, 30*4, 8*4
+
+                SUB group0, group0, #1
+                SUB group1, group1, #1
+                SUB group2, group2, #1
+                SUB group3, group3, #1
+                SUB group4, group4, #1
+                SUB group5, group5, #1
+                SUB group6, group6, #1
+                SUB group7, group7, #1
+               
+                QBNE SKIP24, group0, #0
+                CLR set_out2.t15
+        SKIP24:
+                QBNE SKIP25, group1, #0
+                CLR set_out2.t14
+        SKIP25:
+                QBNE SKIP26, group2, #0
+                CLR set_out2.t11
+        SKIP26:
+                QBNE SKIP27, group3, #0
+                CLR set_out2.t10
+        SKIP27:
+                QBNE SKIP28, group4, #0
+                CLR set_out2.t9
+        SKIP28:
+                QBNE SKIP29, group5, #0
+                CLR set_out2.t8
+        SKIP29:
+                QBNE SKIP30, group6, #0
+                CLR set_out2.t7
+        SKIP30:
+                QBNE SKIP31, group7, #0
+                CLR set_out2.t6
+        SKIP31:
+
 
                 SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
+                SBBO set_out1, gpio1_base, GPIO_DATAOUT, 4
+                SBBO set_out2, gpio2_base, GPIO_DATAOUT, 4
                 SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
                 SUB count, count, 1
 
@@ -152,8 +267,12 @@ OUTPUT_LOOP:
 EXIT:
     
     mov set_out0, #0
+    mov set_out1, #0
+    mov set_out2, #0
     mov set_out3, #0
     SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
+    SBBO set_out1, gpio1_base, GPIO_DATAOUT, 4
+    SBBO set_out2, gpio2_base, GPIO_DATAOUT, 4
     SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
     // SBCO group0, CONST_PRUDRAM, 0, 2*4
 // #ifdef AM33XX

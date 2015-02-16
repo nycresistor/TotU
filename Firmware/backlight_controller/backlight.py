@@ -50,43 +50,14 @@ if __name__ == "__main__":
 	for _ in range(5):
 
 		for val in range(0, 256):
-			backlight.update(0, val)
-			backlight.update(1, 256 - val)
-			backlight.update(2, val)
-			backlight.update(3, 256 - val)
-			backlight.update(4, val)
-			backlight.update(5, 256 - val)
-			backlight.update(6, val)
-			backlight.update(7, 256 - val)
+			for channel in range(32):
+				backlight.update(channel, val)
 			time.sleep(0.001)
 
 		for val in range(0, 256):
-			backlight.update(0, 256 - val)
-			backlight.update(1, val)
-			backlight.update(2, 256 - val)
-			backlight.update(3, val)
-			backlight.update(4, 256 - val)
-			backlight.update(5, val)
-			backlight.update(6, 256 - val)
-			backlight.update(7, val)
+			for channel in range(32):
+				backlight.update(channel, 256 - val)
 			time.sleep(0.001)
-
-	# backlight.update(0, 255)
-	# backlight.update(1, 254)
-
-	# time.sleep(1)
-
-	
-	# PRU_ICSS = 0x4A300000 
-	# PRU_ICSS_LEN = 512*1024
-
-	# RAM0_START = 0x00000000
-	# RAM1_START = 0x00002000
-	# RAM2_START = 0x00012000
-
-
-
-
 	
 	backlight.stop()
 
@@ -94,11 +65,3 @@ if __name__ == "__main__":
 	pypruss.clear_event(0)	# Clear the event
 	pypruss.pru_disable(0)		# Disable PRU 0, this is already done by the firmware
 	pypruss.exit()				# Exit, don't know what this does.
-
-	# with open("/dev/mem", "r+b") as f:	       
-	# 	ddr_mem = mmap.mmap(f.fileno(), PRU_ICSS_LEN, offset=PRU_ICSS) 
-	# 	local = struct.unpack('L', ddr_mem[RAM0_START:RAM0_START+4])
-	# 	print hex(local[0])
-	# 	local = struct.unpack('L', ddr_mem[RAM0_START+4:RAM0_START+8])
-	# 	print hex(local[0])
-
