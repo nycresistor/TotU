@@ -5,15 +5,15 @@
 #
 TARGETS-y += $(LIBDIR)/pario.bin
 
-BIN-y += test-pario
-test-pario.srcs += \
-	test-pario.c \
+# BIN-y += test-pario
+# test-pario.srcs += \
+# 	test-pario.c \
 
-LIB-y += libpario.a
-libpario.srcs += \
-	pario.c \
-	pru.c \
-	util.c \
+# LIB-y += libpario.a
+# libpario.srcs += \
+# 	pario.c \
+# 	pru.c \
+# 	util.c \
 
 include ./Makefile.common
 
