@@ -37,135 +37,130 @@ START:
 // The first 8 must agree with the struct pario_cmd_t in pario.h
 #define data_addr	r0
 #define count		r1
-#define gpio2_mask	r2
-#define gpio3_mask	r3
-#define output0     r4
-#define output1     r5
-#define output2     r6
-#define output3     r7
-#define output4     r8
-#define output5     r9
-#define output6     r10
-#define output7     r11
-#define output8     r12
-#define output9     r13
-#define output10    r14
-#define output11    r15
-#define output12    r16
-#define output13    r17
-#define output14    r18
-#define output15    r19
+#define gpio0_mask  r2
+#define gpio1_mask  r3
+#define gpio2_mask	r4
+#define gpio3_mask	r5
+
+#define group0      r6
+#define group1      r7
+#define group2      r8
+#define group3      r9
+#define group4      r10
+#define group5      r11
+#define group6      r12
+#define group7      r13
 
 #define gpio0_base	r20
 #define gpio1_base	r21
 #define gpio2_base	r22
 #define gpio3_base	r23
 
-#define set_out2	r24
-#define set_out3	r25
+#define set_out0    r24
+#define set_out1    r25
+#define set_out2	r26
+#define set_out3	r27
 
-	MOV gpio0_base, GPIO0
-	MOV gpio1_base, GPIO1
-	MOV gpio2_base, GPIO2
-	MOV gpio3_base, GPIO3
+	// MOV gpio0_base, GPIO0
+	// MOV gpio1_base, GPIO1
+	// MOV gpio2_base, GPIO2
+	// MOV gpio3_base, GPIO3
 
 RESET:
-	MOV data_addr, 0
-	SBCO data_addr, CONST_PRUDRAM, 0, 4
+	// MOV data_addr, 0
+	// SBCO data_addr, CONST_PRUDRAM, 0, 4
+    
+
 
 READ_LOOP:
         // Load the eight word command structure from the PRU DRAM, which is
 	// mapped into the user space.
-        LBCO      data_addr, CONST_PRUDRAM, 0, 20*4
+        // LBBO r2, data_addr, 0, 4
+        // MOV r1, 0xbabe7175
+        // SBBO r1, r2, 0, 4
+
+        LBCO data_addr, CONST_PRUDRAM, 0, 6*4
 
         // Wait for a non-zero command
- //       QBEQ READ_LOOP, data_addr, #0
+        QBEQ READ_LOOP, data_addr, #0
 
         // Command of 0xFF is the signal to exit
-        QBEQ EXIT, data_addr, #0xFF
+        QBEQ EXIT, data_addr, 0x000000FF
 
+        LBCO group0, CONST_PRUDRAM, 6*4, 8*4
+
+
+        MOV set_out0, gpio0_mask
+        MOV set_out1, gpio1_mask
         MOV set_out2, gpio2_mask
         MOV set_out3, gpio3_mask
 
 OUTPUT_LOOP:
-		QBEQ RESET, count, #0
+		  QBEQ READ_LOOP, count, #0
                 
-                SUB output0, output0, 1
-                SUB output1, output1, 1
-                SUB output2, output2, 1
-                SUB output3, output3, 1
-                SUB output4, output4, 1
-                SUB output5, output5, 1
-                SUB output6, output6, 1
-                SUB output7, output7, 1
-                SUB output8, output8, 1
-                SUB output9, output9, 1
-                SUB output10, output10, 1
-                SUB output11, output11, 1
-                SUB output12, output12, 1
-                SUB output13, output13, 1
-                SUB output14, output14, 1
-                SUB output15, output15, 1
-
-                QBNE SKIP0, output0, #0
-                CLR set_out2.t6
-SKIP0:
-                QBNE SKIP1, output1, #0
-                CLR set_out2.t7
-SKIP1:
-                QBNE SKIP2, output2, #0
-                CLR set_out2.t8
-SKIP2:
-                QBNE SKIP3, output3, #0
-                CLR set_out2.t9
-SKIP3:
-                QBNE SKIP4, output4, #0
-                CLR set_out2.t10
-SKIP4:
-                QBNE SKIP5, output5, #0
-                CLR set_out2.t11
-SKIP5:
-                QBNE SKIP6, output6, #0
-                CLR set_out2.t12
-SKIP6:
-                QBNE SKIP7, output7, #0
-                CLR set_out2.t13
-SKIP7:
-                QBNE SKIP8, output8, #0
-                CLR set_out3.t14 
-SKIP8:
-                QBNE SKIP9, output9, #0
+                SUB group0, group0, #1
+                SUB group1, group1, #1
+                SUB group2, group2, #1
+                SUB group3, group3, #1
+                SUB group4, group4, #1
+                SUB group5, group5, #1
+                SUB group6, group6, #1
+                SUB group7, group7, #1
+               
+                QBNE SKIP0, group0, #0
+                CLR set_out0.t7
+        SKIP0:
+                QBNE SKIP1, group1, #0
+                CLR set_out0.t20
+        SKIP1:
+                QBNE SKIP2, group2, #0
                 CLR set_out3.t15
-SKIP9:
-                QBNE SKIP10, output10, #0
-                CLR set_out3.t16
-SKIP10:
-                QBNE SKIP11, output11, #0
-                CLR set_out3.t17
-SKIP11:
-                QBNE SKIP12, output12, #0
-                CLR set_out3.t18
-SKIP12:
-                QBNE SKIP13, output13, #0
+        SKIP2:
+                QBNE SKIP3, group3, #0
+                CLR set_out3.t14
+        SKIP3:
+                QBNE SKIP4, group4, #0
                 CLR set_out3.t19
-SKIP13:
-                QBNE SKIP14, output14, #0
-                CLR set_out3.t20
-SKIP14:
-                QBNE SKIP15, output15, #0
+        SKIP4:
+                QBNE SKIP5, group5, #0
+                CLR set_out3.t16
+        SKIP5:
+                QBNE SKIP6, group6, #0
                 CLR set_out3.t21
-SKIP15:
-                SBBO set_out2, gpio2_base, GPIO_DATAOUT, 4
+        SKIP6:
+                QBNE SKIP7, group7, #0
+                CLR set_out3.t17
+        SKIP7:
+
+        //         AND check, group0, 0x0000FF00
+        //         QBNE SKIP2, check, #0
+        //         CLR set_out0.t1 //??
+
+        // SKIP2:
+
+        //         AND check, group0, 0x000000FF
+        //         QBNE SKIP3, check, #0
+//         //         CLR set_out0.t2 //??
+
+                SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
                 SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
                 SUB count, count, 1
-		QBA OUTPUT_LOOP
+
+                QBA OUTPUT_LOOP
+        // QBA EXIT
 
 EXIT:
-#ifdef AM33XX
+    
+    mov set_out0, #0
+    mov set_out3, #0
+    SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
+    SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
+    // SBCO group0, CONST_PRUDRAM, 0, 2*4
+// #ifdef AM33XX
     // Send notification to Host for program completion
     MOV R31.b0, PRU0_ARM_INTERRUPT+16
-#else
-    MOV R31.b0, PRU0_ARM_INTERRUPT
-#endif
+// #else
+//     MOV R31.b0, PRU0_ARM_INTERRUPT
+// #endif
 
     HALT
