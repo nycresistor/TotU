@@ -1,19 +1,28 @@
-#########
-#
-# Build the PRU and LEDscape libraries as well as the PRU firmware.
-#
-#
-TARGETS-y += $(LIBDIR)/pario.bin
+TOP ?= .
 
-# BIN-y += test-pario
-# test-pario.srcs += \
-# 	test-pario.c \
+all: totu.bin
 
-# LIB-y += libpario.a
-# libpario.srcs += \
-# 	pario.c \
-# 	pru.c \
-# 	util.c \
+#####
+#
+# The TI PRU assembler looks like it has macros and includes,
+# but it really doesn't.  So instead we use cpp to pre-process the
+# file and then strip out all of the directives that it adds.
+# PASM also doesn't handle multiple statements per line, so we
+# insert hard newline characters for every ; in the file.
+#
+PASM_DIR ?= $(TOP)/am335x/pasm
+PASM := $(PASM_DIR)/pasm
 
-include ./Makefile.common
+%.bin: %.p $(PASM)
+	$(CPP) - < $< | perl -p -e 's/^#.*//; s/;/\n/g; s/BYTE\((\d+)\)/t\1/g' > /tmp/$(basename $<).i
+	$(PASM) -V3 -b /tmp/$(basename $<).i $(basename $@)
+	$(RM) /tmp/$(basename $<).i
+
+$(PASM):
+	$(MAKE) -C $(PASM_DIR)
+
+.PHONY: clean
+
+clean:
+	rm -rf $(TOP)/*.bin
 
