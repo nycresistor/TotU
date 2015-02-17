@@ -61,6 +61,8 @@ START:
 #define set_out2	r26
 #define set_out3	r27
 
+#define scratch_offset 64 * 4
+
 	// MOV gpio0_base, GPIO0
 	// MOV gpio1_base, GPIO1
 	// MOV gpio2_base, GPIO2
@@ -87,7 +89,18 @@ READ_LOOP:
         // Command of 0xFF is the signal to exit
         QBEQ EXIT, data_addr, 0x000000FF
 
-        
+        LBCO group0, CONST_PRUDRAM, 6*4, 8*4
+        SBCO group0, CONST_SHAREDRAM, 0, 8*4
+
+        LBCO group0, CONST_PRUDRAM, 14*4, 8*4
+        SBCO group0, CONST_SHAREDRAM, 8*4, 8*4
+
+        LBCO group0, CONST_PRUDRAM, 22*4, 8*4
+        SBCO group0, CONST_SHAREDRAM, 16*4, 8*4
+
+        LBCO group0, CONST_PRUDRAM, 30*4, 8*4
+        SBCO group0, CONST_SHAREDRAM, 24*4, 8*4
+
 
         MOV set_out0, gpio0_mask
         MOV set_out1, gpio1_mask
@@ -95,13 +108,10 @@ READ_LOOP:
         MOV set_out3, gpio3_mask
 
 OUTPUT_LOOP:
-		        QBEQ READ_LOOP, count, #0
-            
-// = = = = = = = = = = = = = = = = = = =
-// Load in channels 0 - 7
+		  QBEQ READ_LOOP, count, #0
 
-                LBCO group0, CONST_PRUDRAM, 6*4, 8*4
-
+            LBCO group0, CONST_SHAREDRAM, 0, 8*4
+                
                 SUB group0, group0, #1
                 SUB group1, group1, #1
                 SUB group2, group2, #1
@@ -136,10 +146,12 @@ OUTPUT_LOOP:
                 CLR set_out3.t17
         SKIP7:
 
+        SBCO group0, CONST_SHAREDRAM, 0, 8*4
+
 // = = = = = = = = = = = = = = = = = = =
 // Load in channels 8 - 15
 
-                LBCO group0, CONST_PRUDRAM, 14*4, 8*4
+        LBCO group0, CONST_SHAREDRAM, 8*4, 8*4
 
                 SUB group0, group0, #1
                 SUB group1, group1, #1
@@ -175,11 +187,12 @@ OUTPUT_LOOP:
                 CLR set_out0.t12
         SKIP15:
 
+        SBCO group0, CONST_SHAREDRAM, 8*4, 8*4
 
 // = = = = = = = = = = = = = = = = = = =
 // Load in channels 16 - 23
 
-                LBCO group0, CONST_PRUDRAM, 22*4, 8*4
+        LBCO group0, CONST_SHAREDRAM, 16*4, 8*4
 
                 SUB group0, group0, #1
                 SUB group1, group1, #1
@@ -215,10 +228,12 @@ OUTPUT_LOOP:
                 CLR set_out2.t12
         SKIP23:
 
+        SBCO group0, CONST_SHAREDRAM, 16*4, 8*4
+
 // = = = = = = = = = = = = = = = = = = =
 // Load in channels 24 - 32
 
-                LBCO group0, CONST_PRUDRAM, 30*4, 8*4
+            LBCO group0, CONST_SHAREDRAM, 24*4, 8*4
 
                 SUB group0, group0, #1
                 SUB group1, group1, #1
@@ -254,6 +269,21 @@ OUTPUT_LOOP:
                 CLR set_out2.t6
         SKIP31:
 
+        SBCO group0, CONST_SHAREDRAM, 24*4, 8*4
+
+
+
+        //         AND check, group0, 0x0000FF00
+        //         QBNE SKIP2, check, #0
+        //         CLR set_out0.t1 //??
+
+        // SKIP2:
+
+        //         AND check, group0, 0x000000FF
+        //         QBNE SKIP3, check, #0
+//         //         CLR set_out0.t2 //??
+
+                
 
                 SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
                 SBBO set_out1, gpio1_base, GPIO_DATAOUT, 4

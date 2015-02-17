@@ -12,7 +12,7 @@ gpio3_mask = 0x002BC000
 
 class BacklightController(object):
 	data = [data_addr, period, gpio0_mask, gpio1_mask, gpio2_mask, gpio3_mask]
-	bin_file = "./pario.bin"
+	bin_file = "./totu.bin"
 
 	def __init__(self):
 		for pwm in range(32):
