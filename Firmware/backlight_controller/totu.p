@@ -42,6 +42,9 @@ START:
 #define gpio2_mask	r4
 #define gpio3_mask	r5
 
+#define gpio1_ctrl_mask r14 
+#define gpio2_ctrl_mask r15 
+
 // Registers for handling 8 channels
 // of PWM output at a time
 #define group0      r6
@@ -101,10 +104,9 @@ READ_LOOP:
     LBCO group0, CONST_PRUDRAM, 30*4, 8*4
     SBCO group0, CONST_SHAREDRAM, 24*4, 8*4
 
-    // Chuck the used gpio pins into set_out[0-3]
-    // this sets all channels to high, and we'll
-    // turn them off one-by-one before writing
-    // them out to hardware
+    // Chuck our pinmask into the set_out variables
+    // so that we can clear what we don't want
+    // and set the rest to high
     MOV set_out0, gpio0_mask
     MOV set_out1, gpio1_mask
     MOV set_out2, gpio2_mask
@@ -157,6 +159,12 @@ OUTPUT_LOOP:
 
             // Store the counters for later
             SBCO group0, CONST_SHAREDRAM, 0, 8*4
+            // Set our channels on and then turn off the ones
+            // that were cleared above. Needs to happen in two steps
+            // because we can't write directly to GPIO_DATAOUT without
+            // stomping on our LCD control signals
+            SBBO gpio0_mask, gpio0_base, GPIO_SETDATAOUT, 4
+            SBBO set_out0, gpio0_base, GPIO_CLRDATAOUT, 4
 
 // = = = = = = = = = = = = = = = = = = =
 // Load in channels 8 - 15
@@ -199,6 +207,9 @@ OUTPUT_LOOP:
 
             SBCO group0, CONST_SHAREDRAM, 8*4, 8*4
 
+            SBBO gpio1_mask, gpio1_base, GPIO_SETDATAOUT, 4
+            SBBO set_out1, gpio1_base, GPIO_CLRDATAOUT, 4
+
 // = = = = = = = = = = = = = = = = = = =
 // Load in channels 16 - 23
 
@@ -239,6 +250,9 @@ OUTPUT_LOOP:
     SKIP23:
 
             SBCO group0, CONST_SHAREDRAM, 16*4, 8*4
+
+            SBBO gpio2_mask, gpio2_base, GPIO_SETDATAOUT, 4
+            SBBO set_out2, gpio2_base, GPIO_CLRDATAOUT, 4
 
 // = = = = = = = = = = = = = = = = = = =
 // Load in channels 24 - 32
@@ -281,15 +295,11 @@ OUTPUT_LOOP:
 
             SBCO group0, CONST_SHAREDRAM, 24*4, 8*4
 
-            // Write out the set_out[0-3] registers to
-            // the gpio memory locations
-            SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
-            SBBO set_out1, gpio1_base, GPIO_DATAOUT, 4
-            SBBO set_out2, gpio2_base, GPIO_DATAOUT, 4
-            SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
-            
+            SBBO gpio3_mask, gpio3_base, GPIO_SETDATAOUT, 4
+            SBBO set_out3, gpio3_base, GPIO_CLRDATAOUT, 4
+
             // Subtract 1 from our count variable
-            SUB count, count, 1
+            SUB count, count, 1    
 
             // Loop back to the top of OUTPUT_LOOP
             QBA OUTPUT_LOOP
@@ -297,14 +307,10 @@ OUTPUT_LOOP:
 EXIT:
     // Set everything to off and write it all out
     // to the hardware
-    MOV set_out0, #0
-    MOV set_out1, #0
-    MOV set_out2, #0
-    MOV set_out3, #0
-    SBBO set_out0, gpio0_base, GPIO_DATAOUT, 4
-    SBBO set_out1, gpio1_base, GPIO_DATAOUT, 4
-    SBBO set_out2, gpio2_base, GPIO_DATAOUT, 4
-    SBBO set_out3, gpio3_base, GPIO_DATAOUT, 4
+    SBBO gpio0_mask, gpio0_base, GPIO_CLRDATAOUT, 4
+    SBBO gpio1_mask, gpio1_base, GPIO_CLRDATAOUT, 4
+    SBBO gpio2_mask, gpio2_base, GPIO_CLRDATAOUT, 4
+    SBBO gpio3_mask, gpio3_base, GPIO_CLRDATAOUT, 4
     
     // Signal that our PRU program has ended
     MOV R31.b0, PRU0_ARM_INTERRUPT+16

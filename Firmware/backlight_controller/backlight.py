@@ -12,7 +12,9 @@ count = 0x000000FF
 # not using for the backlights
 gpio0_mask = 0x0010FF9C
 gpio1_mask = 0x00020000
+# gpio1_mask = 0xA0020000
 gpio2_mask = 0x0003FFC0
+# gpio2_mask = 0x0143FFC0
 gpio3_mask = 0x002BC000
 
 class BacklightController(object):
@@ -78,9 +80,13 @@ if __name__ == "__main__":
 				backlights.update(channel, val)
 			time.sleep(0.001)
 
+		time.sleep(0.5)
+
 		for val in range(0, 256):
 			for channel in range(32):
 				backlights.update(channel, 256 - val)
 			time.sleep(0.001)
+
+		time.sleep(0.5)
 	
 	backlights.stop()
