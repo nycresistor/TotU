@@ -3,16 +3,23 @@
 
   {% include head.html %}
 
-    <body id="page-top" class="index">
+  <body>
 
     {% include header.html %}
-    {% include blog-latest.html %}
-    {% include about.html %}
-    {% include team.html %}
-    {% include contact.html %}
-    {% include footer.html %}
-    {% include modals.html %}
-    {% include js.html %}
 
-    </body>
+    <!-- content start -->
+
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
+
+    <!-- content end -->
+
+    {% include footer.html %}
+    {% include javascripts.html %}
+
+  </body>
+
 </html>
