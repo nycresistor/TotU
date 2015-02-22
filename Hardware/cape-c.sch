@@ -3288,7 +3288,6 @@ by exp-lbrs.ulp</description>
 <part name="GND20" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND21" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND22" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="SUPPLY8" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="IC4" library="cape" deviceset="74VHC541" device="">
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
@@ -3297,10 +3296,10 @@ by exp-lbrs.ulp</description>
 </part>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND24" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="VCC3V3" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="SUPPLY6" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C20" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
-<part name="C21" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
+<part name="VCC3V3" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="SUPPLY6" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C20" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C21" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="GND25" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND26" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="Q2" library="cape" deviceset="N-MOSFET-DUAL" device="SO8" value="N-MOSFET-DUALSO8">
@@ -3343,13 +3342,12 @@ by exp-lbrs.ulp</description>
 </part>
 <part name="GND36" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND37" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="SUPPLY2" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
 <part name="IC2" library="cape" deviceset="74VHC541" device="">
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
 <part name="GND38" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C6" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
+<part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C6" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="GND39" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U$4" library="adafruit" deviceset="FIDUCIAL" device=""/>
 <part name="U$5" library="adafruit" deviceset="FIDUCIAL" device=""/>
@@ -3408,30 +3406,26 @@ by exp-lbrs.ulp</description>
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="VCC3V2" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C1" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
-<part name="GND52" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="VCC3V2" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C1" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="IC3" library="cape" deviceset="74VHC541" device="">
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
 <part name="GND54" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="VCC3V4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C2" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
-<part name="GND55" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="VCC3V4" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C2" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="IC6" library="cape" deviceset="74VHC541" device="">
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="VCC3V5" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C3" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
-<part name="GND53" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="VCC3V5" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C3" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="IC7" library="cape" deviceset="74VHC541" device="">
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
 <part name="GND56" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="VCC3V6" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
-<part name="GND57" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="VCC3V6" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C4" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="IC8" library="cape" deviceset="74VHC541" device="">
 <attribute name="PARTNO" value="MC74LCX245DTR2G"/>
 </part>
@@ -3440,10 +3434,10 @@ by exp-lbrs.ulp</description>
 </part>
 <part name="GND58" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND59" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="VCC3V7" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
-<part name="C7" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="1uF"/>
+<part name="VCC3V7" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="C5" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C7" library="SparkFun-Capacitors" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="GND60" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND61" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R1" library="cape" deviceset="RESISTOR-X8" device="0603">
@@ -3476,15 +3470,15 @@ by exp-lbrs.ulp</description>
 <part name="R9" library="cape" deviceset="RESISTOR-X8" device="0603">
 <attribute name="PARTNO" value="742C163220JP"/>
 </part>
-<part name="VCC3V8" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC5V" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V9" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V10" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V11" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V12" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V13" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V14" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
-<part name="VCC3V15" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC5v"/>
+<part name="VCC3V8" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC5V" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V9" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V10" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V11" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V12" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V13" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V14" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
+<part name="VCC3V15" library="SparkFun-Aesthetics" deviceset="VCC" device="" value="VCC3v3"/>
 <part name="R10" library="SparkFun-Passives" deviceset="RESISTOR" device="0603-RES"/>
 <part name="R11" library="SparkFun-Passives" deviceset="RESISTOR" device="0603-RES"/>
 <part name="R12" library="SparkFun-Passives" deviceset="RESISTOR" device="0603-RES"/>
@@ -3516,7 +3510,6 @@ by exp-lbrs.ulp</description>
 <part name="RST_RAW" library="tenna_avr_AD7021_v0_9_shrink" deviceset="PTR1" device="TP10R"/>
 <part name="MUX_S0" library="tenna_avr_AD7021_v0_9_shrink" deviceset="PTR1" device="TP10R"/>
 <part name="SCL_RAW" library="tenna_avr_AD7021_v0_9_shrink" deviceset="PTR1" device="TP10R"/>
-<part name="VCC5V_TP" library="tenna_avr_AD7021_v0_9_shrink" deviceset="PTR1" device="TP15R"/>
 <part name="GND" library="tenna_avr_AD7021_v0_9_shrink" deviceset="PTR1" device="TP15SQ"/>
 <part name="VCC3V3_TP" library="tenna_avr_AD7021_v0_9_shrink" deviceset="PTR1" device="TP15R"/>
 <part name="R34" library="SparkFun-Passives" deviceset="RESISTOR" device="0603-RES"/>
@@ -3548,7 +3541,6 @@ by exp-lbrs.ulp</description>
 <instance part="GND20" gate="1" x="254" y="27.94" rot="R90"/>
 <instance part="GND21" gate="1" x="254" y="93.98" rot="R90"/>
 <instance part="GND22" gate="1" x="177.8" y="93.98" rot="R270"/>
-<instance part="SUPPLY8" gate="G$1" x="172.72" y="27.94"/>
 <instance part="IC4" gate="G$1" x="2.54" y="81.28">
 <attribute name="PARTNO" x="2.54" y="81.28" size="1.778" layer="96" display="off"/>
 </instance>
@@ -3611,7 +3603,6 @@ by exp-lbrs.ulp</description>
 <instance part="Q9" gate="G$2" x="330.2" y="154.94"/>
 <instance part="GND36" gate="1" x="330.2" y="144.78"/>
 <instance part="GND37" gate="1" x="330.2" y="170.18"/>
-<instance part="SUPPLY2" gate="G$1" x="266.7" y="25.4"/>
 <instance part="IC2" gate="G$1" x="2.54" y="-2.54">
 <attribute name="PARTNO" x="2.54" y="-2.54" size="1.778" layer="96" display="off"/>
 </instance>
@@ -3716,28 +3707,24 @@ by exp-lbrs.ulp</description>
 <instance part="GND4" gate="1" x="-27.94" y="-76.2"/>
 <instance part="VCC3V2" gate="G$1" x="-2.54" y="-60.96"/>
 <instance part="C1" gate="G$1" x="-17.78" y="-68.58"/>
-<instance part="GND52" gate="1" x="-58.42" y="-71.12"/>
 <instance part="IC3" gate="G$1" x="-43.18" y="-104.14">
 <attribute name="PARTNO" x="-43.18" y="-104.14" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND54" gate="1" x="-27.94" y="-127"/>
 <instance part="VCC3V4" gate="G$1" x="-2.54" y="-111.76"/>
 <instance part="C2" gate="G$1" x="-17.78" y="-119.38"/>
-<instance part="GND55" gate="1" x="-58.42" y="-121.92"/>
 <instance part="IC6" gate="G$1" x="76.2" y="-53.34">
 <attribute name="PARTNO" x="76.2" y="-53.34" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND2" gate="1" x="91.44" y="-76.2"/>
 <instance part="VCC3V5" gate="G$1" x="116.84" y="-63.5"/>
 <instance part="C3" gate="G$1" x="101.6" y="-68.58"/>
-<instance part="GND53" gate="1" x="60.96" y="-71.12"/>
 <instance part="IC7" gate="G$1" x="76.2" y="-104.14">
 <attribute name="PARTNO" x="76.2" y="-104.14" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND56" gate="1" x="91.44" y="-127"/>
 <instance part="VCC3V6" gate="G$1" x="116.84" y="-111.76"/>
 <instance part="C4" gate="G$1" x="101.6" y="-119.38"/>
-<instance part="GND57" gate="1" x="60.96" y="-121.92"/>
 <instance part="IC8" gate="G$1" x="81.28" y="81.28">
 <attribute name="PARTNO" x="81.28" y="81.28" size="1.778" layer="96" display="off"/>
 </instance>
@@ -3822,7 +3809,6 @@ by exp-lbrs.ulp</description>
 <instance part="RST_RAW" gate="G$1" x="284.48" y="53.34"/>
 <instance part="MUX_S0" gate="G$1" x="289.56" y="53.34"/>
 <instance part="SCL_RAW" gate="G$1" x="294.64" y="53.34"/>
-<instance part="VCC5V_TP" gate="G$1" x="281.94" y="20.32"/>
 <instance part="GND" gate="G$1" x="287.02" y="20.32"/>
 <instance part="VCC3V3_TP" gate="G$1" x="276.86" y="20.32"/>
 <instance part="R34" gate="G$1" x="20.32" y="-91.44"/>
@@ -4923,63 +4909,23 @@ by exp-lbrs.ulp</description>
 <wire x1="276.86" y1="22.86" x2="276.86" y2="25.4" width="0.1524" layer="91"/>
 <label x="276.86" y="25.4" size="1.4224" layer="95" rot="R90" xref="yes"/>
 </segment>
-</net>
-<net name="VCC5V" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD_5V@1"/>
-<pinref part="SUPPLY8" gate="G$1" pin="VCC"/>
-<wire x1="187.96" y1="22.86" x2="172.72" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="22.86" x2="172.72" y2="27.94" width="0.1524" layer="91"/>
+<pinref part="IC4" gate="G$1" pin="VCC"/>
+<wire x1="15.24" y1="71.12" x2="27.94" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="C20" gate="G$1" pin="1"/>
+<junction x="27.94" y="71.12"/>
+<pinref part="SUPPLY6" gate="G$1" pin="VCC"/>
+<wire x1="27.94" y1="71.12" x2="48.26" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="71.12" x2="48.26" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD_5V@2"/>
-<pinref part="SUPPLY2" gate="G$1" pin="VCC"/>
-<wire x1="243.84" y1="22.86" x2="266.7" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="266.7" y1="22.86" x2="266.7" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC7" gate="G$1" pin="VCC"/>
-<wire x1="88.9" y1="-114.3" x2="101.6" y2="-114.3" width="0.1524" layer="91"/>
-<pinref part="C4" gate="G$1" pin="1"/>
-<junction x="101.6" y="-114.3"/>
-<pinref part="VCC3V6" gate="G$1" pin="VCC"/>
-<wire x1="101.6" y1="-114.3" x2="116.84" y2="-114.3" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="-114.3" x2="116.84" y2="-111.76" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC3" gate="G$1" pin="VCC"/>
-<wire x1="-30.48" y1="-114.3" x2="-17.78" y2="-114.3" width="0.1524" layer="91"/>
-<pinref part="C2" gate="G$1" pin="1"/>
-<junction x="-17.78" y="-114.3"/>
-<pinref part="VCC3V4" gate="G$1" pin="VCC"/>
-<wire x1="-17.78" y1="-114.3" x2="-2.54" y2="-114.3" width="0.1524" layer="91"/>
-<wire x1="-2.54" y1="-114.3" x2="-2.54" y2="-111.76" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC1" gate="G$1" pin="VCC"/>
-<wire x1="-30.48" y1="-63.5" x2="-17.78" y2="-63.5" width="0.1524" layer="91"/>
-<pinref part="C1" gate="G$1" pin="1"/>
-<junction x="-17.78" y="-63.5"/>
-<pinref part="VCC3V2" gate="G$1" pin="VCC"/>
-<wire x1="-17.78" y1="-63.5" x2="-2.54" y2="-63.5" width="0.1524" layer="91"/>
-<wire x1="-2.54" y1="-63.5" x2="-2.54" y2="-60.96" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC6" gate="G$1" pin="VCC"/>
-<wire x1="88.9" y1="-63.5" x2="101.6" y2="-63.5" width="0.1524" layer="91"/>
-<pinref part="C3" gate="G$1" pin="1"/>
-<junction x="101.6" y="-63.5"/>
-<pinref part="VCC3V5" gate="G$1" pin="VCC"/>
-<wire x1="101.6" y1="-63.5" x2="116.84" y2="-63.5" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC2" gate="G$1" pin="VCC"/>
-<wire x1="15.24" y1="-12.7" x2="27.94" y2="-12.7" width="0.1524" layer="91"/>
-<pinref part="C6" gate="G$1" pin="1"/>
-<junction x="27.94" y="-12.7"/>
-<pinref part="SUPPLY4" gate="G$1" pin="VCC"/>
-<wire x1="27.94" y1="-12.7" x2="43.18" y2="-12.7" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="-12.7" x2="43.18" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="IC8" gate="G$1" pin="VCC"/>
+<wire x1="93.98" y1="71.12" x2="106.68" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="C5" gate="G$1" pin="1"/>
+<junction x="106.68" y="71.12"/>
+<pinref part="SUPPLY3" gate="G$1" pin="VCC"/>
+<wire x1="106.68" y1="71.12" x2="121.92" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="71.12" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="IC5" gate="G$1" pin="VCC"/>
@@ -5000,22 +4946,63 @@ by exp-lbrs.ulp</description>
 <wire x1="121.92" y1="30.48" x2="121.92" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="IC8" gate="G$1" pin="VCC"/>
-<wire x1="93.98" y1="71.12" x2="106.68" y2="71.12" width="0.1524" layer="91"/>
-<pinref part="C5" gate="G$1" pin="1"/>
-<junction x="106.68" y="71.12"/>
-<pinref part="SUPPLY3" gate="G$1" pin="VCC"/>
-<wire x1="106.68" y1="71.12" x2="121.92" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="121.92" y1="71.12" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="G$1" pin="VCC"/>
+<wire x1="15.24" y1="-12.7" x2="27.94" y2="-12.7" width="0.1524" layer="91"/>
+<pinref part="C6" gate="G$1" pin="1"/>
+<junction x="27.94" y="-12.7"/>
+<pinref part="SUPPLY4" gate="G$1" pin="VCC"/>
+<wire x1="27.94" y1="-12.7" x2="43.18" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="-12.7" x2="43.18" y2="-10.16" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="IC4" gate="G$1" pin="VCC"/>
-<wire x1="15.24" y1="71.12" x2="27.94" y2="71.12" width="0.1524" layer="91"/>
-<pinref part="C20" gate="G$1" pin="1"/>
-<junction x="27.94" y="71.12"/>
-<pinref part="SUPPLY6" gate="G$1" pin="VCC"/>
-<wire x1="27.94" y1="71.12" x2="48.26" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="71.12" x2="48.26" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="VCC"/>
+<wire x1="-30.48" y1="-63.5" x2="-17.78" y2="-63.5" width="0.1524" layer="91"/>
+<pinref part="C1" gate="G$1" pin="1"/>
+<junction x="-17.78" y="-63.5"/>
+<pinref part="VCC3V2" gate="G$1" pin="VCC"/>
+<wire x1="-17.78" y1="-63.5" x2="-2.54" y2="-63.5" width="0.1524" layer="91"/>
+<wire x1="-2.54" y1="-63.5" x2="-2.54" y2="-60.96" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC6" gate="G$1" pin="VCC"/>
+<wire x1="88.9" y1="-63.5" x2="101.6" y2="-63.5" width="0.1524" layer="91"/>
+<pinref part="C3" gate="G$1" pin="1"/>
+<junction x="101.6" y="-63.5"/>
+<pinref part="VCC3V5" gate="G$1" pin="VCC"/>
+<wire x1="101.6" y1="-63.5" x2="116.84" y2="-63.5" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC3" gate="G$1" pin="VCC"/>
+<wire x1="-30.48" y1="-114.3" x2="-17.78" y2="-114.3" width="0.1524" layer="91"/>
+<pinref part="C2" gate="G$1" pin="1"/>
+<junction x="-17.78" y="-114.3"/>
+<pinref part="VCC3V4" gate="G$1" pin="VCC"/>
+<wire x1="-17.78" y1="-114.3" x2="-2.54" y2="-114.3" width="0.1524" layer="91"/>
+<wire x1="-2.54" y1="-114.3" x2="-2.54" y2="-111.76" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC7" gate="G$1" pin="VCC"/>
+<wire x1="88.9" y1="-114.3" x2="101.6" y2="-114.3" width="0.1524" layer="91"/>
+<pinref part="C4" gate="G$1" pin="1"/>
+<junction x="101.6" y="-114.3"/>
+<pinref part="VCC3V6" gate="G$1" pin="VCC"/>
+<wire x1="101.6" y1="-114.3" x2="116.84" y2="-114.3" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="-114.3" x2="116.84" y2="-111.76" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC3" gate="G$1" pin="G1"/>
+<pinref part="VCC3V15" gate="G$1" pin="VCC"/>
+<wire x1="-55.88" y1="-114.3" x2="-58.42" y2="-114.3" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC7" gate="G$1" pin="G1"/>
+<pinref part="VCC3V14" gate="G$1" pin="VCC"/>
+<wire x1="63.5" y1="-114.3" x2="60.96" y2="-114.3" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="IC6" gate="G$1" pin="G1"/>
+<pinref part="VCC3V13" gate="G$1" pin="VCC"/>
+<wire x1="63.5" y1="-63.5" x2="60.96" y2="-63.5" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="G$1" pin="G1"/>
@@ -5033,9 +5020,9 @@ by exp-lbrs.ulp</description>
 <wire x1="-10.16" y1="30.48" x2="-17.78" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="IC4" gate="G$1" pin="G1"/>
-<pinref part="VCC3V10" gate="G$1" pin="VCC"/>
-<wire x1="-10.16" y1="71.12" x2="-17.78" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="IC9" gate="G$1" pin="G1"/>
+<pinref part="VCC3V12" gate="G$1" pin="VCC"/>
+<wire x1="68.58" y1="30.48" x2="60.96" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="IC8" gate="G$1" pin="G1"/>
@@ -5043,29 +5030,9 @@ by exp-lbrs.ulp</description>
 <wire x1="68.58" y1="71.12" x2="60.96" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="IC9" gate="G$1" pin="G1"/>
-<pinref part="VCC3V12" gate="G$1" pin="VCC"/>
-<wire x1="68.58" y1="30.48" x2="60.96" y2="30.48" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC6" gate="G$1" pin="G1"/>
-<pinref part="VCC3V13" gate="G$1" pin="VCC"/>
-<wire x1="63.5" y1="-63.5" x2="60.96" y2="-63.5" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC7" gate="G$1" pin="G1"/>
-<pinref part="VCC3V14" gate="G$1" pin="VCC"/>
-<wire x1="63.5" y1="-114.3" x2="60.96" y2="-114.3" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="IC3" gate="G$1" pin="G1"/>
-<pinref part="VCC3V15" gate="G$1" pin="VCC"/>
-<wire x1="-55.88" y1="-114.3" x2="-58.42" y2="-114.3" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="VCC5V_TP" gate="G$1" pin="TP"/>
-<wire x1="281.94" y1="22.86" x2="281.94" y2="25.4" width="0.1524" layer="91"/>
-<label x="281.94" y="25.4" size="1.4224" layer="95" rot="R90" xref="yes"/>
+<pinref part="IC4" gate="G$1" pin="G1"/>
+<pinref part="VCC3V10" gate="G$1" pin="VCC"/>
+<wire x1="-10.16" y1="71.12" x2="-17.78" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DC_RAW" class="0">
