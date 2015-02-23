@@ -41,3 +41,22 @@ To set the backlight for A8 on full:
 `> echo 1 > /sys/class/gpio/gpio20/value`
 
 If something doesn't work, check `> dmesg` and/or reboot and try again.
+
+
+To get internet access on the BBB, enable Internet Sharing in System Preferences > Sharing on your mac.
+
+`> ssh ubuntu@192.168.7.2`
+
+(password is temppwd)
+
+`> sudo su -`
+
+(password is temppwd)
+
+`> ./net.sh`
+
+(Session will die. Open a new terminal window.)
+
+`> ssh ubuntu@192.168.2.2`
+
+(IP should have changed to 2.2)
