@@ -45,7 +45,7 @@ struct con_state {
 };
 
 uint16_t display_buffer[WIDTH*HEIGHT*SCREENS];
-char xfer_buffer[2457602];
+char xfer_buffer[32767];
 
 static int make_socket_non_blocking(int sfd)
 {
@@ -333,7 +333,7 @@ void accept_connection(struct epoll_event *events, int i, int efd, struct epoll_
 	}
 }
 
-void setup_display()
+void setup_display(int bank)
 {
 	printf("Setup gpmc\n");
 	setup_gpmc();
@@ -343,7 +343,7 @@ void setup_display()
 
 	setRotation(3);
 	setAddrWindow(0,0,319,239);
-	activateBank(0);
+	activateBank(bank);
 	
 }
 
@@ -356,13 +356,13 @@ int main (int argc, char *argv[])
 	struct con_state state;
 	struct con_state *states;
 
-    if(argc != 2)
+    if(argc != 3)
     {
-        fprintf(stderr, "Usage: %s [port]\n", argv[0]);
+        fprintf(stderr, "Usage: %s [port] [bank]\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
-	setup_display();
+	setup_display(argv[2][0] == '1' ? 1 : 0);
 
     sfd = create_and_bind(argv[1]);
     if (sfd == -1)
