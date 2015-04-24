@@ -24,17 +24,26 @@ all: totu
 totu: totu.o tft.o gpmc.o 
 	g++ -o totu totu.o tft.o gpmc.o
 
-totu.o:
+totu.o: totu.c totu.h
 	g++ -c totu.c
 
-tft.o:
+tft.o: tft.c tft.h
 	g++ -c tft.c
 
-gpmc.o:
+gpmc.o: gpmc.c gpmc.h
 	g++ -c gpmc.c
 
-test:
-	g++ -o test test.c
+tbuffer.o: tbuffer.c tbuffer.h 
+	g++ -c tbuffer.c 
+
+test: test.c tbuffer.o gpmc.o tft.o
+	g++ -pthread -o test tbuffer.o tft.o gpmc.o test.c
+
+server.o: server.c
+	g++ -c server.c
+
+server: server.o gpmc.o tft.o
+	g++ -o server tft.o gpmc.o server.o
 
 clean:
-	rm -rf totu totu.o tft.o gpmc.o
+	rm -rf totu totu.o tft.o gpmc.o test tbuffer.o server.o server

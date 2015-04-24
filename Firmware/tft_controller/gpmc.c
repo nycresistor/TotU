@@ -86,7 +86,7 @@ void gpmcWritePregenerated(uint16_t * output, uint32_t len)
         }
 */
 
-	printf("Writing %u bytes\n", len);
+	//printf("Writing %u bytes\n", len);
 	for (int i = 0; i < len; i += BLOCK_SIZE) {
 		pwrite(fd, output + i, BLOCK_SIZE * sizeof(uint16_t), 0);
 	}
