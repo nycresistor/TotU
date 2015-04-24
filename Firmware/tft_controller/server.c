@@ -24,7 +24,8 @@ struct con_state {
 };
 
 uint16_t display_buffer[WIDTH*HEIGHT*SCREENS];
-char xfer_buffer[38400];
+//char xfer_buffer[38400];
+char xfer_buffer[2457602];
 
 static int make_socket_non_blocking(int sfd)
 {
@@ -106,18 +107,18 @@ void write_pixel(uint16_t screens, int offset, uint16_t color)
 
 void process_presliced(int count, int fd, struct con_state *states)
 {
-	int bufsize = WIDTH*HEIGHT*SCREENS*2+2;
+	int bufsize = WIDTH*HEIGHT*SCREENS*2;
 	int copy_count = count;
 	int newofs = states[fd].offset + copy_count;
-	char *xb = xfer_buffer + 2; // TODO This is wrong
+	char *xb = xfer_buffer;
 	char *db = (char *)display_buffer + states[fd].offset;
 	
 	// Skip screens mask
 	if (states[fd].offset == 0) {
-		printf("Skip mask\n");
 		count -= 2;
 		copy_count -= 2;
-		//xb += 2;
+		xb += 2;
+		newofs -= 2;
 	}
 
 	// Break at end of buffer
@@ -126,7 +127,7 @@ void process_presliced(int count, int fd, struct con_state *states)
 		newofs = 0;
 	}
 
-//	printf("Copying from %d to %d count=%d ofs=%d newofs=%d\n",(int)xb,(int)db,copy_count,states[fd].offset,newofs);
+	//printf("Copying from %d to %d count=%d ofs=%d newofs=%d\n",(int)xb,(int)db,copy_count,states[fd].offset,newofs);
 	memcpy(db, xb, copy_count);
 	states[fd].offset = newofs;
 
@@ -142,7 +143,7 @@ void process_presliced(int count, int fd, struct con_state *states)
 		db = (char *)display_buffer;
 		xb = xfer_buffer + copy_count + 2;
 		memcpy(db, xb, count-copy_count-2);
-		states[fd].offset = count-copy_count+2;
+		states[fd].offset = count-copy_count-2;
 	}
 }
 
