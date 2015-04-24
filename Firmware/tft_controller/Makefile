@@ -33,12 +33,6 @@ tft.o: tft.c tft.h
 gpmc.o: gpmc.c gpmc.h
 	g++ -c gpmc.c
 
-tbuffer.o: tbuffer.c tbuffer.h 
-	g++ -c tbuffer.c 
-
-test: test.c tbuffer.o gpmc.o tft.o
-	g++ -pthread -o test tbuffer.o tft.o gpmc.o test.c
-
 server.o: server.c
 	g++ -c server.c
 
