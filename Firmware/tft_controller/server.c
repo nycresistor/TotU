@@ -1,3 +1,24 @@
+/* 
+ *	TCP Server for TotU
+ *
+ *  There are two modes, normal mode and presliced mode.
+ *
+ *  In normal mode each frame is two bytes for screen mask 
+ *  followed by 320x240x2 bytes for colors (16-bit color)
+ *
+ *  Sending 0x0000 for the first screen mask activates 
+ *  presliced mode.  In presliced mode each frame is 
+ *  0x0000 followed by 320x240x16x2 bytes.  The data is
+ *  dumped straight into the display buffer and then
+ *  the screens.  You will need to slice the 16-bit
+ *  colors into 32 bytes (16 screens x 2 bytes).
+ * 
+ *  See Processing/TotuTransmitter for details.
+ *
+ *  Cribbed epoll stuff from 
+ *  https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +45,6 @@ struct con_state {
 };
 
 uint16_t display_buffer[WIDTH*HEIGHT*SCREENS];
-//char xfer_buffer[38400];
 char xfer_buffer[2457602];
 
 static int make_socket_non_blocking(int sfd)
@@ -88,23 +108,30 @@ static int create_and_bind(char *port)
     return sfd;
 }
 
+// Applies color to the screens identified by the screens bitmask
 void write_pixel(uint16_t screens, int offset, uint16_t color)
 {
 	int i;
 	uint16_t *db = display_buffer + offset * 16;
 	uint16_t mask;
 
+	// Walk through each bit of color and apply the screen
+	// mask to the display buffer.
 	for (i=0; i<16; i++) {
+		// If the bit is 1
 		if (color & (1<<(15-i))) {
+			// Or the screen mask
 			*db |= screens;
 		}
 		else {
+			// And the negative screen mask
 			*db &= ~screens;
 		}
 		db++;
 	}
 }
 
+// Takes already presliced data and jams it into the display buffer
 void process_presliced(int count, int fd, struct con_state *states)
 {
 	int bufsize = WIDTH*HEIGHT*SCREENS*2;
@@ -127,10 +154,12 @@ void process_presliced(int count, int fd, struct con_state *states)
 		newofs = 0;
 	}
 
+	// Peform the actual copy
 	//printf("Copying from %d to %d count=%d ofs=%d newofs=%d\n",(int)xb,(int)db,copy_count,states[fd].offset,newofs);
 	memcpy(db, xb, copy_count);
 	states[fd].offset = newofs;
 
+	// If offset was just set to zero we've reached the end, write the screens
 	if (newofs == 0)
 	{
 		writeFramePregenerated(display_buffer, WIDTH * HEIGHT * 16);
@@ -138,7 +167,7 @@ void process_presliced(int count, int fd, struct con_state *states)
 	
 	// If the frame ended in the middle of this xfer_buffer we'll have
 	// leftover, just copy that to the begining and overwite offset
-	// since it definitely won't happen more than once.
+	// since we won't ever get more than a whole frame
 	if (count > copy_count) {
 		db = (char *)display_buffer;
 		xb = xfer_buffer + copy_count + 2;
@@ -147,17 +176,22 @@ void process_presliced(int count, int fd, struct con_state *states)
 	}
 }
 
+// Proceses the bytes in normal pixel mode.  The first two bytes
+// set the screen mask, everything else is color data.
 void process_bytes(int count, int fd, struct con_state *states)
 {
 	int i;
+	// Read two bytes at a time
 	for (i=0; i<count; i+=2) 
 	{
 		uint16_t val = (uint16_t) xfer_buffer[i]<<8 | xfer_buffer[i+1];
 
+		// If we're at the beginning we're setting a screen mask
 		if (states[fd].offset == 0) 
 		{
 			states[fd].mask = val;
 		}
+		// Otherwise write the pixels
 		else 
 		{
 			write_pixel(states[fd].mask, (states[fd].offset-2)/2, val);
@@ -165,6 +199,7 @@ void process_bytes(int count, int fd, struct con_state *states)
 
 		states[fd].offset += 2;
 
+		// If we're at the end of a frame write it to the screen
 		if (states[fd].offset >= (WIDTH * HEIGHT * 2 + 2)) 
 		{
 			// Frame complete
