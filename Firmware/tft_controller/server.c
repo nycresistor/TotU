@@ -14,8 +14,11 @@
 #define WIDTH 320
 #define HEIGHT 240
 #define SCREENS 16
+#define MODE_PIXEL 1
+#define MODE_PRESLICE 2
 
 struct con_state {
+	int mode;
 	int offset;
 	uint16_t mask;
 };
@@ -91,33 +94,74 @@ void write_pixel(uint16_t screens, int offset, uint16_t color)
 	uint16_t mask;
 
 	for (i=0; i<16; i++) {
-		mask = color & (1<<i) ? 
-			*db ^ screens & screens : 
-			*db & screens;
-
-		*db ^= mask;
+		if (color & (1<<(15-i))) {
+			*db |= screens;
+		}
+		else {
+			*db &= ~screens;
+		}
 		db++;
 	}
 }
 
+void process_presliced(int count, int fd, struct con_state *states)
+{
+	int bufsize = WIDTH*HEIGHT*SCREENS*2+2;
+	int copy_count = count;
+	int newofs = states[fd].offset + copy_count;
+	char *xb = xfer_buffer + 2; // TODO This is wrong
+	char *db = (char *)display_buffer + states[fd].offset;
+	
+	// Skip screens mask
+	if (states[fd].offset == 0) {
+		printf("Skip mask\n");
+		count -= 2;
+		copy_count -= 2;
+		//xb += 2;
+	}
 
-// check if offset is past the 153602 byte barrier
-// If so write the rest before the next screens bitmask
-// Then accept the bitmask and resume..
+	// Break at end of buffer
+	if (newofs >= bufsize) {
+		copy_count = bufsize - states[fd].offset;
+		newofs = 0;
+	}
+
+//	printf("Copying from %d to %d count=%d ofs=%d newofs=%d\n",(int)xb,(int)db,copy_count,states[fd].offset,newofs);
+	memcpy(db, xb, copy_count);
+	states[fd].offset = newofs;
+
+	if (newofs == 0)
+	{
+		writeFramePregenerated(display_buffer, WIDTH * HEIGHT * 16);
+	}
+	
+	// If the frame ended in the middle of this xfer_buffer we'll have
+	// leftover, just copy that to the begining and overwite offset
+	// since it definitely won't happen more than once.
+	if (count > copy_count) {
+		db = (char *)display_buffer;
+		xb = xfer_buffer + copy_count + 2;
+		memcpy(db, xb, count-copy_count-2);
+		states[fd].offset = count-copy_count+2;
+	}
+}
+
 void process_bytes(int count, int fd, struct con_state *states)
 {
 	int i;
 	for (i=0; i<count; i+=2) 
 	{
 		uint16_t val = (uint16_t) xfer_buffer[i]<<8 | xfer_buffer[i+1];
+
 		if (states[fd].offset == 0) 
 		{
 			states[fd].mask = val;
 		}
-		else if (states[fd].offset > 1) 
+		else 
 		{
-			//write_pixel(states[fd].mask, (states[fd].offset-2)/2, val);
+			write_pixel(states[fd].mask, (states[fd].offset-2)/2, val);
 		}
+
 		states[fd].offset += 2;
 
 		if (states[fd].offset >= (WIDTH * HEIGHT * 2 + 2)) 
@@ -161,8 +205,22 @@ void read_data(struct epoll_event *events, int i, struct con_state *states)
 			break;
 		}
 
-		//Send the bytes to the screens
-		process_bytes(count, events[i].data.fd, states);
+		// If we haven't selected a mode, check the first packet to see if there
+		// is an screen mask.  A mask of zero indicates presliced data.
+		int fd = events[i].data.fd;
+		if (states[fd].mode == 0) {
+			states[fd].mode = (xfer_buffer[0] || xfer_buffer[1]) ?
+				MODE_PIXEL :
+				MODE_PRESLICE;
+
+			printf("Connection %d mode set to %s\n", fd, states[fd].mode == MODE_PIXEL ? "pixel" : "preslice");
+		}
+
+		// Send the data
+		if (states[fd].mode == MODE_PRESLICE)
+			process_presliced(count, fd, states);
+		else
+			process_bytes(count, fd, states);
 	}
 
 	if (done)
@@ -235,6 +293,7 @@ void accept_connection(struct epoll_event *events, int i, int efd, struct epoll_
 	
 		states[infd].offset = 0;
 		states[infd].mask = 0;
+		states[infd].mode = 0;
 	}
 }
 
