@@ -40,4 +40,4 @@ server: server.o gpmc.o tft.o
 	g++ -o server tft.o gpmc.o server.o
 
 clean:
-	rm -rf totu totu.o tft.o gpmc.o test tbuffer.o server.o server
+	rm -rf totu totu.o tft.o gpmc.o server.o server
