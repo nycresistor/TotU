@@ -23,7 +23,7 @@
  **/
 
 // Enables presliced mode
-final boolean USE_PRESLICE = true;
+final boolean USE_PRESLICE = false;
 
 TotuClient client;
 byte buffer[];
@@ -31,7 +31,7 @@ PFont font;
 
 void setup() {
   size(320,240);
-  client = new TotuClient(this, "192.168.1.126", 9000, USE_PRESLICE);
+  client = new TotuClient(this, "192.168.7.2", 9000, USE_PRESLICE);
   
   font = loadFont("Disorient-16.vlw");
   textFont(font,16);
@@ -50,7 +50,7 @@ void draw() {
   textAlign(CENTER,CENTER);
   text(frameCount % 10, width/2, height/2);
  
-  client.sendData(frameCount % 2 == 0 ? 0xAAAA : 0x5555);
+  client.sendData(frameCount % 2 == 0 ? 0x1FFFF : 0xFFFF);
   
   if (frameCount % 10 == 0) {
     println("Frame rate = " + frameRate);
