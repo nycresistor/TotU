@@ -24,12 +24,27 @@ activeX = 64.8;
 activeY = 48.6;
 activeZ = 10;
 
+mountOuterDia = 12.7;
+mountInnerDia = 7;
+mountOffset = 8;
+
+
 module screen() {
 	cube([screenX, screenY, screenZ + 2]);
 }
 
 module magnet() {
 	translate([0, 0, 0]) cube([magnetX, magnetY, magnetZ + 2]);
+}
+
+module mount() {
+	difference() {
+		union() {
+			translate([-mountOuterDia/2,0,0]) cube([mountOuterDia, mountOffset, frameZ]);
+			cylinder(h=frameZ, d=mountOuterDia);
+		}
+		translate([0,0,-0.1]) cylinder(h=frameZ+0.2, d=mountInnerDia);
+	}
 }
 
 module frame() {
@@ -45,16 +60,22 @@ module frame() {
 		translate([(frameX - screenX) / 2, ((frameY - screenY) / 2) - 1.5, frameZ - screenZ]) cube([3, 2, screenZ/2]);
 		translate([((frameX - screenX) / 2) + 2, ((frameY - screenY) / 2) + screenY, frameZ - screenZ]) cube([1.5, 1.5, screenZ + 1]);
 		translate([(frameX - screenX) / 2, ((frameY - screenY) / 2) + screenY, frameZ - screenZ]) cube([3, 2, screenZ/2]);
+		translate([((frameX - screenX) / 2)-1.5, ((frameY - screenY) / 2), frameZ - screenZ]) cube([1.6, 5.5, screenZ + 1]);		
+		translate([((frameX - screenX) / 2)-1.5, frameY - ((frameY - screenY) / 2) - 5.5, frameZ - screenZ]) cube([1.6, 5.5, screenZ + 1]);
+
+
 
 		// Top tab
 		translate([((frameX - screenX) / 2) + 28.8, ((frameY - screenY) / 2) + screenY, frameZ - screenZ]) cube([3.5, 1.5, screenZ + 1]);
+		
 		// Bottom tabs
 		translate([((frameX - screenX) / 2) + 20, ((frameY - screenY) / 2) - 1.1, frameZ - screenZ]) cube([3.5, 1.5, screenZ + 1]);
+		#translate([((frameX - screenX) / 2) + 33.25, ((frameY - screenY) / 2) - 1.1, frameZ - screenZ]) cube([3.5, 1.5, screenZ + 1]);
 		translate([((frameX - screenX) / 2) + 55, ((frameY - screenY) / 2) - 1.1, frameZ - screenZ]) cube([3.5, 1.5, screenZ + 1]);
 		
 		// Right tabs
-		translate([(frameX - (frameX - screenX) / 2), ((frameY - screenY) / 2), frameZ - screenZ]) cube([1.5, 3.5, screenZ + 1]);		
-		translate([(frameX - (frameX - screenX) / 2), frameY - ((frameY - screenY) / 2) - 3.5, frameZ - screenZ]) cube([1.5, 3.5, screenZ + 1]);
+		translate([(frameX - (frameX - screenX) / 2), ((frameY - screenY) / 2), frameZ - screenZ]) cube([1.5, 5.5, screenZ + 1]);		
+		translate([(frameX - (frameX - screenX) / 2), frameY - ((frameY - screenY) / 2) - 5.5, frameZ - screenZ]) cube([1.5, 5.5, screenZ + 1]);
 	
 		// Back hole
 		translate([(frameX - screenX) / 2, (frameY / 2) - (backHoleY / 2), -backHoleZ / 2]) cube([backHoleX, backHoleY, backHoleZ]);
@@ -65,7 +86,6 @@ module frame() {
 		// Magnet holes
 		//translate([-magnetX / 1.5, (frameY / 2) - (magnetY / 2), -1]) magnet();
 		//translate([frameX - (magnetX / 3), (frameY / 2) - (magnetY / 2), -1]) magnet();
-
 	}
 
 }
@@ -92,6 +112,24 @@ module lens() {
 	}
 }
 
-//frame();
-lens();
+module frameWithMount() {
+	union() {
+		frame();
+		translate([frameX+mountOffset-0.1, frameY-6.85, 0]) rotate([0,0,90]) mount();
+		translate([-mountOffset+0.1, frameY-6.85, 0]) rotate([0,0,270]) mount();
+	}
+}
+
+module lensMinusMount() {
+	difference() {
+		lens();
+		translate([frameX-5,frameY-14.75,-0.25]) cube([mountOuterDia, mountOuterDia+2, frameZ+0.5]);
+		translate([-9,frameY-14.75,-0.25]) cube([mountOuterDia, mountOuterDia+2, frameZ+0.5]);
+	}
+}
+
+
+frameWithMount();
+//lensMinusMount();
+
 
