@@ -137,13 +137,13 @@
 				gpmc,async-write;		/* GPMC_CONFIG1_WRITETYPE_ASYNC */
 				gpmc,mux-add-data = <0>;	/* GPMC_CONFIG1_MUXTYPE(2) */
 
-				gpmc,we-on-ns = <10>;		/* CONFIG4 */
-				gpmc,we-off-ns = <15>;/* 50 */
+				gpmc,we-on-ns = <25>;		/* CONFIG4 */
+				gpmc,we-off-ns = <35>;/* 50 */
 
 			/*	gpmc,page-burst-access-ns = <25>;*/	/* CONFIG 5 */
 				gpmc,access-ns = <0>;  /* 25*/
 			/*	gpmc,rd-cycle-ns = <100>;*/
-				gpmc,wr-cycle-ns = <25>;
+				gpmc,wr-cycle-ns = <60>;
 			/*	gpmc,wr-access-ns = <100>;	*/	/* CONFIG 6 */
 				gpmc,wr-data-mux-bus-ns = <20>;
 
