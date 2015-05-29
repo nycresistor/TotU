@@ -77,10 +77,12 @@ if __name__ == "__main__":
 
 		for val in range(0, 256):
 			for channel in range(32):
-				backlights.update(channel, val)
+				backlights.update(channel, 256 - val)
 			time.sleep(0.001)
 
 		time.sleep(0.5)
+		import sys
+		sys.exit()
 
 		for val in range(0, 256):
 			for channel in range(32):

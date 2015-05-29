@@ -16,6 +16,7 @@ int gfd;
 
 #define P9_21	3
 
+
 void begin_tft()
 {
   // Configure TFT Data/Command line (GPIO1_29 P8.26)
@@ -37,13 +38,13 @@ void reset_tft()
   printf("Resetting TFT\n");
   // pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
   set_gpio(gpio1, RESET);
-  usleep(100000);
+  usleep(200000);
   // pinconf1[GPIO_DATAOUT/4] ^= (1 << 31);
   clear_gpio(gpio1, RESET);
-  usleep(100000);
+  usleep(200000);
   // pinconf1[GPIO_DATAOUT/4] |= (1 << 31);
   set_gpio(gpio1, RESET);
-  usleep(100000);
+  usleep(200000);
 }
 
 void activateBank(int bank)
@@ -63,9 +64,9 @@ void activateBank(int bank)
 void setup_tft()
 {
  
-  begin_tft();  
-  reset_tft();
-  activateBank(-1);
+  //begin_tft();  
+ // reset_tft();
+  //activateBank(1);
   printf("Sending display setup commands\n");
   writeCommand8(0xEF);
   writeData8(0x03);
@@ -256,5 +257,21 @@ void writeFramePregenerated(uint16_t * screen, uint32_t len)
 	setDC(DATA);
 	//printf("Calling gpmcWritePregenerated\n");
 	gpmcWritePregenerated(screen, len);
+
+}
+
+void tft_go(void)
+{
+	begin_tft();
+	reset_tft();
+	activateBank(0);
+	setup_tft();
+	setRotation(3);
+	setAddrWindow(0, 0, 319, 239);
+	activateBank(1);
+	setup_tft();
+	setRotation(3);
+	setAddrWindow(0, 0, 319, 239);
+
 
 }

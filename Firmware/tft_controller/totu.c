@@ -101,7 +101,7 @@ int main (int argc, char *argv[])
 
     // Set up the GPMC and send TFT setup commands
     setup_gpmc();
-    setup_tft();
+	tft_go();
     setRotation(3);
 
     // Set up timer and TFT window
