@@ -3,13 +3,14 @@
  *
  *  There are two modes, normal mode and presliced mode.
  *
- *  In normal mode each frame is two bytes for screen mask 
- *  followed by 320x240x2 bytes for colors (16-bit color)
+ *  In normal mode each frame is two bytes for options,
+ *  two bytes for screen mask, followed by 320x240x2 
+ *  bytes for colors (16-bit color)
  *
- *  Sending 0x0000 for the first screen mask activates 
- *  presliced mode.  In presliced mode each frame is 
- *  0x0000 followed by 320x240x16x2 bytes.  The data is
- *  dumped straight into the display buffer and then
+ *  Setting the second bit in the options mask activates 
+ *  presliced mode.  In presliced mode each screen mask 
+ *  is 0x0000 followed by 320x240x16x2 bytes.  The data 
+ *  is dumped straight into the display buffer and then
  *  the screens.  You will need to slice the 16-bit
  *  colors into 32 bytes (16 screens x 2 bytes).
  * 
@@ -35,6 +36,8 @@
 #define WIDTH 320
 #define HEIGHT 240
 #define SCREENS 16
+#define MASK_BANK 0x0001
+#define MASK_PRESLICE 0x0002
 #define MODE_PIXEL 1
 #define MODE_PRESLICE 2
 
@@ -42,10 +45,11 @@ struct con_state {
 	int mode;
 	int offset;
 	uint16_t mask;
+	uint16_t options;
 };
 
 uint16_t display_buffer[WIDTH*HEIGHT*SCREENS];
-char xfer_buffer[32767];
+char xfer_buffer[524258];
 
 static int make_socket_non_blocking(int sfd)
 {
@@ -142,10 +146,10 @@ void process_presliced(int count, int fd, struct con_state *states)
 	
 	// Skip screens mask
 	if (states[fd].offset == 0) {
-		count -= 2;
-		copy_count -= 2;
-		xb += 2;
-		newofs -= 2;
+		count -= 4;
+		copy_count -= 4;
+		xb += 4;
+		newofs -= 4;
 	}
 
 	// Break at end of buffer
@@ -162,6 +166,7 @@ void process_presliced(int count, int fd, struct con_state *states)
 	// If offset was just set to zero we've reached the end, write the screens
 	if (newofs == 0)
 	{
+		activateBank(states[fd].options & MASK_BANK);
 		writeFramePregenerated(display_buffer, WIDTH * HEIGHT * 16);
 	}
 	
@@ -170,17 +175,21 @@ void process_presliced(int count, int fd, struct con_state *states)
 	// since we won't ever get more than a whole frame
 	if (count > copy_count) {
 		db = (char *)display_buffer;
-		xb = xfer_buffer + copy_count + 2;
-		memcpy(db, xb, count-copy_count-2);
-		states[fd].offset = count-copy_count-2;
+		xb = xfer_buffer + copy_count + 4;
+		memcpy(db, xb, count-copy_count-4);
+		states[fd].offset = count-copy_count-4;
 	}
 }
 
 // Proceses the bytes in normal pixel mode.  The first two bytes
-// set the screen mask, everything else is color data.
+// set the options mask, the next two set the screen mask, 
+// everything else is color data.
 void process_bytes(int count, int fd, struct con_state *states)
 {
 	int i;
+
+	//printf("count=%d ofs=%d\n",count,states[fd].offset);
+
 	// Read two bytes at a time
 	for (i=0; i<count; i+=2) 
 	{
@@ -189,21 +198,27 @@ void process_bytes(int count, int fd, struct con_state *states)
 		// If we're at the beginning we're setting a screen mask
 		if (states[fd].offset == 0) 
 		{
+			states[fd].options = val;
+		}
+		else if (states[fd].offset == 2)
+		{
 			states[fd].mask = val;
 		}
 		// Otherwise write the pixels
 		else 
 		{
-			write_pixel(states[fd].mask, (states[fd].offset-2)/2, val);
+			write_pixel(states[fd].mask, (states[fd].offset-4)/2, val);
 		}
 
 		states[fd].offset += 2;
 
 		// If we're at the end of a frame write it to the screen
-		if (states[fd].offset >= (WIDTH * HEIGHT * 2 + 2)) 
+		if (states[fd].offset >= (WIDTH * HEIGHT * 2 + 4)) 
 		{
 			// Frame complete
 			states[fd].offset = 0;
+
+			activateBank(states[fd].options & MASK_BANK);
 			writeFramePregenerated(display_buffer, WIDTH * HEIGHT * 16);
 		}
 	}
@@ -241,13 +256,13 @@ void read_data(struct epoll_event *events, int i, struct con_state *states)
 			break;
 		}
 
-		// If we haven't selected a mode, check the first packet to see if there
-		// is an screen mask.  A mask of zero indicates presliced data.
+		// If we haven't selected a mode check the first bit of the
+		// second byte.  A value of 1 indicated presliced mode.
 		int fd = events[i].data.fd;
 		if (states[fd].mode == 0) {
-			states[fd].mode = (xfer_buffer[0] || xfer_buffer[1]) ?
-				MODE_PIXEL :
-				MODE_PRESLICE;
+			states[fd].mode = xfer_buffer[1] & MASK_PRESLICE ?
+				MODE_PRESLICE :
+				MODE_PIXEL;
 
 			printf("Connection %d mode set to %s\n", fd, states[fd].mode == MODE_PIXEL ? "pixel" : "preslice");
 		}
@@ -330,10 +345,11 @@ void accept_connection(struct epoll_event *events, int i, int efd, struct epoll_
 		states[infd].offset = 0;
 		states[infd].mask = 0;
 		states[infd].mode = 0;
+		states[infd].options = 0;
 	}
 }
 
-void setup_display(int bank)
+void setup_display()
 {
 	printf("Setup gpmc\n");
 	setup_gpmc();
@@ -343,7 +359,7 @@ void setup_display(int bank)
 
 	setRotation(3);
 	setAddrWindow(0,0,319,239);
-	activateBank(bank);
+	activateBank(0);
 	
 }
 
@@ -356,13 +372,13 @@ int main (int argc, char *argv[])
 	struct con_state state;
 	struct con_state *states;
 
-    if(argc != 3)
+    if(argc != 2)
     {
-        fprintf(stderr, "Usage: %s [port] [bank]\n", argv[0]);
+        fprintf(stderr, "Usage: %s [port]\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
-	setup_display(argv[2][0] == '1' ? 1 : 0);
+	setup_display();
 
     sfd = create_and_bind(argv[1]);
     if (sfd == -1)
