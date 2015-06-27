@@ -36,8 +36,14 @@ gpmc.o: gpmc.c gpmc.h
 tbuffer.o: tbuffer.c tbuffer.h 
 	g++ -c tbuffer.c 
 
-test: test.c tbuffer.o
-	g++ -o test tbuffer.o tft.o gpmc.o test.c
+test: test.c tbuffer.o gpmc.o tft.o
+	g++ -pthread -o test tbuffer.o tft.o gpmc.o test.c
+
+server.o: server.c
+	g++ -c server.c
+
+server: server.o gpmc.o tft.o
+	g++ -o server tft.o gpmc.o server.o
 
 clean:
-	rm -rf totu totu.o tft.o gpmc.o test tbuffer.o
+	rm -rf totu totu.o tft.o gpmc.o test tbuffer.o server
